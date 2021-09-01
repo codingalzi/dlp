@@ -1,36 +1,16 @@
-[&lt;핸즈온 머신러닝(2판)&gt;의 소스코드](https://github.com/ageron/handson-ml2)를 
-담은 주피터 노트북을 바탕으로 머신러닝/딥러닝의 기초를 소개합니다.
+[&lt;Deep Learning with Python(2판)&gt;의 소스코드](https://github.com/fchollet/deep-learning-with-python-notebooks)를 
+담은 주피터 노트북을 바탕으로 딥러닝의 기초를 소개합니다.
 
 ### 감사의 글
 
-자료를 공개한 저자 오렐리앙 제롱(Aur&eacute;lien G&eacute;ron)과 강의자료를 지원한 한빛아카데미에게 진심어린 감사를 전합니다.
+자료를 공개한 저자 프랑소와 숄레(Fran&ccedil;ois Chollet)에게 진심어린 감사를 전합니다.
 
 ### 목차
 
 | 주제 | 구분 | 링크 |
 | :--: | :--: | :--: |
-| 강의소개 | 슬라이드 | [&#x1F4F1;](./slides/handson-ml2-00.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-00-slides.pdf) |
-| 한 눈에 보는 머신러닝 | 슬라이드 | [&#x1F4F1;](./slides/handson-ml2-01.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-01-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-01.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-01.ipynb) |
-| 머신러닝 프로젝트 처음부터 끝까지 | 슬라이드 1, 2, 3부 | [&#x1F4F1;](./slides/handson-ml2-02a.slides.html)/[&#x1F4F1;](./slides/handson-ml2-02b.slides.html)/[&#x1F4F1;](./slides/handson-ml2-02c.slides.html) &nbsp;[&#x1F4BB;](./slides/handson-ml2-02a-slides.pdf)/[&#x1F4BB;](./slides/handson-ml2-02b-slides.pdf)/[&#x1F4BB;](./slides/handson-ml2-02c-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-02.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-02.ipynb) |
-| | Orange3 | [&#x1F34A;](https://raw.githubusercontent.com/codingalzi/handson-ml2/master/orange3/housing/housing.zip) |
-| 분류 | 슬라이드 1, 2부| [&#x1F4F1;](./slides/handson-ml2-03a.slides.html)/[&#x1F4F1;](./slides/handson-ml2-03b.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-03a-slides.pdf)/[&#x1F4BB;](./slides/handson-ml2-03b-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-03.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-03.ipynb) |
-| | Orange3 | [&#x1F34A;](https://raw.githubusercontent.com/codingalzi/handson-ml2/master/orange3/mnist/mnist.zip) |
-| 모델 훈련 | 슬라이드 1, 2부 | [&#x1F4F1;](./slides/handson-ml2-04a.slides.html)/[&#x1F4F1;](./slides/handson-ml2-04b.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-04a-slides.pdf)/[&#x1F4BB;](./slides/handson-ml2-04b-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-04.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-04.ipynb) |
-| | Orange3 | [&#x1F34A;](https://raw.githubusercontent.com/codingalzi/handson-ml2/master/orange3/training_models/training_models.zip)/[&#x1F34A;](https://raw.githubusercontent.com/codingalzi/handson-ml2/master/orange3/iris/iris.zip) |
-| 서포트 벡터 머신 | 슬라이드 1, 2부 | [&#x1F4F1;](./slides/handson-ml2-05a.slides.html)/[&#x1F4F1;](./slides/handson-ml2-05b.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-05a-slides.pdf)/[&#x1F4BB;](./slides/handson-ml2-05b-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-05.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-05.ipynb) |
-| 결정트리 | 슬라이드 | [&#x1F4F1;](./slides/handson-ml2-06.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-06-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-06.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-06.ipynb) |
-| 앙상블 학습과 랜덤 포레스트 | 슬라이드 1, 2부| [&#x1F4F1;](./slides/handson-ml2-07a.slides.html)/[&#x1F4F1;](./slides/handson-ml2-07b.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-07a-slides.pdf)/[&#x1F4BB;](./slides/handson-ml2-07b-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-07.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-07.ipynb) |
-| 차원축소 | 슬라이드 | [&#x1F4F1;](./slides/handson-ml2-08.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-08-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-08.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-08.ipynb) |
-| 비지도 학습 | 슬라이드 | [&#x1F4F1;](./slides/handson-ml2-09.slides.html) &nbsp; [&#x1F4BB;](./slides/handson-ml2-09-slides.pdf) |
-| | 주피터 노트북 | [&#x1F4D9;](./notebooks/handson-ml2-09.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/notebooks/handson-ml2-09.ipynb) |
+| 강의소개 | 슬라이드 | [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf) |
+
 
 **링크 활용법**
 * &#x1F4F1;: 좌우방향 터치 지원 슬라이드
@@ -39,38 +19,6 @@
 * <span style="color: orange;">CO</span>: 구글 코랩(colab) 주피터 노트북
 * &#x1F34A;: Orange3 워크플로우 및 데이터
 
-### 주제별 동영상
-
-주요 주제별 강의 동영상도 
-[유튜브](https://www.youtube.com/playlist?list=PL5aSjzJqCaPYlKXQ_olS0V-QJ28SZpTW3)에서
-시청할 수 있습니다. 
-
-### 주피터 노트북 학습법
-
-#### 온라인 (추천)
-
-* [구글 코랩 ](https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/)
-<a href="https://colab.research.google.com/github/codingalzi/handson-ml2/blob/master/"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"/></a> 활용
-
-**주의사항:** 온라인 상에서 실습한 내용을 저장하려면 먼저 자신의 계정으로 사본을 만들어 저장한 후에 수정 및 실행해야 합니다.
-
-#### 오프라인
-
-먼저 자신의 컴퓨터에
-[프로젝트 리포지토리](https://github.com/codingalzi/handson-ml2)를 
-복제합니다.
-
-```bash
-$ git clone https://github.com/codingalzi/handson-ml2.git
-$ cd handson-ml
-```
-
-아래 두 가지 방식 중에 하나를 선택하여 주피터 노트북과 소스코드를 실행할 수 있습니다.
-
-* 윈도우 10 + 아나콘다(Anaconda) + Tensorflow 2(GPU 지원) 활용
-    * 참고: [프로그래밍 환경설정 안내](./INSTALL.md)
-* 도커(docker) 활용
-    * 참고: [저자의 도커 이미지 활용](https://github.com/ageron/handson-ml2/tree/master/docker)
 
 ### 추가 자료
 
