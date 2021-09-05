@@ -10,7 +10,7 @@
 | 주제 | 구분 | 링크 |
 | :--: | :--: | :--: |
 | 강의소개 | 슬라이드 | [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf) |
-| 딥러닝의 수학적 구성요소 | 슬라이드 | [&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf) |
+| 딥러닝의 수학적 구성요소(준비중) | 슬라이드 | [&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf) |
 | | 주피터 노트북 | [&#x1F4D9;](./notebooks/dlp02_mathematical_building_blocks.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp02_mathematical_building_blocks.ipynb) |
 
 **링크 활용법**
