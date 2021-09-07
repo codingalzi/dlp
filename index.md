@@ -18,8 +18,6 @@
 * &#x1F4BB;: pdf 슬라이드
 * &#x1F4D8;: 읽기 전용 주피터 노트북 웹 페이지
 * <span style="color: orange;">CO</span>: 구글 코랩(colab) 주피터 노트북
-* &#x1F34A;: Orange3 워크플로우 및 데이터
-
 
 ### 추가 자료
 
