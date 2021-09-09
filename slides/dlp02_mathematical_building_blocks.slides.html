@@ -14436,17 +14436,16 @@ div.jp-OutputPrompt {
 <p>아래 신경망의 구조는 다음과 같다.</p>
 <ul>
 <li>층(layer): 2개의 Dense 층 사용.
-  입력 데이터로부터 <strong>표현</strong>(representation) 추출. 즉 입력 데이터를 새로운 표현으로 변환.</li>
+  입력 데이터를 새로운 표현으로 변환.</li>
 <li>층 연결: <code>Sequential</code> 모델 활용.
-  완전 연결(fully connected). 조밀(densely)하게 연결되었다고 함.</li>
+  완전 연결(fully connected).</li>
 <li>첫째 층<ul>
 <li>512개의 유닛(unit) 사용. 즉 512개의 특성값으로 이루어진 표현 추출.</li>
 <li>활성화 함수(activation function): 렐루(relu) 함수</li>
 </ul>
 </li>
 <li>둘째 층<ul>
-<li>10개의 유닛 사용. 10개의 범주를 대상으로 해당 범부에 속할 확률 계산.
-  모든 확률의 합은 1.</li>
+<li>10개의 유닛 사용. 10개의 범주를 대상으로 속할 확률 계산. 합은 1.</li>
 <li>활성화 함수: 소프트맥스(softmax) 함수</li>
 </ul>
 </li>
@@ -14627,8 +14626,8 @@ div.jp-OutputPrompt {
 <h3 id="&#49884;&#44228;&#50676;-&#46608;&#45716;-&#49884;&#53248;&#49828;-&#45936;&#51060;&#53552;(3D-&#53584;&#49436;)">&#49884;&#44228;&#50676; &#46608;&#45716; &#49884;&#53248;&#49828; &#45936;&#51060;&#53552;(3D &#53584;&#49436;)<a class="anchor-link" href="#&#49884;&#44228;&#50676;-&#46608;&#45716;-&#49884;&#53248;&#49828;-&#45936;&#51060;&#53552;(3D-&#53584;&#49436;)">&#182;</a></h3><ul>
 <li>증시 데이터, 트윗 데이터 등 시간의 흐름 또는 순서가 중요한 데이터를 다룰 때 사용</li>
 <li>예제 1(시간의 흐름)<ul>
-<li>매 분마다 측정된 (현재 증시 가격, 지난 1분 동안의 최고가, 지난 1분 봉안의 최저가) 데이터</li>
-<li>하루에 390번 250일 동안 측정해서 얻은 데이터셋은 <code>(250, 390, 3)</code> 모양의 3D 텐서. </li>
+<li>분 단위 측정 데이터: (현재 증시 가격, 지난 1분 간의 최고가, 지난 1분 간의 최저가)</li>
+<li>하루에 390번 250일 동안 측정한 데이터셋: <code>(250, 390, 3)</code> 모양의 3D 텐서</li>
 </ul>
 </li>
 <li>예제 2(순서)<ul>
@@ -14657,8 +14656,8 @@ div.jp-OutputPrompt {
 <li>흑백 이미지의 컬러 채털 수: 1</li>
 </ul>
 </li>
-<li><code>256x256</code> 크기의 흑백 이미지 128개로 구성된 배치: <code>(128, 256, 256, 1)</code> 모양의 4D 텐서</li>
-<li><code>256x256</code> 크기의 컬러 이미지 128개로 구성된 배치: <code>(128, 256, 256, 3)</code> 모양의 4D 텐서</li>
+<li><code>256x256</code> 크기 흑백이미지 128개를 갖는 배치: <code>(128, 256, 256, 1)</code> 모양 4D 텐서</li>
+<li><code>256x256</code> 크기 컬러이미지 128개를 갖는 배치: <code>(128, 256, 256, 3)</code> 모양 4D 텐서</li>
 </ul>
 
 </div>
@@ -14672,14 +14671,14 @@ div.jp-OutputPrompt {
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="&#46041;&#50689;&#49345;-&#45936;&#51060;&#53552;(5D-&#53584;&#49436;)">&#46041;&#50689;&#49345; &#45936;&#51060;&#53552;(5D &#53584;&#49436;)<a class="anchor-link" href="#&#46041;&#50689;&#49345;-&#45936;&#51060;&#53552;(5D-&#53584;&#49436;)">&#182;</a></h3><ul>
-<li>동영상은 프레임(frame)으로 구성된 순차 데이터. 
-  하나의 프레임은 컬러 이미지. 따랏 3D 텐서로 표현.</li>
-<li>따라서 하나의 동영상은 <code>(프레임 수, 가로, 세로, 컬러 채널 수)</code> 모양의 4D 텐서로 표현 가능.</li>
+<li>동영상은 프레임(frame)으로 구성된 순차 데이터. </li>
+<li>프레임은 컬러 이미지. 즉 3D 텐서.
+  따라서 하나의 동영상은 <code>(프레임 수, 가로, 세로, 컬러 채널 수)</code> 모양의 4D 텐서.</li>
 <li>여러 개의 동영상으로 이루어진 데이터셋: 
   <code>(동영상 수, 프레임 수, 가로, 세로, 컬러 채널 수)</code> 모양의 5D 텐서.</li>
 <li>예제: <code>144x256</code> 크기의 프레임으로 구성된 60초 길이의 동영상. 초당 4개의 프레임 구성.<ul>
-<li>총 240 프레임.</li>
-<li>총 10개의 동영상으로 구성된 데이터셋: <code>(10, 240, 144, 256, 3)</code> 모양의 5D 텐서</li>
+<li>동영상 한 편: <code>(240, 144, 256, 3)</code> 모양의 4D 텐서 (총 240 프레임 사용)</li>
+<li>동영상 10 편: <code>(10, 240, 144, 256, 3)</code> 모양의 5D 텐서</li>
 </ul>
 </li>
 </ul>
@@ -14767,7 +14766,7 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting11.png" style="width:400px;"></div>
 </div>
-</div>
+</div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:400px;"></div>
@@ -14821,7 +14820,7 @@ div.jp-OutputPrompt {
 <li>예제: 3차원 매니폴드<ul>
 <li>빨간 종이와 파란 종이 두 장을 겹쳐 뭉친 입력값</li>
 <li>연속된 종이 펼치기 과정을 통해 명료하게 구분할 수 있는 두 장의 종이로 펼치기</li>
-<li>펼치기 과정에 사용된 과정: 손가락으로 조금씩 펼치기</li>
+<li>펼치기 과정에 사용된 과정: 손가락으로 조금씩 펼치기. 부분별로 다른 방식의 펼치기 기법 사용.</li>
 <li>딥러닝 모델의 많은 층(layer)에서 이루어지는 일과 크게 다르지 않음.</li>
 </ul>
 </li>
