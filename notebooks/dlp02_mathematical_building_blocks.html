@@ -14264,7 +14264,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>감사인사</strong>: 프랑소와 숄레의 <a href="https://www.manning.com/books/deep-learning-with-python-second-edition?a_aid=keras&amp;a_bid=76564dff">Deep Learning with Python, Second Edition</a> 2장에 사용된 코드에 대한 설명을 담고 있으며 텐서플로우 2.6 버전에서 작성되었습니다. 소스코드를 공개한 저자에게 감사드립니다.</p>
+<p><strong>감사말</strong>: 프랑소와 숄레의 <a href="https://www.manning.com/books/deep-learning-with-python-second-edition?a_aid=keras&amp;a_bid=76564dff">Deep Learning with Python, Second Edition</a> 2장에 사용된 코드에 대한 설명을 담고 있으며 텐서플로우 2.6 버전에서 작성되었습니다. 소스코드를 공개한 저자에게 감사드립니다.</p>
 
 </div>
 </div>
@@ -14558,7 +14558,6 @@ a.anchor-link {
 <li>첫째 층<ul>
 <li>512개의 유닛(unit) 사용. 즉 512개의 특성값으로 이루어진 표현 추출.</li>
 <li>활성화 함수(activation function): 렐루(relu) 함수</li>
-<li>입력값의 형식 지정: 28x28 모양의 넘파이 어레이</li>
 </ul>
 </li>
 <li>둘째 층<ul>
@@ -15808,7 +15807,9 @@ test_acc: 0.98089998960495
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h4 id="&#49368;&#54540;-&#52629;-&#46608;&#45716;-&#49368;&#54540;-&#52264;&#50896;">&#49368;&#54540; &#52629; &#46608;&#45716; &#49368;&#54540; &#52264;&#50896;<a class="anchor-link" href="#&#49368;&#54540;-&#52629;-&#46608;&#45716;-&#49368;&#54540;-&#52264;&#50896;">&#182;</a></h4><p>딥러닝에 사용되는 모든 훈련 세트의 0번 축(axis 0)은 
 포함된 샘플 각각을 가리키는 <strong>샘플 축</strong>(samples axis)이며, 
-<strong>샘플 차원</strong>(samples dimension)이라고도 불린다.</p>
+<strong>샘플 차원</strong>(samples dimension)이라고도 불린다.
+특별히 배치 텐서와 관련해서는 0번 축(axis 0)을
+<strong>배치 축</strong>(batch axis) 또는 <strong>배치 차원</strong>(batch dimension)이라고 부른다.</p>
 
 </div>
 </div>
@@ -15882,25 +15883,6 @@ test_acc: 0.98089998960495
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="&#48176;&#52824;-&#52629;-&#46608;&#45716;-&#48176;&#52824;-&#52264;&#50896;">&#48176;&#52824; &#52629; &#46608;&#45716; &#48176;&#52824; &#52264;&#50896;<a class="anchor-link" href="#&#48176;&#52824;-&#52629;-&#46608;&#45716;-&#48176;&#52824;-&#52264;&#50896;">&#182;</a></h4><p>배치 텐서와 관련해서는 0번 축(axis 0)을
-<strong>배치 축</strong>(batch axis) 또는 <strong>배치 차원</strong>(batch dimension)이라고 부른다.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#45936;&#51060;&#53552;-&#53584;&#49436;-&#49324;&#47168;">&#45936;&#51060;&#53552; &#53584;&#49436; &#49324;&#47168;<a class="anchor-link" href="#&#45936;&#51060;&#53552;-&#53584;&#49436;-&#49324;&#47168;">&#182;</a></h3><p>앞으로 다룰 데이터는 크게 아래 네 종류의 텐서들이다.</p>
-<ul>
-<li>벡터 데이터: <code>(샘플 수, 특성 수)</code> 모양의 2D 텐서</li>
-<li>시계열 또는 시퀀스 데이터: <code>(샘플 수, 타임 스텝 수, 특성 수)</code> 모양의 3D 텐서</li>
-<li>이미지 데이터: <code>(샘플 수, 가로, 세로, 채널 수)</code> 또는 <code>(샘플 수, 채널 수, 가로, 세로)</code> 모양의 4D 텐서</li>
-<li>동영상 데이터: <code>(샘플 수, 프레임 수, 가로, 세로, 채널 수)</code> 모양의 5D 텐서</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="2.3-&#53584;&#49436;-&#50672;&#49328;">2.3 &#53584;&#49436; &#50672;&#49328;<a class="anchor-link" href="#2.3-&#53584;&#49436;-&#50672;&#49328;">&#182;</a></h2>
 </div>
 </div>
@@ -15913,11 +15895,6 @@ test_acc: 0.98089998960495
 <p>위 층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
 <div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
 </pre></div>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li>점곱(<code>dot(input, W)</code>): 입력 텐서와 가중치 텐서의 곱</li>
 <li>덧셈(<code>dot(input, W) + b</code>): 점곱의 결과 텐서와 벡터 <code>b</code>의 합</li>

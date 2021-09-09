@@ -14394,8 +14394,7 @@ div.jp-OutputPrompt {
 <ul>
 <li>텐서(tensor)</li>
 <li>텐서 연산</li>
-<li>미분</li>
-<li>경사 하강</li>
+<li>경사 하강법</li>
 </ul>
 
 </div>
@@ -14407,14 +14406,167 @@ div.jp-OutputPrompt {
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>MNIST 데이터셋 샘플 예제</strong></p>
+<p><strong>케라스로 MNIST 데이터셋 불러오기</strong></p>
+<ul>
+<li>손글씨 숫자 인식 용도 데이터셋: 70,000개의 샘플 포함</li>
+<li>레이블(타깃): 0부터 9까지 10개의 범주(category, class)</li>
+<li>훈련 세트<ul>
+<li>모델 학습 용도</li>
+<li>샘플: 28x28 픽셀 크기의 이미지 60,000개</li>
+</ul>
+</li>
+<li>테스트 세트<ul>
+<li>학습된 모델 성능 테스트 용도</li>
+<li>샘플: 28x28 픽셀 크기의 이미지 10,000개</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/MNIST-sample-digits.png" style="width:700px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
 
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>신경망 구조 지정</strong></p>
+<p>아래 신경망의 구조는 다음과 같다.</p>
+<ul>
+<li>층(layer): 2개의 Dense 층 사용.
+  입력 데이터로부터 <strong>표현</strong>(representation) 추출. 즉 입력 데이터를 새로운 표현으로 변환.</li>
+<li>층 연결: <code>Sequential</code> 모델 활용.
+  완전 연결(fully connected). 조밀(densely)하게 연결되었다고 함.</li>
+<li>첫째 층<ul>
+<li>512개의 유닛(unit) 사용. 즉 512개의 특성값으로 이루어진 표현 추출.</li>
+<li>활성화 함수(activation function): 렐루(relu) 함수</li>
+</ul>
+</li>
+<li>둘째 층<ul>
+<li>10개의 유닛 사용. 10개의 범주를 대상으로 해당 범부에 속할 확률 계산.
+  모든 확률의 합은 1.</li>
+<li>활성화 함수: 소프트맥스(softmax) 함수</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">),</span>
+    <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
+<span class="p">])</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>신경망 컴파일</strong></p>
+<p>구조가 지정된 신경망을 훈련이 가능한 모델로 만드는 과정이며 
+아래 세 가지 사항이 지정되어야 한다.</p>
+<ul>
+<li><strong>옵티마이저</strong>(optimizer): 모델의 성능을 향상시키는 방향으로 가중치를 업데이트하는 알고리즘</li>
+<li><strong>손실 함수</strong>(loss function): 훈련 중 성능 측정 기준</li>
+<li><strong>모니터링 지표</strong>: 훈련과 테스트 과정을 모니터링 할 때 사용되는 평가 지표(metric).
+  손실 함수값을 사용할 수도 있고 아닐 수도 있음. 
+  아래 코드에서는 정확도(accuracy)만 사용.</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
+              <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;sparse_categorical_crossentropy&quot;</span><span class="p">,</span>
+              <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>모델 훈련</strong></p>
+<p>컴파일된 객체 모델을 훈련한다.</p>
+<ul>
+<li><code>fit()</code> 메서드 호출: 훈련 세트와 레이블을 인자로 사용</li>
+<li><code>epoths</code>: 에포크(전체 훈련 세트 대상 반복 훈련 횟수)</li>
+<li><code>batch_size</code>: 가중치 업데이트 한 번 실행할 때 사용되는 샘플 수</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>모델 활용: 예측하기</strong></p>
+<p>훈련에 사용되지 않은 손글씨 숫자 이미지 10장에 대한 모델 예측값을 확인하기 위해
+<code>predict()</code> 메서드를 이용한다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">test_digits</span> <span class="o">=</span> <span class="n">test_images</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span>
+<span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">test_digits</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>성능 테스트</strong></p>
+<p>테스트 세트 전체에 대한 성능 평가는 <code>evaluate()</code> 메서드를 활용한다.
+성능평가에 사용되는 지표는 앞서 모델을 컴파일할 때 지정한 정확도(accuracy)가 사용된다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div class="highlight"><pre><span></span><span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;test_acc: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="2.2-&#49888;&#44221;&#47581;&#50640;-&#49324;&#50857;&#46104;&#45716;-&#45936;&#51060;&#53552;-&#54364;&#54788;">2.2 &#49888;&#44221;&#47581;&#50640; &#49324;&#50857;&#46104;&#45716; &#45936;&#51060;&#53552; &#54364;&#54788;<a class="anchor-link" href="#2.2-&#49888;&#44221;&#47581;&#50640;-&#49324;&#50857;&#46104;&#45716;-&#45936;&#51060;&#53552;-&#54364;&#54788;">&#182;</a></h2>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><strong>텐서</strong>:  기본적으로 숫자를 담은 컨테이너(container).</li>
+<li>앞서 <strong>텐서</strong>(tensor)라고 불리는 넘파이 어레이(NumPy array) 이용</li>
+<li>행렬: 2 개의 차원으로 구성된 텐서로 표현</li>
+<li>텐서의 차원: 임의로 많을 수 있으며, 텐서에 사용되는 차원을 <strong>축</strong>(axis)이라 부름.</li>
+<li>랭크(rank): 차원의 수. 행렬은 rank가 2인 텐서.</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>주의사항</strong></p>
+<ul>
+<li>tensorflow 라이브러리가 제공하는 <code>Tensor</code> 자료형: NumPy의 어레이 자료형과 매우 비슷</li>
+<li>다만 <code>Tensor</code>는 GPU를 활용한 연산을 지원하고 넘파이 어레이는 그렇지 않음.</li>
+<li>하지만 두 자료형 사이의 형변환이 존재하여 keras 모델 훈련 등 필요할 때 적절한 형변환이 자동으로 이루어짐.</li>
+</ul>
+
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -14431,7 +14583,17 @@ div.jp-OutputPrompt {
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#48289;&#53552;-&#45936;&#51060;&#53552;">&#48289;&#53552; &#45936;&#51060;&#53552;<a class="anchor-link" href="#&#48289;&#53552;-&#45936;&#51060;&#53552;">&#182;</a></h3><ul>
+<h3 id="&#49828;&#52860;&#46972;(0D-&#53584;&#49436;)">&#49828;&#52860;&#46972;(0D &#53584;&#49436;)<a class="anchor-link" href="#&#49828;&#52860;&#46972;(0D-&#53584;&#49436;)">&#182;</a></h3><ul>
+<li><strong>스칼라</strong>(scalar): 숫자 하나로 이루어진 텐서</li>
+<li>차원이 없다는 의미에서 0D 텐서 부름.</li>
+<li>예제: 넘파이의 <code>float32</code>, <code>float64</code> 등</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#48289;&#53552;-(1D-&#53584;&#49436;)">&#48289;&#53552; (1D &#53584;&#49436;)<a class="anchor-link" href="#&#48289;&#53552;-(1D-&#53584;&#49436;)">&#182;</a></h3><ul>
 <li>각 샘플은 여러 개의 특성값으로 이러워진 벡터</li>
 <li>데이터 배치는 따라서 2D 텐서, 즉 벡터들의 어레이로 표현됨.</li>
 <li>0번 축은 샘플 축, 1번 축은 <strong>특성 축</strong>임.</li>
@@ -14452,7 +14614,17 @@ div.jp-OutputPrompt {
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#49884;&#44228;&#50676;-&#46608;&#45716;-&#49884;&#53248;&#49828;-&#45936;&#51060;&#53552;">&#49884;&#44228;&#50676; &#46608;&#45716; &#49884;&#53248;&#49828; &#45936;&#51060;&#53552;<a class="anchor-link" href="#&#49884;&#44228;&#50676;-&#46608;&#45716;-&#49884;&#53248;&#49828;-&#45936;&#51060;&#53552;">&#182;</a></h3><ul>
+<h3 id="&#54665;&#47148;(2D-&#53584;&#49436;)">&#54665;&#47148;(2D &#53584;&#49436;)<a class="anchor-link" href="#&#54665;&#47148;(2D-&#53584;&#49436;)">&#182;</a></h3><ul>
+<li>행렬: 동일한 크기의 벡터로 이루어진 어레이</li>
+<li>행(row)과 열(column) 두 개의 축 사용</li>
+<li>예제: 넘파이의 2차원 어레이</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#49884;&#44228;&#50676;-&#46608;&#45716;-&#49884;&#53248;&#49828;-&#45936;&#51060;&#53552;(3D-&#53584;&#49436;)">&#49884;&#44228;&#50676; &#46608;&#45716; &#49884;&#53248;&#49828; &#45936;&#51060;&#53552;(3D &#53584;&#49436;)<a class="anchor-link" href="#&#49884;&#44228;&#50676;-&#46608;&#45716;-&#49884;&#53248;&#49828;-&#45936;&#51060;&#53552;(3D-&#53584;&#49436;)">&#182;</a></h3><ul>
 <li>증시 데이터, 트윗 데이터 등 시간의 흐름 또는 순서가 중요한 데이터를 다룰 때 사용</li>
 <li>예제 1(시간의 흐름)<ul>
 <li>매 분마다 측정된 (현재 증시 가격, 지난 1분 동안의 최고가, 지난 1분 봉안의 최저가) 데이터</li>
@@ -14473,14 +14645,13 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>3D 데이터 텐서</strong></p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-timeseries_data.png" style="width:400px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
 
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#51060;&#48120;&#51648;-&#45936;&#51060;&#53552;">&#51060;&#48120;&#51648; &#45936;&#51060;&#53552;<a class="anchor-link" href="#&#51060;&#48120;&#51648;-&#45936;&#51060;&#53552;">&#182;</a></h3><ul>
+<h3 id="&#51060;&#48120;&#51648;-&#45936;&#51060;&#53552;(4D-&#53584;&#49436;)">&#51060;&#48120;&#51648; &#45936;&#51060;&#53552;(4D &#53584;&#49436;)<a class="anchor-link" href="#&#51060;&#48120;&#51648;-&#45936;&#51060;&#53552;(4D-&#53584;&#49436;)">&#182;</a></h3><ul>
 <li>이미지는 보통 3D 텐서로 표현: <code>(가로, 세로, 컬러 채널 수)</code><ul>
 <li>컬러 어미지의 컬러 채널 수: 3</li>
 <li>흑백 이미지의 컬러 채털 수: 1</li>
@@ -14494,14 +14665,13 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>4D 데이터 텐서</strong></p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-image_data.png" style="width:400px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
 
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#46041;&#50689;&#49345;-&#45936;&#51060;&#53552;">&#46041;&#50689;&#49345; &#45936;&#51060;&#53552;<a class="anchor-link" href="#&#46041;&#50689;&#49345;-&#45936;&#51060;&#53552;">&#182;</a></h3><ul>
+<h3 id="&#46041;&#50689;&#49345;-&#45936;&#51060;&#53552;(5D-&#53584;&#49436;)">&#46041;&#50689;&#49345; &#45936;&#51060;&#53552;(5D &#53584;&#49436;)<a class="anchor-link" href="#&#46041;&#50689;&#49345;-&#45936;&#51060;&#53552;(5D-&#53584;&#49436;)">&#182;</a></h3><ul>
 <li>동영상은 프레임(frame)으로 구성된 순차 데이터. 
   하나의 프레임은 컬러 이미지. 따랏 3D 텐서로 표현.</li>
 <li>따라서 하나의 동영상은 <code>(프레임 수, 가로, 세로, 컬러 채널 수)</code> 모양의 4D 텐서로 표현 가능.</li>
@@ -14518,12 +14688,65 @@ div.jp-OutputPrompt {
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#53584;&#49436;&#51032;-&#51452;&#50836;-&#49549;&#49457;">&#53584;&#49436;&#51032; &#51452;&#50836; &#49549;&#49457;<a class="anchor-link" href="#&#53584;&#49436;&#51032;-&#51452;&#50836;-&#49549;&#49457;">&#182;</a></h3><ul>
+<li>축 개수(랭크, <code>ndim</code>)<ul>
+<li>텐서에 사용된 축(차원)의 개수</li>
+<li>음이 아닌 정수</li>
+</ul>
+</li>
+<li>모양(<code>shape</code>)<ul>
+<li>각각의 축에 사용된 (벡터의) 차원 수</li>
+<li>정수로 이루어진 튜플</li>
+</ul>
+</li>
+<li>자료형(<code>dtype</code>)<ul>
+<li>텐서에 사용된 항목들의 자료형</li>
+<li><code>float16</code>, <code>float32</code>,<code>float64</code>, <code>int8</code>, <code>string</code> 등이 가장 많이 사용됨.</li>
+<li>8, 16, 32, 64 등의 숫자는 해당 숫자를 다루는 데 필요한 메모리의 비트(bit) 크기를 가리킴.
+  즉, 텐서에 사용되는 항목들을 일괄된 크기의 메모리로 처리함.</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h2 id="2.3-&#53584;&#49436;-&#50672;&#49328;">2.3 &#53584;&#49436; &#50672;&#49328;<a class="anchor-link" href="#2.3-&#53584;&#49436;-&#50672;&#49328;">&#182;</a></h2>
 </div>
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="&#48652;&#47196;&#46300;&#52880;&#49828;&#54021;(Broadcasting)">&#48652;&#47196;&#46300;&#52880;&#49828;&#54021;(Broadcasting)<a class="anchor-link" href="#&#48652;&#47196;&#46300;&#52880;&#49828;&#54021;(Broadcasting)">&#182;</a></h4><p>두 텐서의 모양이 아래와 같을 때 항목별 연산을 위한 브로드캐스팅이 가능하다.</p>
+<p>신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다. 
+예를 들어 이전 신경망에 사용된 케라스 레이어를 살펴보자.</p>
+<div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
+</pre></div>
+<p>위 층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
+<div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
+</pre></div>
+<ul>
+<li>점곱(<code>dot(input, W)</code>): 입력 텐서와 가중치 텐서의 곱</li>
+<li>덧셈(<code>dot(input, W) + b</code>): 점곱의 결과 텐서와 벡터 <code>b</code>의 합</li>
+<li><code>relu</code> 함수: <code>relu(x) = max(x, 0)</code></li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#54637;&#47785;&#48324;-&#50672;&#49328;">&#54637;&#47785;&#48324; &#50672;&#49328;<a class="anchor-link" href="#&#54637;&#47785;&#48324;-&#50672;&#49328;">&#182;</a></h3><p>넘파이의 어레이 연산처럼 텐서의 연산도 항목별로 이루어진다. 
+예를 들어, <code>relu()</code> 함수는 각 항목에 적용된다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/slides/images/neural_network01.jpg" style="width:400px;"></div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#48652;&#47196;&#46300;&#52880;&#49828;&#54021;(Broadcasting)">&#48652;&#47196;&#46300;&#52880;&#49828;&#54021;(Broadcasting)<a class="anchor-link" href="#&#48652;&#47196;&#46300;&#52880;&#49828;&#54021;(Broadcasting)">&#182;</a></h3><p>두 텐서의 모양이 아래와 같을 때 항목별 연산을 위한 브로드캐스팅이 가능하다.</p>
 
 <pre><code>(a, b, … n, n + 1, … m) 와 (n, n + 1, … m)
 
@@ -14539,12 +14762,12 @@ div.jp-OutputPrompt {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting10.png" style="width:400px;"></div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting11.png" style="width:400px;"></div>
 </div>
-</div></section></section><section><section>
+</div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://raw.githubusercontent.com/codingalzi/pydata/master/notebooks/images/broadcasting12.png" style="width:400px;"></div>
@@ -14608,7 +14831,6 @@ div.jp-OutputPrompt {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>복잡한 다양체 펼치기</strong></p>
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-geometric_interpretation_4.png" style="width:400px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
 
 </div>
