@@ -57,6 +57,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
+  </style>
 
 
 
@@ -14633,6 +14652,12 @@ a.anchor-link {
 </ul>
 
 </div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://lh3.googleusercontent.com/LDpYKmElX5GwHgDwT2x2IyKMgUflP3cQ3ZiHuNCaf04b4AXwk04stNgr0-YymwJRFrxKpW9gxaxbYBnwyKflVVFGQ0kRYgsVDGgHFveaQRaBH5dxs78MgHkQvn5FHsjhZjIbj-WW2NI" style="width:700px;"></div><p>그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a></p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14689,15 +14714,15 @@ a.anchor-link {
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>Epoch 1/5
-469/469 [==============================] - 2s 2ms/step - loss: 0.2588 - accuracy: 0.9251
+469/469 [==============================] - 2s 3ms/step - loss: 0.4365 - accuracy: 0.8714
 Epoch 2/5
-469/469 [==============================] - 1s 2ms/step - loss: 0.1031 - accuracy: 0.9697
+469/469 [==============================] - 1s 3ms/step - loss: 0.1123 - accuracy: 0.9666
 Epoch 3/5
-469/469 [==============================] - 1s 2ms/step - loss: 0.0681 - accuracy: 0.9800
+469/469 [==============================] - 1s 3ms/step - loss: 0.0712 - accuracy: 0.9791
 Epoch 4/5
-469/469 [==============================] - 1s 2ms/step - loss: 0.0490 - accuracy: 0.9850
+469/469 [==============================] - 1s 3ms/step - loss: 0.0472 - accuracy: 0.9870
 Epoch 5/5
-469/469 [==============================] - 1s 2ms/step - loss: 0.0377 - accuracy: 0.9890
+469/469 [==============================] - 1s 3ms/step - loss: 0.0340 - accuracy: 0.9901
 </pre>
 </div>
 </div>
@@ -14711,7 +14736,7 @@ Epoch 5/5
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>&lt;keras.callbacks.History at 0x1e46394d100&gt;</pre>
+<pre>&lt;tensorflow.python.keras.callbacks.History at 0x1e9053b1550&gt;</pre>
 </div>
 
 </div>
@@ -14785,9 +14810,9 @@ Epoch 5/5
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([5.2163611e-09, 6.9275635e-10, 2.1883529e-06, 2.7133608e-05,
-       7.4324383e-12, 1.1538795e-08, 2.0484592e-14, 9.9997008e-01,
-       1.6215951e-08, 6.0400032e-07], dtype=float32)</pre>
+<pre>array([2.7985639e-08, 1.4273510e-11, 1.6627704e-06, 3.0433364e-06,
+       2.9375425e-13, 1.5947592e-08, 1.1972578e-14, 9.9999475e-01,
+       8.8661212e-09, 4.1405184e-07], dtype=float32)</pre>
 </div>
 
 </div>
@@ -14873,7 +14898,7 @@ Epoch 5/5
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>0.9999701</pre>
+<pre>0.99999475</pre>
 </div>
 
 </div>
@@ -14960,8 +14985,8 @@ Epoch 5/5
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>313/313 [==============================] - 1s 1ms/step - loss: 0.0664 - accuracy: 0.9798
-test_acc: 0.9797999858856201
+<pre>313/313 [==============================] - 1s 1ms/step - loss: 0.0669 - accuracy: 0.9805
+test_acc: 0.9804999828338623
 </pre>
 </div>
 </div>
@@ -15891,22 +15916,37 @@ test_acc: 0.9797999858856201
 <p>신경망 모델의 훈련은 기본적으로 텐서와 관련된 몇 가지 연산으로 이루어진다. 
 예를 들어 이전 신경망에 사용된 케라스 레이어를 살펴보자.</p>
 <div class="highlight"><pre><span></span><span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">512</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;relu&quot;</span><span class="p">)</span>
+<span class="n">keras</span><span class="o">.</span><span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;softmax&quot;</span><span class="p">)</span>
 </pre></div>
-<p>위 층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
-<div class="highlight"><pre><span></span><span class="n">output</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">W</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
+<p>위 두 개의 층이 하는 일은 데이터셋의 변환이며 실제로 이루어지는 연산은 다음과 같다.</p>
 <ul>
-<li>점곱(<code>dot(input, W)</code>): 입력 텐서와 가중치 텐서의 곱</li>
+<li><p>1층</p>
+<div class="highlight"><pre><span></span><span class="n">output1</span> <span class="o">=</span> <span class="n">relu</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">input1</span><span class="p">,</span> <span class="n">W1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">)</span>
+</pre></div>
+</li>
+<li><p>2층</p>
+<div class="highlight"><pre><span></span><span class="n">output2</span> <span class="o">=</span> <span class="n">softmax</span><span class="p">(</span><span class="n">dot</span><span class="p">(</span><span class="n">input2</span><span class="p">,</span> <span class="n">W2</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
+</pre></div>
+</li>
+<li><p>점곱(<code>dot(input, W)</code>): 입력 텐서와 가중치 텐서의 곱</p>
+</li>
 <li>덧셈(<code>dot(input, W) + b</code>): 점곱의 결과 텐서와 벡터 <code>b</code>의 합</li>
 <li><code>relu</code> 함수: <code>relu(x) = max(x, 0)</code></li>
+<li><code>softmax</code> 함수: 10개 범주 각각에 속할 확률 계산</li>
 </ul>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://s3-ap-northeast-2.amazonaws.com/opentutorials-user-file/module/3653/9363.png" style="width:700px;"></div><p>그림 출처: <a href="https://www.opentutorials.org/module/3653/22060">생활코딩: 한 페이지 머신러닝</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="&#54637;&#47785;&#48324;-&#50672;&#49328;">&#54637;&#47785;&#48324; &#50672;&#49328;<a class="anchor-link" href="#&#54637;&#47785;&#48324;-&#50672;&#49328;">&#182;</a></h3><p>넘파이의 어레이 연산처럼 텐서의 연산도 항목별로 이루어진다. 
-예를 들어, <code>relu()</code> 함수는 각 항목에 적용되며,
+예를 들어, <code>relu()</code> 함수도 각 항목에 적용되며,
 실제로 아래와 같이 구현할 수 있다.</p>
 
 </div>
@@ -16040,7 +16080,7 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
-<pre>Took: 1.86초
+<pre>Took: 1.74초
 </pre>
 </div>
 </div>
@@ -16121,8 +16161,8 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([0.93523778, 0.5805409 , 0.24223238, 0.52869939, 0.19087689,
-       0.38475911, 0.99330794, 0.03576469, 0.5223684 , 0.80830697])</pre>
+<pre>array([0.92040935, 0.16567216, 0.12851448, 0.03831546, 0.84996684,
+       0.57686851, 0.52922419, 0.97585311, 0.2667893 , 0.67034509])</pre>
 </div>
 
 </div>
@@ -16168,8 +16208,8 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([[0.93523778, 0.5805409 , 0.24223238, 0.52869939, 0.19087689,
-        0.38475911, 0.99330794, 0.03576469, 0.5223684 , 0.80830697]])</pre>
+<pre>array([[0.92040935, 0.16567216, 0.12851448, 0.03831546, 0.84996684,
+        0.57686851, 0.52922419, 0.97585311, 0.2667893 , 0.67034509]])</pre>
 </div>
 
 </div>
@@ -16377,7 +16417,7 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>7.510670009763301</pre>
+<pre>7.686729396777071</pre>
 </div>
 
 </div>
@@ -16441,7 +16481,7 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>7.5106700097633</pre>
+<pre>7.686729396777072</pre>
 </div>
 
 </div>
@@ -16489,7 +16529,7 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([1.39515534, 1.46358444])</pre>
+<pre>array([1.0224192 , 1.48309373])</pre>
 </div>
 
 </div>
@@ -16548,7 +16588,7 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([1.39515534, 1.46358444])</pre>
+<pre>array([1.0224192 , 1.48309373])</pre>
 </div>
 
 </div>
@@ -16611,7 +16651,7 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([1.39515534, 1.46358444])</pre>
+<pre>array([1.0224192 , 1.48309373])</pre>
 </div>
 
 </div>
@@ -16659,8 +16699,8 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([[0.71021656, 0.91559349, 0.96556303, 0.34922142],
-       [0.83160463, 0.97133598, 0.43057404, 0.39887647]])</pre>
+<pre>array([[0.71083626, 0.51941976, 0.8108645 , 0.57953688],
+       [1.47447597, 1.32954512, 1.20134082, 1.17044287]])</pre>
 </div>
 
 </div>
@@ -16721,8 +16761,8 @@ test_acc: 0.9797999858856201
 
 
 <div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
-<pre>array([[0.71021656, 0.91559349, 0.96556303, 0.34922142],
-       [0.83160463, 0.97133598, 0.43057404, 0.39887647]])</pre>
+<pre>array([[0.71083626, 0.51941976, 0.8108645 , 0.57953688],
+       [1.47447597, 1.32954512, 1.20134082, 1.17044287]])</pre>
 </div>
 
 </div>
@@ -16896,47 +16936,111 @@ test_acc: 0.9797999858856201
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="2.4-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;-&#44592;&#48152;-&#52572;&#51201;&#54868;">2.4 &#44536;&#47112;&#51060;&#46356;&#50616;&#53944; &#44592;&#48152; &#52572;&#51201;&#54868;<a class="anchor-link" href="#2.4-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;-&#44592;&#48152;-&#52572;&#51201;&#54868;">&#182;</a></h2>
+<h2 id="2.4-&#49888;&#44221;&#47581;&#51032;-&#50644;&#51652;:-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;-&#44592;&#48152;-&#52572;&#51201;&#54868;">2.4 &#49888;&#44221;&#47581;&#51032; &#50644;&#51652;: &#44536;&#47112;&#51060;&#46356;&#50616;&#53944; &#44592;&#48152; &#52572;&#51201;&#54868;<a class="anchor-link" href="#2.4-&#49888;&#44221;&#47581;&#51032;-&#50644;&#51652;:-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;-&#44592;&#48152;-&#52572;&#51201;&#54868;">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="What's-a-derivative?">What's a derivative?<a class="anchor-link" href="#What's-a-derivative?">&#182;</a></h3>
+<h3 id="&#49552;&#49892;&#54632;&#49688;">&#49552;&#49892;&#54632;&#49688;<a class="anchor-link" href="#&#49552;&#49892;&#54632;&#49688;">&#182;</a></h3><ul>
+<li>모델에 사용되는 모든 가중치(parameters)에 대한 함수<ul>
+<li>입력값: 데이터 묶음. 묶음 크기는 <code>batch_size</code>로 지정.</li>
+<li>함숫값: 모델의 예측치와 실제 타깃 사이의 오차.</li>
+</ul>
+</li>
+<li>미분가능이어야 함.</li>
+<li><strong>주의사항</strong>: 모델 성능 평가(<code>metrics</code>)에 사용되는 정확도 등은 가중치에 대한 미분가능 함수가 아님.</li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Derivative-of-a-tensor-operation:-the-gradient">Derivative of a tensor operation: the gradient<a class="anchor-link" href="#Derivative-of-a-tensor-operation:-the-gradient">&#182;</a></h3>
+<h3 id="&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;,-&#44221;&#49324;&#54616;&#44053;&#48277;,-&#54617;&#49845;(&#54984;&#47144;)">&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;, &#44221;&#49324;&#54616;&#44053;&#48277;, &#54617;&#49845;(&#54984;&#47144;)<a class="anchor-link" href="#&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;,-&#44221;&#49324;&#54616;&#44053;&#48277;,-&#54617;&#49845;(&#54984;&#47144;)">&#182;</a></h3><ul>
+<li><strong>그레이디언트</strong>(gradient): 가중치를 조금 변화시켰을 때 손실값이 어떻게 변하는지 설명</li>
+<li><strong>백워드 패스</strong>(backward pass): 가중치에 대한 손실함수의 그레이디언트 계산</li>
+<li><strong>경사하강법</strong>(gradient descent): 그레이디언트가 주는 정보를 이용하여
+  손실 함숫값이 낮아지도록 모든 가중치를 <strong>동시에 조금씩</strong> 업데이트. </li>
+<li><strong>역전파</strong>(backpropagation): 모든 가중치를 계산된 그레이디언트의 반대 방향으로 
+  <strong>학습률</strong>(learning rate)에 비례하여  업데이트 하는 과정.</li>
+<li><strong>학습</strong>(learning) 또는 <strong>훈련</strong>(training): <strong>임의로 선택</strong>된 지정된 크기의 데이터 묶음을 
+  대상으로 하는 손실 함숫값 계산과 경사하강법 적용을 반복하는 과정.</li>
+<li>최종적으로 손실 함숫값이 최저가 되도록 하는 가중치를 사용하는 모델 완성.</li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Stochastic-gradient-descent">Stochastic gradient descent<a class="anchor-link" href="#Stochastic-gradient-descent">&#182;</a></h3>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/ch02-gradient_descent_3d.png" style="width:600px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Chaining-derivatives:-the-Backpropagation-algorithm">Chaining derivatives: the Backpropagation algorithm<a class="anchor-link" href="#Chaining-derivatives:-the-Backpropagation-algorithm">&#182;</a></h3>
+<h3 id="&#48176;&#52824;,-&#48120;&#45768;-&#48176;&#52824;,-&#46608;&#45716;-&#54869;&#47456;&#51201;-&#44221;&#49324;&#54616;&#44053;&#48277;">&#48176;&#52824;, &#48120;&#45768; &#48176;&#52824;, &#46608;&#45716; &#54869;&#47456;&#51201; &#44221;&#49324;&#54616;&#44053;&#48277;<a class="anchor-link" href="#&#48176;&#52824;,-&#48120;&#45768;-&#48176;&#52824;,-&#46608;&#45716;-&#54869;&#47456;&#51201;-&#44221;&#49324;&#54616;&#44053;&#48277;">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="The-chain-rule">The chain rule<a class="anchor-link" href="#The-chain-rule">&#182;</a></h4>
+<p>묶음(배치)의 크기에 따라 아래 세 종류의 경사하강법이 활용된다.</p>
+<ul>
+<li>배치 경사하강법: <code>batch_size</code>가 전체 훈련 세트의 크기</li>
+<li>미니배치 경사하강법: <code>batch_size</code>가 몇 십에서 몇 백.</li>
+<li>확률적 경사하강법(SGD): <code>batch_size = 1</code></li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Automatic-differentiation-with-computation-graphs">Automatic differentiation with computation graphs<a class="anchor-link" href="#Automatic-differentiation-with-computation-graphs">&#182;</a></h4>
+<h3 id="&#50741;&#54000;&#47560;&#51060;&#51200;(optimizer)">&#50741;&#54000;&#47560;&#51060;&#51200;(optimizer)<a class="anchor-link" href="#&#50741;&#54000;&#47560;&#51060;&#51200;(optimizer)">&#182;</a></h3><ul>
+<li>경사하강법과 역전파를 실행하는 알고리즘</li>
+<li>Adagrad, RMSprop 보다 빠르고 효율적으로 작동하는 알고리즘 활용</li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="The-Gradient-Tape-in-TensorFlow">The Gradient Tape in TensorFlow<a class="anchor-link" href="#The-Gradient-Tape-in-TensorFlow">&#182;</a></h4>
+<h3 id="&#50669;&#51204;&#54028;(backpropagation)">&#50669;&#51204;&#54028;(backpropagation)<a class="anchor-link" href="#&#50669;&#51204;&#54028;(backpropagation)">&#182;</a></h3><ul>
+<li>손실함수의 그레이디언트를 <strong>연쇄 법칙</strong>(chain rule)을 보다 단순한 함수들에 적용하여 계산하는 알고리즘</li>
+<li>아래 그림은 앞서 사용한 MNIST 분류 모델의 예측값 계산과정에 사용된
+  단수한 함수들을 보여주는 계산 그래프(computation graph)임.</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/a_first_computation_graph.png" style="width:300px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#53584;&#49436;&#54540;&#47196;&#50864;&#51032;-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;-&#53580;&#51060;&#54532;">&#53584;&#49436;&#54540;&#47196;&#50864;&#51032; &#44536;&#47112;&#51060;&#46356;&#50616;&#53944; &#53580;&#51060;&#54532;<a class="anchor-link" href="#&#53584;&#49436;&#54540;&#47196;&#50864;&#51032;-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;-&#53580;&#51060;&#54532;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>미분 자동화: 텐서플로우 등이 역전파에 필요한 미분을 자동으로 해결해줌. </li>
+<li><strong>그레이디언트 테이프</strong>(gradient tape): 임의의 텐서 연산에 대해 원하는 변수에 대한
+  그레이디언트를 미리 계산해서 기억해두는 독립적인 장치</li>
+<li><code>tf.Variable</code> 객체: 그레이디언트 테이프를 사용하려면 변수를 <code>tf.Variable</code> 클래스의 
+  인스턴스로 선언해야 함.</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="&#54616;&#45208;&#51032;-&#48320;&#49688;&#50640;-&#45824;&#54620;-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;">&#54616;&#45208;&#51032; &#48320;&#49688;&#50640; &#45824;&#54620; &#44536;&#47112;&#51060;&#46356;&#50616;&#53944;<a class="anchor-link" href="#&#54616;&#45208;&#51032;-&#48320;&#49688;&#50640;-&#45824;&#54620;-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;">&#182;</a></h4>
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[68]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -16951,10 +17055,52 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[69]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_of_y_wrt_x</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[69]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&lt;tf.Tensor: shape=(), dtype=float32, numpy=2.0&gt;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="&#51076;&#51032;&#51032;-&#53584;&#49436;-&#50672;&#49328;&#50640;-&#45824;&#54620;-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;">&#51076;&#51032;&#51032; &#53584;&#49436; &#50672;&#49328;&#50640; &#45824;&#54620; &#44536;&#47112;&#51060;&#46356;&#50616;&#53944;<a class="anchor-link" href="#&#51076;&#51032;&#51032;-&#53584;&#49436;-&#50672;&#49328;&#50640;-&#45824;&#54620;-&#44536;&#47112;&#51060;&#46356;&#50616;&#53944;">&#182;</a></h4>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[70]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
@@ -16968,10 +17114,54 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[71]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_of_y_wrt_x</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[71]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&lt;tf.Tensor: shape=(2, 2), dtype=float32, numpy=
+array([[2., 2.],
+       [2., 2.]], dtype=float32)&gt;</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="&#48320;&#49688;&#46308;&#51032;-&#47532;&#49828;&#53944;&#50640;-&#45824;&#54620;-&#44536;&#47112;&#51060;&#50616;&#53944;">&#48320;&#49688;&#46308;&#51032; &#47532;&#49828;&#53944;&#50640; &#45824;&#54620; &#44536;&#47112;&#51060;&#50616;&#53944;<a class="anchor-link" href="#&#48320;&#49688;&#46308;&#51032;-&#47532;&#49828;&#53944;&#50640;-&#45824;&#54620;-&#44536;&#47112;&#51060;&#50616;&#53944;">&#182;</a></h4>
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[72]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">W</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)))</span>
@@ -16987,15 +17177,63 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[73]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">grad_of_y_wrt_W_and_b</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[73]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[&lt;tf.Tensor: shape=(2, 2), dtype=float32, numpy=
+ array([[0.7934849 , 0.7934849 ],
+        [0.25641108, 0.25641108]], dtype=float32)&gt;,
+ &lt;tf.Tensor: shape=(2,), dtype=float32, numpy=array([2., 2.], dtype=float32)&gt;]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Looking-back-at-our-first-example">Looking back at our first example<a class="anchor-link" href="#Looking-back-at-our-first-example">&#182;</a></h2>
+<h2 id="2.5-&#49888;&#44221;&#47581;-&#44396;&#54788;:-&#48145;&#48148;&#45797;&#48512;&#53552;">2.5 &#49888;&#44221;&#47581; &#44396;&#54788;: &#48145;&#48148;&#45797;&#48512;&#53552;<a class="anchor-link" href="#2.5-&#49888;&#44221;&#47581;-&#44396;&#54788;:-&#48145;&#48148;&#45797;&#48512;&#53552;">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>케라스가 아닌 순수 텐서플로우 API 만을 이용해서
+앞서 사용한 MINST 분류 신경망 모델에
+사용된 클래스를 직접 구현한다.</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[74]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">),</span> <span class="p">(</span><span class="n">test_images</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">)</span> <span class="o">=</span> <span class="n">mnist</span><span class="o">.</span><span class="n">load_data</span><span class="p">()</span>
@@ -17013,7 +17251,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[75]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">([</span>
@@ -17030,7 +17268,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[76]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
@@ -17043,10 +17281,10 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[77]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">train_images</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>
@@ -17055,6 +17293,50 @@ test_acc: 0.9797999858856201
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Epoch 1/5
+469/469 [==============================] - 2s 3ms/step - loss: 0.4287 - accuracy: 0.8776
+Epoch 2/5
+469/469 [==============================] - 1s 3ms/step - loss: 0.1124 - accuracy: 0.9665
+Epoch 3/5
+469/469 [==============================] - 1s 3ms/step - loss: 0.0695 - accuracy: 0.9797
+Epoch 4/5
+469/469 [==============================] - 1s 3ms/step - loss: 0.0471 - accuracy: 0.9860
+Epoch 5/5
+469/469 [==============================] - 1s 3ms/step - loss: 0.0357 - accuracy: 0.9896
+</pre>
+</div>
+</div>
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[77]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>&lt;tensorflow.python.keras.callbacks.History at 0x1e960f71eb0&gt;</pre>
+</div>
+
+</div>
+
+</div>
+
 </div>
 
 </div>
@@ -17070,7 +17352,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[78]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
@@ -17108,7 +17390,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[79]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">NaiveSequential</span><span class="p">:</span>
@@ -17137,7 +17419,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[80]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">NaiveSequential</span><span class="p">([</span>
@@ -17160,7 +17442,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[81]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
@@ -17194,7 +17476,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[82]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">one_training_step</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">images_batch</span><span class="p">,</span> <span class="n">labels_batch</span><span class="p">):</span>
@@ -17216,7 +17498,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[83]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">learning_rate</span> <span class="o">=</span> <span class="mf">1e-3</span>
@@ -17234,7 +17516,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[84]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">optimizers</span>
@@ -17258,7 +17540,7 @@ test_acc: 0.9797999858856201
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[85]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="n">epochs</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">128</span><span class="p">):</span>
@@ -17277,10 +17559,10 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[86]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.datasets</span> <span class="kn">import</span> <span class="n">mnist</span>
@@ -17299,15 +17581,95 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Epoch 0
+loss at batch 0: 4.70
+loss at batch 100: 2.23
+loss at batch 200: 2.23
+loss at batch 300: 2.09
+loss at batch 400: 2.26
+Epoch 1
+loss at batch 0: 1.91
+loss at batch 100: 1.87
+loss at batch 200: 1.85
+loss at batch 300: 1.71
+loss at batch 400: 1.86
+Epoch 2
+loss at batch 0: 1.59
+loss at batch 100: 1.57
+loss at batch 200: 1.52
+loss at batch 300: 1.42
+loss at batch 400: 1.53
+Epoch 3
+loss at batch 0: 1.33
+loss at batch 100: 1.34
+loss at batch 200: 1.26
+loss at batch 300: 1.21
+loss at batch 400: 1.29
+Epoch 4
+loss at batch 0: 1.14
+loss at batch 100: 1.16
+loss at batch 200: 1.06
+loss at batch 300: 1.04
+loss at batch 400: 1.11
+Epoch 5
+loss at batch 0: 0.99
+loss at batch 100: 1.02
+loss at batch 200: 0.92
+loss at batch 300: 0.92
+loss at batch 400: 0.99
+Epoch 6
+loss at batch 0: 0.88
+loss at batch 100: 0.91
+loss at batch 200: 0.82
+loss at batch 300: 0.83
+loss at batch 400: 0.90
+Epoch 7
+loss at batch 0: 0.80
+loss at batch 100: 0.82
+loss at batch 200: 0.74
+loss at batch 300: 0.76
+loss at batch 400: 0.83
+Epoch 8
+loss at batch 0: 0.73
+loss at batch 100: 0.75
+loss at batch 200: 0.67
+loss at batch 300: 0.71
+loss at batch 400: 0.78
+Epoch 9
+loss at batch 0: 0.68
+loss at batch 100: 0.70
+loss at batch 200: 0.62
+loss at batch 300: 0.66
+loss at batch 400: 0.74
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h3 id="Evaluating-the-model">Evaluating the model<a class="anchor-link" href="#Evaluating-the-model">&#182;</a></h3>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[87]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">predictions</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">test_images</span><span class="p">)</span>
@@ -17322,11 +17684,27 @@ test_acc: 0.9797999858856201
 </div>
 </div>
 
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>accuracy: 0.82
+</pre>
 </div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Chapter-summary">Chapter summary<a class="anchor-link" href="#Chapter-summary">&#182;</a></h2>
 </div>
+
+</div>
+
+</div>
+
 </div>
 </body>
 
