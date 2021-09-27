@@ -12,6 +12,8 @@
 | 강의소개 | 슬라이드 | [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf) |
 | 딥러닝의 수학적 구성요소 | 슬라이드 | [&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf) |
 | | 주피터 노트북 | [&#x1F4D9;](./notebooks/dlp02_mathematical_building_blocks.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp02_mathematical_building_blocks.ipynb) |
+| 케라스와 텐서플로우 | 슬라이드 | [&#x1F4F1;](./slides/dlp03_introduction_to_keras_and_tf.slides.html) &nbsp; [&#x1F4BB;](./slides/dlp03_introduction_to_keras_and_tf_slides.pdf) |
+| | 주피터 노트북 | [&#x1F4D9;](./notebooks/dlp03_introduction_to_keras_and_tf.html) &nbsp; [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb) |
 
 **링크 활용법**
 * &#x1F4F1;: 좌우방향 터치 지원 슬라이드
