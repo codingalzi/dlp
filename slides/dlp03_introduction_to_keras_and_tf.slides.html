@@ -14525,7 +14525,7 @@ div.jp-OutputPrompt {
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-1:-&#53584;&#49436;&#54540;&#47196;&#50864;-&#44592;&#48376;-API-&#54876;&#50857;-&#53584;&#49436;-&#51312;&#51089;">&#49888;&#44221;&#47581; &#47784;&#45944; &#54984;&#47144; &#54645;&#49900; 1: &#53584;&#49436;&#54540;&#47196;&#50864; &#44592;&#48376; API &#54876;&#50857; &#53584;&#49436; &#51312;&#51089;<a class="anchor-link" href="#&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-1:-&#53584;&#49436;&#54540;&#47196;&#50864;-&#44592;&#48376;-API-&#54876;&#50857;-&#53584;&#49436;-&#51312;&#51089;">&#182;</a></h3><ol>
+<h3 id="&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-1">&#49888;&#44221;&#47581; &#47784;&#45944; &#54984;&#47144; &#54645;&#49900; 1<a class="anchor-link" href="#&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-1">&#182;</a></h3><ol>
 <li>상수 텐서와 변수 텐서<ul>
 <li>상수 텐서(constant tensor): 입출력 데이터 등 변하지 않는 텐서</li>
 <li>변수 텐서(variable): 모델 가중치, 편향 등 업데이트 되는 텐서</li>
@@ -14543,13 +14543,82 @@ div.jp-OutputPrompt {
 </div></section></section><section><section>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-2:-&#52992;&#46972;&#49828;-API-&#54876;&#50857;-&#47784;&#45944;-&#44396;&#49457;-&#48143;-&#54984;&#47144;">&#49888;&#44221;&#47581; &#47784;&#45944; &#54984;&#47144; &#54645;&#49900; 2: &#52992;&#46972;&#49828; API &#54876;&#50857; &#47784;&#45944; &#44396;&#49457; &#48143; &#54984;&#47144;<a class="anchor-link" href="#&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-2:-&#52992;&#46972;&#49828;-API-&#54876;&#50857;-&#47784;&#45944;-&#44396;&#49457;-&#48143;-&#54984;&#47144;">&#182;</a></h3><ol>
+<h2 id="3.6-&#52992;&#49828;&#51032;-&#54645;&#49900;-API--&#51060;&#54644;">3.6 &#52992;&#49828;&#51032; &#54645;&#49900; API  &#51060;&#54644;<a class="anchor-link" href="#3.6-&#52992;&#49828;&#51032;-&#54645;&#49900;-API--&#51060;&#54644;">&#182;</a></h2>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-2">&#49888;&#44221;&#47581; &#47784;&#45944; &#54984;&#47144; &#54645;&#49900; 2<a class="anchor-link" href="#&#49888;&#44221;&#47581;-&#47784;&#45944;-&#54984;&#47144;-&#54645;&#49900;-2">&#182;</a></h3><ol>
 <li>층(layer)과 모델: 층을 적절하게 쌓아 모델 구성</li>
 <li>손실 함수(loss function): 학습 방향을 유도하는 피드백 역할 수행</li>
 <li>옵티마이저(optimizer): 학습 방향을 정하는 기능 수행</li>
 <li>메트릭(metric): 정확도 등 모델 성능 평가 용도</li>
 <li>훈련 반복(training loop): 미니 배치 경사하강법 실행</li>
 </ol>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#52789;(layer)&#51032;-&#50669;&#54624;">&#52789;(layer)&#51032; &#50669;&#54624;<a class="anchor-link" href="#&#52789;(layer)&#51032;-&#50669;&#54624;">&#182;</a></h3><ul>
+<li>모델의 상태(지식)로 사용되는 가중치(weight)와 편향(bias) 저장</li>
+<li>데이터 표현 변환(forwardd pass)</li>
+<li>케라스 활용 딥러닝 모델: 호환 가능한 층들의 적절한 연결</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="&#52789;&#51032;-&#51333;&#47448;&#50752;-&#52376;&#47532;-&#44032;&#45733;-&#53584;&#49436;">&#52789;&#51032; &#51333;&#47448;&#50752; &#52376;&#47532; &#44032;&#45733; &#53584;&#49436;<a class="anchor-link" href="#&#52789;&#51032;-&#51333;&#47448;&#50752;-&#52376;&#47532;-&#44032;&#45733;-&#53584;&#49436;">&#182;</a></h4><ul>
+<li><code>Dense</code> 클래스를 사용하는 밀집층(dense layer): 
+  <code>(샘플수, 특성수)</code> 모양의 2D 텐서로 제공된 데이터셋</li>
+<li><code>LSTM</code> 클래스, <code>Conv1D</code> 클래스 등을 사용하는 순환층(recurrent layer): 
+  <code>(샘플수, 타임스텝수, 특성수)</code> 모양의 3D 텐서로 제공된 순차 데이터셋</li>
+<li><code>Cons2D</code> 클래스 등을 사용하는 층: 
+  <code>(샘플수, 가로, 세로, 채널수)</code> 모양의 4D 텐서로 제공된 이미지 데이터셋</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="Layer-&#53364;&#47000;&#49828;&#50752;-__call__()-&#47700;&#49436;&#46300;"><code>Layer</code> &#53364;&#47000;&#49828;&#50752; <code>__call__()</code> &#47700;&#49436;&#46300;<a class="anchor-link" href="#Layer-&#53364;&#47000;&#49828;&#50752;-__call__()-&#47700;&#49436;&#46300;">&#182;</a></h4><ul>
+<li>케라스에서 사용되는 모든 층에 대한 부모 클래스</li>
+<li><code>__call__()</code> 메서드의 역할<ul>
+<li>가중치와 편향 벡터 생성 및 초기화</li>
+<li>입력 데이터를 출력 데이터로 변환</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h4 id="__call__()-&#47700;&#49436;&#46300;&#51032;-&#45824;&#47029;&#51201;-&#51221;&#51032;"><code>__call__()</code> &#47700;&#49436;&#46300;&#51032; &#45824;&#47029;&#51201; &#51221;&#51032;<a class="anchor-link" href="#__call__()-&#47700;&#49436;&#46300;&#51032;-&#45824;&#47029;&#51201;-&#51221;&#51032;">&#182;</a></h4><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">built</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">build</span><span class="p">(</span><span class="n">inputs</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">built</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li><code>self.built</code>: 가중치와 편향 벡터가 초기화가 되어 있는지 여부 기억</li>
+<li><code>self.build(inputs.shape)</code>: 입력 배치 데이터셋(<code>inputs</code>)의 모양(shape) 정보 이용<ul>
+<li>가중치 텐서 생성 및 무작위적으로 초기화</li>
+<li>편향 텐서 생성 및 0벡터로 초기화</li>
+</ul>
+</li>
+<li><code>self.call(inputs)</code>: 출력값 계산(forward pass)<ul>
+<li>아핀 변환 및 활성화 함수 적용</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div></section></section>
