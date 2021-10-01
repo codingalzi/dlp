@@ -10,14 +10,19 @@
 **링크 활용법**: &#x1F4F1;(터치 슬라이드), &#x1F4BB;(pdf 슬라이드), &#x1F4D3;(읽기 전용 노트북), 
 <span style="color: orange;">CO</span>(구글 코랩)
 
-1. 강의소개
-    - 슬라이드 &nbsp; [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) [&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf)
-1. 딥러닝의 수학적 구성요소
-    - 슬라이드 &nbsp; [&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) [&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf)
-    - 주피터 노트북 &nbsp; [&#x1F4D3;](./notebooks/dlp02_mathematical_building_blocks.html) [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp02_mathematical_building_blocks.ipynb)
-1. 케라스와 텐서플로우
-    - 슬라이드 &nbsp; [&#x1F4F1;](./slides/dlp03_introduction_to_keras_and_tf.slides.html) [&#x1F4BB;](./slides/dlp03_introduction_to_keras_and_tf_slides.pdf)
-    - 주피터 노트북 &nbsp; [&#x1F4D3;](./notebooks/dlp03_introduction_to_keras_and_tf.html) [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb)
+1. 강의소개 &nbsp; 
+[&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) 
+[&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf)
+3. 딥러닝의 수학적 구성요소 &nbsp; 
+[&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) 
+[&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf) 
+[&#x1F4D3;](./notebooks/dlp02_mathematical_building_blocks.html) 
+[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp02_mathematical_building_blocks.ipynb)
+3. 케라스와 텐서플로우 &nbsp; 
+[&#x1F4F1;](./slides/dlp03_introduction_to_keras_and_tf.slides.html) 
+[&#x1F4BB;](./slides/dlp03_introduction_to_keras_and_tf_slides.pdf)
+[&#x1F4D3;](./notebooks/dlp03_introduction_to_keras_and_tf.html) 
+[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb)
 
 ###  딥러닝 지원  GPU 안내
 
