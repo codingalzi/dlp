@@ -5,16 +5,10 @@
 
 자료를 공개한 저자 프랑소와 숄레(Fran&ccedil;ois Chollet)에게 진심어린 감사를 전합니다.
 
-### 링크 활용법
-
-| 아이콘 | 용도 |
-| :---: | :--- |
-| &#x1F4F1; | 좌우방향 터치 지원 슬라이드 |
-| &#x1F4BB; | pdf 슬라이드 |
-| &#x1F4D3; | 읽기 전용 주피터 노트북 웹 페이지 |
-| <span style="color: orange;">CO</span> | 구글 코랩(colab) 주피터 노트북 |
-
 ### 목차
+
+**링크 활용법**: &#x1F4F1;(터치 슬라이드), &#x1F4BB;(pdf 슬라이드), &#x1F4D3;(읽기 전용 노트북), 
+<span style="color: orange;">CO</span>(구글 코랩)
 
 1. 강의소개
     - 슬라이드 &nbsp; [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) [&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf)
