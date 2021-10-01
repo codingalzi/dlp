@@ -25,6 +25,10 @@
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb)
 1. ...
 
+### 연습문제
+
+1. [3장 케라스와 텐서플로우](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc03_introduction_to_keras_and_tf.ipynb)
+
 ###  딥러닝 지원  GPU 안내
 
 딥러닝 학습에 사용되는 GPU의 기능과 모델 성능을 비교하는 안내서입니다. 
