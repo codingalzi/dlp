@@ -13,7 +13,7 @@
 1. 강의소개 &nbsp; 
 [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) 
 [&#x1F4BB;](./slides/dlp01_what_is_deep_learning_slides.pdf)
-<br>
+<br/>
 1. 딥러닝의 수학적 구성요소 &nbsp; 
 [&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) 
 [&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf) 
