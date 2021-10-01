@@ -31,14 +31,13 @@
 
 머신러닝/딥러닝 학습에 도움을 주는 자료를 소개합니다.
 
-#### 딥러닝 설명 참고 동영상
-- [SVM with polynomial kernel visualization](https://www.youtube.com/watch?v=OdlNM96sHio&t=0s)
-- [수학자가 설명하는 심층 신경망](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
-- [Tom Goldstein: "What do neural loss surfaces look like?"](https://youtu.be/78vq6kgsTa8?t=237)
-
 #### 머신러닝/딥러닝 추천 강의동영상
 - 머신러닝: [Stanford CS229: Machine Learning (Autumn 2018)](https://www.youtube.com/watch?v=jGwO_UgTS7I&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU)
-- PyTorch와 딥러닝: [Deep Learning with PyTorch](https://atcold.github.io/pytorch-Deep-Learning/)
+- 딥러닝: [Yann LeCun’s Deep Learning Course at CDS](https://cds.nyu.edu/deep-learning/)
+
+#### 딥러닝 설명 참고 동영상
+- [수학자가 설명하는 심층 신경망](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+- [Tom Goldstein: "What do neural loss surfaces look like?"](https://youtu.be/78vq6kgsTa8?t=237)
 
 #### 경사하강법 옵티마이저 알고리즘 소개
 - [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/index.html)
