@@ -24,6 +24,8 @@
 [&#x1F4D3;](./notebooks/dlp03_introduction_to_keras_and_tf.html) 
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb)
 1. 신경망 활용: 분류와 회귀 &nbsp; 
+[&#x1F4F1;](./slides/dlp04_getting_started_with_neural_networks.slides.html) 
+[&#x1F4BB;](./slides/dlp04_getting_started_with_neural_networks_slides.pdf)
 [&#x1F4D3;](./notebooks/dlp04_getting_started_with_neural_networks.html) 
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp04_getting_started_with_neural_networks.ipynb)
 1. ...
