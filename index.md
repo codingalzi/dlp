@@ -52,6 +52,9 @@
 - [행렬 연산의 기하학적 이해(Gregory Gundersen)](http://gregorygundersen.com/blog/2018/10/24/matrices/)
 - [선형대수: 행렬 연산 시각화(3Blue1Brown))](https://www.3blue1brown.com/topics/linear-algebra)
 
+#### 텐서 연산 튜토리얼
+- [TensorFlow Core: 텐서 소개](https://www.tensorflow.org/guide/tensor)
+
 #### 경사하강법 옵티마이저 알고리즘 소개
 - [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/index.html)
 - [Tom Goldstein: "An empirical look at generalization in neural nets"](https://youtu.be/kcVWAKf7UAg?t=1304)
