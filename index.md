@@ -48,22 +48,28 @@
 - 머신러닝: [Stanford CS229: Machine Learning (Autumn 2018)](https://www.youtube.com/watch?v=jGwO_UgTS7I&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU)
 - 딥러닝: [Yann LeCun’s Deep Learning Course at CDS](https://cds.nyu.edu/deep-learning/)
 
-#### 딥러닝 설명 참고 동영상
-- [수학자가 설명하는 심층 신경망](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
-- [Tom Goldstein: "What do neural loss surfaces look like?"](https://youtu.be/78vq6kgsTa8?t=237)
+#### 아핀 변환의 기하학적 이해
+- [행렬 연산의 기하학적 이해(Gregory Gundersen)](http://gregorygundersen.com/blog/2018/10/24/matrices/)
+- [선형대수: 행렬 연산 시각화(3Blue1Brown))](https://www.3blue1brown.com/topics/linear-algebra)
 
 #### 경사하강법 옵티마이저 알고리즘 소개
 - [An overview of gradient descent optimization algorithms](https://ruder.io/optimizing-gradient-descent/index.html)
 - [Tom Goldstein: "An empirical look at generalization in neural nets"](https://youtu.be/kcVWAKf7UAg?t=1304)
+
+#### 비전문적 심층 신경망 설명
+- [수학자가 설명하는 심층 신경망(3Blue1Brown)](https://www.youtube.com/playlist?list=PLZHQObOWTQDNU6R1_67000Dx_ZCJB-3pi)
+- [Tom Goldstein: "What do neural loss surfaces look like?"](https://youtu.be/78vq6kgsTa8?t=237)
 
 #### 딥러닝 학습용 코드 모음집
 - [Keras Code Examples](https://keras.io/examples/)
 - [PapersWithCode datasets](https://www.paperswithcode.com/datasets)
 - [Sebastian Raschka's datasets](https://sebastianraschka.com/blog/2021/ml-dl-datasets.html)
 
-#### 강화학습 설명 참고 동영상
-- [알파고(이세돌) vs. 알파고 제로 비교 소개 동영상](https://www.youtube.com/watch?v=MgowR4pq3e8)
-- [강화학습 학습과정 예제: Multi-Agent Hide and Seek](https://www.youtube.com/watch?v=kopoLzvh5jY)
+#### 강화학습 참고 동영상
 
-#### 강화학습 강의 시리즈
-- [딥마인드: 강화학습 강의 시리즈 2021](https://deepmind.com/learning-resources/reinforcement-learning-series-2021)
+- 강의 시리즈
+    - [딥마인드: 강화학습 강의 시리즈 2021](https://deepmind.com/learning-resources/reinforcement-learning-series-2021)
+
+- 비전문적 설명
+    - [알파고(이세돌) vs. 알파고 제로 비교 소개 동영상](https://www.youtube.com/watch?v=MgowR4pq3e8)
+    - [강화학습 학습과정 예제: Multi-Agent Hide and Seek](https://www.youtube.com/watch?v=kopoLzvh5jY)
