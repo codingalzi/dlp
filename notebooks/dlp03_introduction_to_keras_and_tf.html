@@ -57,6 +57,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
+  </style>
 
 
 
@@ -15925,7 +15944,12 @@ Loss at step 90: 0.0249
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>예측 결과를 확인하면 다음과 같다.
-예측값이 0.5보다 클 때 양성으로 판정한다.</p>
+예측값이 0.5보다 클 때 양성으로 판정하는 것이 좋은데
+이유는 샘플들의 레이블이 0 또는 1이기 때문이다.
+모델은 훈련과정 중에 음성 샘플은 최대한 0에, 
+양성 샘플은 최대한 1에 가까운 값으로 예측하여 손실값이 줄도록 
+노력하며, 옵티마이저가 그렇게 유도한다.
+따라서 0과 1의 중간값인 0.5가 판단 기준으로 적절하다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
