@@ -32,7 +32,7 @@
 [&#x1F4F1;](./slides/dlp05_fundamentals_of_ml.slides.html) 
 [&#x1F4BB;](./slides/dlp05_fundamentals_of_ml_slides.pdf)
 [&#x1F4D3;](./notebooks/dlp05_fundamentals_of_ml.html) 
-[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/dlp05_fundamentals_of_ml.ipynb)
+[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp05_fundamentals_of_ml.ipynb)
 1. ...
 
 ### 연습문제
