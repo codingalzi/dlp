@@ -57,25 +57,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
-<style type="text/css">
-    
-
-<script>
-    MathJax.Hub.Config({
-        "HTML-CSS": {
-            /*preferredFont: "TeX",*/
-            /*availableFonts: ["TeX", "STIX"],*/
-            styles: {
-                scale: 100,
-                ".MathJax_Display": {
-                    "font-size": "100%",
-                }
-            }
-        }
-    });
-</script>
-    
-  </style>
 
 
 
@@ -14438,20 +14419,6 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>아래 오른쪽 그림이 과대적합 모델 표현</li>
-</ul>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/overfitting_with_uncertainty.png" style="width:660px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <h5 id="&#49483;&#51704;:-&#47588;&#50864;-&#46300;&#47928;-&#53945;&#49457;-&#46608;&#45716;-&#44144;&#51667;-&#49345;&#44288;&#44288;&#44228;">&#49483;&#51704;: &#47588;&#50864; &#46300;&#47928; &#53945;&#49457; &#46608;&#45716; &#44144;&#51667; &#49345;&#44288;&#44288;&#44228;<a class="anchor-link" href="#&#49483;&#51704;:-&#47588;&#50864;-&#46300;&#47928;-&#53945;&#49457;-&#46608;&#45716;-&#44144;&#51667;-&#49345;&#44288;&#44288;&#44228;">&#182;</a></h5>
 </div>
 </div>
@@ -15389,38 +15356,28 @@ Epoch 100/100
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#44160;&#51613;&#49483;&#51012;-&#44396;&#48516;&#54616;&#45716;-&#51060;&#50976;">&#44160;&#51613;&#49483;&#51012; &#44396;&#48516;&#54616;&#45716; &#51060;&#50976;<a class="anchor-link" href="#&#44160;&#51613;&#49483;&#51012;-&#44396;&#48516;&#54616;&#45716;-&#51060;&#50976;">&#182;</a></h3>
+<h3 id="&#47784;&#45944;-&#53916;&#45789;&#44284;-&#51221;&#48372;-&#50976;&#52636;">&#47784;&#45944; &#53916;&#45789;&#44284; &#51221;&#48372; &#50976;&#52636;<a class="anchor-link" href="#&#47784;&#45944;-&#53916;&#45789;&#44284;-&#51221;&#48372;-&#50976;&#52636;">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>훈련셋, 테스트셋 이외에 검증셋을 사용해야 하는 이유는 모델 구성에 검증셋에 대한 결과가 
-사용되기 때문이다. 
-먼저, 테스트셋은 모델 구성과 훈련에 전혀 관여하지 않아야 한다.
+<p>훈련셋, 테스트셋 이외에 검증셋을 사용해야 하는 이유는 
+무엇보다도 <strong>최적의 모델을 구성할 때 검증셋에 대한 결과가 반영되기 때문</strong>이다.</p>
+<p>테스트셋은 모델 구성과 훈련에 전혀 관여하지 않아야 한다.
 따라서 구성된 모델의 성능을 평가하려면 테스트셋을 제외한 다른 데이터셋이 필요하고
 이를 위해 훈련셋의 일부를 검증셋으로 활용한다.
-검증셋은 훈련 과정중에 일반화 성능을 테스트하는 용도로 사용되는 것이며
-이를 통해 모델 구성에 필요한 레이어 종류 및 개수, 레이어 별 유닛 개수 등의 
+검증셋은 훈련 과정 중에 일반화 성능을 테스트하는 용도로 사용되며
+이를 통해 레이어 종류 및 개수, 레이어 별 유닛 개수 등 모델 구성에 필요한
 <strong>하이퍼파라미터</strong>(hyperparameter)를 조정한다. 
 이것을 <strong>모델 튜닝</strong>(model tuning)이라 하며,
-모델 튜닝을 위해 검증셋이 사용되는 것이다.</p>
-<p><strong>참고</strong>: 하이퍼파라미터와 파라미터는 다르다. 
-파라미터(parameter)는 모델 훈련 중에 학습되는 가중치, 편향 등을 가리킨다.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#51221;&#48372;-&#50976;&#52636;">&#51221;&#48372; &#50976;&#52636;<a class="anchor-link" href="#&#51221;&#48372;-&#50976;&#52636;">&#182;</a></h3>
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+바로 이 모델 튜닝을 위해 검증셋이 사용되는 것이다.</p>
 <p>모델 튜닝도 모델의 좋은 하이퍼파라미터를 찾아가는 일종의 <strong>학습</strong>이다. 
 따라서 튜닝을 많이 하게되면 검증셋에 대한 과대적합이 발생한다.
 다시 말해, 검증셋에 특화된 튜닝을 하게 되어 모델의 일반화 성능이 떨어질 수 있게 된다. 
-이를 <strong>정보 유출 현상</strong>이라 부르는데,
+이런 현상을 <strong>정보 유출</strong>이라 부르는데,
 이유는 튜닝을 하면 할 수록 검증셋에 대한 보다 많은 정보가 모델로 흘려들어가기 때문이다.</p>
+<p><strong>참고</strong>: 하이퍼파라미터와 파라미터는 다르다. 
+파라미터(parameter)는 모델 훈련 중에 학습되는 가중치, 편향 등을 가리킨다.</p>
 
 </div>
 </div>
@@ -15451,7 +15408,35 @@ Epoch 100/100
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/holdout_validation.png" style="width:500px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/holdout_validation.png" style="width:400px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>홀드아웃 검증의 전형적인 패턴은 다음과 같다.</p>
+<hr>
+<div class="highlight"><pre><span></span><span class="n">num_validation_samples</span> <span class="o">=</span> <span class="mi">10000</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">validation_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[:</span><span class="n">num_validation_samples</span><span class="p">]</span>
+<span class="n">training_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">num_validation_samples</span><span class="p">:]</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="n">validation_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">validation_data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="o">...</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">training_data</span><span class="p">,</span>
+                          <span class="n">validation_data</span><span class="p">]),</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="n">test_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+<hr>
 
 </div>
 </div>
@@ -15469,6 +15454,41 @@ Epoch 100/100
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/v-7/Figures/k_fold_validation.png" style="width:650px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>K-겹 교차검증의 전형적인 패턴은 다음과 같다.</p>
+<hr>
+<div class="highlight"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">num_validation_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">//</span> <span class="n">k</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+
+<span class="n">validation_scores</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">fold</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+    <span class="n">validation_data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="n">num_validation_samples</span> <span class="o">*</span> <span class="n">fold</span><span class="p">:</span>
+                           <span class="n">num_validation_samples</span> <span class="o">*</span> <span class="p">(</span><span class="n">fold</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>
+    <span class="n">training_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span>
+        <span class="n">data</span><span class="p">[:</span><span class="n">num_validation_samples</span> <span class="o">*</span> <span class="n">fold</span><span class="p">],</span>
+        <span class="n">data</span><span class="p">[</span><span class="n">num_validation_samples</span> <span class="o">*</span> <span class="p">(</span><span class="n">fold</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):])</span>
+
+    <span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">training_data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+    <span class="n">validation_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">validation_data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+    <span class="n">validation_scores</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">validation_score</span><span class="p">)</span>
+
+<span class="n">validation_score</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">validation_scores</span><span class="p">)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">get_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+
+<span class="n">test_score</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+</pre></div>
+<hr>
 
 </div>
 </div>
@@ -15530,7 +15550,7 @@ K-겹 교차 검증을 P번 반복하면 총 <code>P * K</code> 개의 모델을
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="5.3-Improving-model-fit">5.3 Improving model fit<a class="anchor-link" href="#5.3-Improving-model-fit">&#182;</a></h2>
+<h2 id="5.3-&#47784;&#45944;-&#54984;&#47144;-&#44060;&#49440;&#54616;&#44592;">5.3 &#47784;&#45944; &#54984;&#47144; &#44060;&#49440;&#54616;&#44592;<a class="anchor-link" href="#5.3-&#47784;&#45944;-&#54984;&#47144;-&#44060;&#49440;&#54616;&#44592;">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -15865,12 +15885,12 @@ K-겹 교차 검증을 P번 반복하면 총 <code>P * K</code> 개의 모델을
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">regularizers</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">keras</span> <span class="kn">import</span> <span class="n">regularizers</span>
 <span class="n">regularizers</span><span class="o">.</span><span class="n">l1</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>
-<span class="n">regularizers</span><span class="o">.</span><span class="n">l1_l2</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
+<span class="n">regularizers</span><span class="o">.</span><span class="n">l1_l2</span><span class="p">(</span><span class="n">l1</span><span class="o">=</span><span class="mf">0.001</span><span class="p">,</span> <span class="n">l2</span><span class="o">=</span><span class="mf">0.001</span><span class="p">)</span>
 </pre></div>
 
      </div>
