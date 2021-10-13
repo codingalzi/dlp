@@ -28,9 +28,7 @@
 [&#x1F4BB;](./slides/dlp04_getting_started_with_neural_networks_slides.pdf)
 [&#x1F4D3;](./notebooks/dlp04_getting_started_with_neural_networks.html) 
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp04_getting_started_with_neural_networks.ipynb)
-1. 머신러닝의 핵심 이슈: 일반화 (준비중) &nbsp; 
-[&#x1F4F1;](./slides/dlp05_fundamentals_of_ml.slides.html) 
-[&#x1F4BB;](./slides/dlp05_fundamentals_of_ml_slides.pdf)
+1. 머신러닝의 핵심 이슈: 최적화 대 일반화 &nbsp; 
 [&#x1F4D3;](./notebooks/dlp05_fundamentals_of_ml.html) 
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp05_fundamentals_of_ml.ipynb)
 1. ...
