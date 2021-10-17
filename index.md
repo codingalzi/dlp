@@ -31,10 +31,10 @@
 1. 머신러닝의 핵심 이슈: 최적화 대 일반화 &nbsp; 
 [&#x1F4D3;](./notebooks/dlp05_fundamentals_of_ml.html) 
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp05_fundamentals_of_ml.ipynb)
-1. 머신러닝 작업 흐름 일반 &nbsp;
+1. 머신러닝 작업 흐름 일반
+1. 케라스 모델 활용법 &nbsp;
 [&#x1F4D3;](./notebooks/dlp07_working_with_keras.html) 
 [<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp07_working_with_keras.ipynb)
-1. 케라스 모델 활용법
 1. ...
 
 ### 연습문제
