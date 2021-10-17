@@ -8,7 +8,7 @@
 ### 목차
 
 **링크 활용법**: &#x1F4F1;(터치 슬라이드), &#x1F4BB;(pdf 슬라이드), &#x1F4D3;(읽기 전용 노트북), 
-<span style="color: orange;">CO</span>(구글 코랩)
+&#x1F4D9;(구글 코랩)
 
 1. 강의소개 &nbsp; 
 [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) 
@@ -17,24 +17,24 @@
 [&#x1F4F1;](./slides/dlp02_mathematical_building_blocks.slides.html) 
 [&#x1F4BB;](./slides/dlp02_mathematical_building_blocks_slides.pdf) 
 [&#x1F4D3;](./notebooks/dlp02_mathematical_building_blocks.html) 
-[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp02_mathematical_building_blocks.ipynb)
+[&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp02_mathematical_building_blocks.ipynb)
 1. 케라스와 텐서플로우 &nbsp; 
 [&#x1F4F1;](./slides/dlp03_introduction_to_keras_and_tf.slides.html) 
 [&#x1F4BB;](./slides/dlp03_introduction_to_keras_and_tf_slides.pdf)
 [&#x1F4D3;](./notebooks/dlp03_introduction_to_keras_and_tf.html) 
-[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb)
+[&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp03_introduction_to_keras_and_tf.ipynb)
 1. 신경망 활용: 분류와 회귀 &nbsp; 
 [&#x1F4F1;](./slides/dlp04_getting_started_with_neural_networks.slides.html) 
 [&#x1F4BB;](./slides/dlp04_getting_started_with_neural_networks_slides.pdf)
 [&#x1F4D3;](./notebooks/dlp04_getting_started_with_neural_networks.html) 
-[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp04_getting_started_with_neural_networks.ipynb)
+[&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp04_getting_started_with_neural_networks.ipynb)
 1. 머신러닝의 핵심 이슈: 최적화 대 일반화 &nbsp; 
 [&#x1F4D3;](./notebooks/dlp05_fundamentals_of_ml.html) 
-[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp05_fundamentals_of_ml.ipynb)
+[&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp05_fundamentals_of_ml.ipynb)
 1. 머신러닝 작업 흐름 일반
 1. 케라스 모델 활용법 &nbsp;
 [&#x1F4D3;](./notebooks/dlp07_working_with_keras.html) 
-[<span style="color: orange;">CO</span>](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp07_working_with_keras.ipynb)
+[&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp07_working_with_keras.ipynb)
 1. ...
 
 ### 연습문제
