@@ -2,6 +2,7 @@
 *.bak.*
 *.ckpt
 *.old
+*.png
 *.pyc
 .DS_Store
 .ipynb_checkpoints
@@ -27,10 +28,12 @@ datasets/jsb_chorales
 **/.ckpt
 **/.old
 **/.pyc
+**/.png
 **/.DS_Store
 **/.ipynb_checkpoints
 **/.vscode/
 notebooks/checkpoint
+notebooks/*.keras
 notebooks/logs/*
 notebooks/tf_logs/*
 notebooks/images/**/*.png
@@ -39,6 +42,7 @@ notebooks/my_*
 notebooks/person.proto
 notebooks/person.desc
 notebooks/person_pb2.py
+notebooks/*.png
 notebooks/datasets/flowers
 notebooks/datasets/lifesat/lifesat.csv
 notebooks/datasets/spam
