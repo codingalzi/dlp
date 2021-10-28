@@ -50,3 +50,7 @@ notebooks/datasets/titanic
 notebooks/datasets/words
 notebooks/datasets/jsb_chorales
 
+notebooks/tensorboard_log_dir
+notebooks/tensorboard_log_dir/*
+
+
