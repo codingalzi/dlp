@@ -35,7 +35,7 @@
 1. 케라스 모델 활용법 &nbsp;
 [&#x1F4D3;](./notebooks/dlp07_working_with_keras.html) 
 [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp07_working_with_keras.ipynb)
-1. 컴퓨터 비전 &nbsp;
+1. 합성곱 신경망: 컴퓨터 비전 &nbsp;
 [&#x1F4D3;](./notebooks/dlp08_intro_to_dl_for_computer_vision.html) 
 [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp08_intro_to_dl_for_computer_vision.ipynb)
 1. ...
