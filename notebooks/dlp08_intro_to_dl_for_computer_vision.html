@@ -14603,8 +14603,8 @@ labels batch shape: (32,)
 <div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>모델 평가</strong></p>
 <ul>
-<li>훈련된 최고 성능의 모델에 대한 테스트 결과는 70% 정도이다.</li>
-<li>과대적합이 매우 빠르게 발생한 이유는 훈련셋의 크기가 2,000 정도로 너무 작음.</li>
+<li>훈련된 최고 성능의 모델에 대한 테스트 결과는 69~70% 정도이다.</li>
+<li>과대적합이 매우 빠르게 발생한 이유는 훈련셋의 크기가 2,000 정도로 너무 작다.</li>
 </ul>
 
 </div>
@@ -14819,7 +14819,7 @@ labels batch shape: (32,)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>테스트셋에 대한 성능은 84% 정도로 올라갔다.</p>
+<p>테스트셋에 대한 성능은 83% 정도로 올라갔다.</p>
 
 </div>
 </div>
@@ -14843,6 +14843,15 @@ labels batch shape: (32,)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<p><code>Conv2D</code>와 <code>MaxPooling2D</code> 층을 더 쌓거나 층에 사용된 필터수를 늘리는 방식으로
+모델의 성능을 90% 정도까지 끌어올릴 수는 있지만 그 이상은 어려울 것이다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><strong>참고</strong></p>
 <p><code>convnet_from_scratch_with_augmentation.keras</code> 모델을 
 나중에 재활용하고자 한다. 이를 위해 구글 코랩을 사용하는 경우 모델을 저장해 두어야 한다.</p>
@@ -14853,7 +14862,7 @@ labels batch shape: (32,)
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Leveraging-a-pretrained-model">Leveraging a pretrained model<a class="anchor-link" href="#Leveraging-a-pretrained-model">&#182;</a></h2>
+<h2 id="8.3-&#44592;&#51316;&#50640;-&#51096;-&#54984;&#47144;&#46108;-&#47784;&#45944;-&#51116;&#54876;&#50857;">8.3 &#44592;&#51316;&#50640; &#51096; &#54984;&#47144;&#46108; &#47784;&#45944; &#51116;&#54876;&#50857;<a class="anchor-link" href="#8.3-&#44592;&#51316;&#50640;-&#51096;-&#54984;&#47144;&#46108;-&#47784;&#45944;-&#51116;&#54876;&#50857;">&#182;</a></h2>
 </div>
 </div>
 </div>
