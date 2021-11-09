@@ -14761,6 +14761,17 @@ Test accuracy: 0.992
 다음 맥스 풀링 층의 출력값은 <code>(13, 13, 32)</code> 모양의 3D 텐서가 된다.</p>
 <div class="highlight"><pre><span></span><span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="n">pool_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 </pre></div>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://media.geeksforgeeks.org/wp-content/uploads/20190721025744/Screenshot-2019-07-21-at-2.57.13-AM.png" style="width:500px;"></div><p>그림 출처: <a href="https://www.geeksforgeeks.org/cnn-introduction-to-pooling-layer/">GeeksforGeeks: Introduction to Pooling Layer</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>맥스 풀링 층을 합성곱 층(<code>Conv2D</code>)와 함께 사용하는 이유는 두 가지이다.</p>
 <ul>
 <li>학습해야할 가중치 파라미터의 수 줄이기</li>
@@ -14866,6 +14877,17 @@ _________________________________________________________________
 </ul>
 <p>다른 설정 또는 최댓값 대신에 평균값을 사용하는 <code>AveragePooling2D</code>를 
 활용할 수 있으나 케라스의 기본 설정이 가장 좋은 성능을 보인다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#54633;&#49457;&#44273;-&#49888;&#44221;&#47581;&#51032;-&#51204;&#54805;&#51201;&#51064;-&#47784;&#49845;">&#54633;&#49457;&#44273; &#49888;&#44221;&#47581;&#51032; &#51204;&#54805;&#51201;&#51064; &#47784;&#49845;<a class="anchor-link" href="#&#54633;&#49457;&#44273;-&#49888;&#44221;&#47581;&#51032;-&#51204;&#54805;&#51201;&#51064;-&#47784;&#49845;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="http://formal.hknu.ac.kr/handson-ml2/slides/images/ch14/homl14-03.png" style="width:700px;"></div><p>그림 출처: <a href="https://www.hanbit.co.kr/store/books/look.php?p_code=B7033438574">핸즈온 머신러닝(2판)</a></p>
 
 </div>
 </div>
@@ -15033,7 +15055,7 @@ _________________________________________________________________
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li>다운로드 2단계</li>
+<li>다운로드 2단계: kaggle.json 파일이 현재 워킹 디렉토리에 있다고 가정한 상태에서 아래 명령문 실행.</li>
 </ul>
 
 </div>
@@ -15043,12 +15065,9 @@ _________________________________________________________________
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
-    <span class="o">!</span>mkdir ~/.kaggle
-    <span class="o">!</span>cp kaggle.json ~/.kaggle/
-    <span class="o">!</span>chmod <span class="m">600</span> ~/.kaggle/kaggle.json
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;구글 코랩 환경 아님!&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>mkdir ~/.kaggle
+<span class="o">!</span>cp kaggle.json ~/.kaggle/
+<span class="o">!</span>chmod <span class="m">600</span> ~/.kaggle/kaggle.json
 </pre></div>
 
      </div>
@@ -16433,17 +16452,38 @@ Test accuracy: 0.841
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="8.3-&#44592;&#51316;&#50640;-&#51096;-&#54984;&#47144;&#46108;-&#47784;&#45944;-&#51116;&#54876;&#50857;">8.3 &#44592;&#51316;&#50640; &#51096; &#54984;&#47144;&#46108; &#47784;&#45944; &#51116;&#54876;&#50857;<a class="anchor-link" href="#8.3-&#44592;&#51316;&#50640;-&#51096;-&#54984;&#47144;&#46108;-&#47784;&#45944;-&#51116;&#54876;&#50857;">&#182;</a></h2>
+<h2 id="8.3-&#44592;&#51316;-&#47784;&#45944;-&#51116;&#54876;&#50857;">8.3 &#44592;&#51316; &#47784;&#45944; &#51116;&#54876;&#50857;<a class="anchor-link" href="#8.3-&#44592;&#51316;-&#47784;&#45944;-&#51116;&#54876;&#50857;">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Feature-extraction-with-a-pretrained-model">Feature extraction with a pretrained model<a class="anchor-link" href="#Feature-extraction-with-a-pretrained-model">&#182;</a></h3>
+<p>기존에 잘 훈련된 모델을 재활용하는 두 가지 방식을 소개한다.</p>
+<ul>
+<li>특성추출(feature extraction)</li>
+<li>모델 미세조정(fine-tuning)</li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Instantiating the VGG16 convolutional base</strong></p>
+<h3 id="&#51116;&#54876;&#50857;-&#48169;&#49885;-1:-&#53945;&#49457;-&#52628;&#52636;">&#51116;&#54876;&#50857; &#48169;&#49885; 1: &#53945;&#49457; &#52628;&#52636;<a class="anchor-link" href="#&#51116;&#54876;&#50857;-&#48169;&#49885;-1:-&#53945;&#49457;-&#52628;&#52636;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-12.png" style="width:700px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>VGG16 합성곱 베이스 가져오기<ul>
+<li>입력 크기 지정</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16569,12 +16609,15 @@ _________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Fast-feature-extraction-without-data-augmentation">Fast feature extraction without data augmentation<a class="anchor-link" href="#Fast-feature-extraction-without-data-augmentation">&#182;</a></h4>
+<p><strong>1) 데이터 증식 없는 재활용</strong></p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Extracting the VGG16 features and corresponding labels</strong></p>
+<ul>
+<li>VGG16 베이스를 활용한 특성 추출과 레이블 생성</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -16645,7 +16688,9 @@ _________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Defining and training the densely connected classifier</strong></p>
+<ul>
+<li>분류 모델 생성 및 훈련</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16745,7 +16790,9 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Plotting the results</strong></p>
+<ul>
+<li>결과 시각화</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16821,12 +16868,19 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Feature-extraction-together-with-data-augmentation">Feature extraction together with data augmentation<a class="anchor-link" href="#Feature-extraction-together-with-data-augmentation">&#182;</a></h4>
+<p><strong>2) 데이터 증식 포함 재활용</strong></p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Instantiating and freeze the VGG16 convolutional base</strong></p>
+<ul>
+<li>VGG16 합성곱 베이스 가져오기<ul>
+<li>입력 크기 미지정</li>
+<li><code>trainable=False</code>로 지정. 훈련에 영향을 받지 않도록 설정.</li>
+</ul>
+</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -16849,7 +16903,7 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Printing the list of trainable weights before and after freezing</strong></p>
+<p><code>trainable=True</code>인 경우: 기존 모델도 함께 학습됨.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16889,6 +16943,12 @@ Epoch 20/20
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><code>trainable=False</code>인 경우: 기존 모델은 학습하지 않음.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -16929,7 +16989,9 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Adding data augmentation and a densely-connected classifier to the frozen convolutional base</strong></p>
+<ul>
+<li>데이터 증식 층 포함하여 모델 재구성 및 훈련</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -17112,7 +17174,9 @@ Epoch 50/50
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Evaluating the model on the test set</strong></p>
+<ul>
+<li>모델 성능 평가</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -17157,7 +17221,13 @@ Test accuracy: 0.975
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Fine-tuning-a-pretrained-model">Fine-tuning a pretrained model<a class="anchor-link" href="#Fine-tuning-a-pretrained-model">&#182;</a></h3>
+<h3 id="&#51116;&#54876;&#50857;-&#48169;&#49885;-2:-&#47784;&#45944;-&#48120;&#49464;-&#51312;&#51221;">&#51116;&#54876;&#50857; &#48169;&#49885; 2: &#47784;&#45944; &#48120;&#49464; &#51312;&#51221;<a class="anchor-link" href="#&#51116;&#54876;&#50857;-&#48169;&#49885;-2:-&#47784;&#45944;-&#48120;&#49464;-&#51312;&#51221;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/08-15.png" style="width:200px;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -17242,7 +17312,9 @@ _________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Freezing all layers until the 4th from the last</strong></p>
+<ul>
+<li>마지막 4개 층을 제외한 나머지 층의 학습 방지</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -17264,7 +17336,9 @@ _________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Fine-tuning the model</strong></p>
+<ul>
+<li>마지막 4개층 파라미터 미세조정 훈련</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -17413,11 +17487,6 @@ Test accuracy: 0.976
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="Chapter-summary">Chapter summary<a class="anchor-link" href="#Chapter-summary">&#182;</a></h2>
-</div>
 </div>
 </body>
 
