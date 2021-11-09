@@ -16452,12 +16452,18 @@ Test accuracy: 0.841
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="8.3-&#44592;&#51316;-&#47784;&#45944;-&#51116;&#54876;&#50857;">8.3 &#44592;&#51316; &#47784;&#45944; &#51116;&#54876;&#50857;<a class="anchor-link" href="#8.3-&#44592;&#51316;-&#47784;&#45944;-&#51116;&#54876;&#50857;">&#182;</a></h2>
+<h2 id="8.3-&#47784;&#45944;-&#51116;&#54876;&#50857;">8.3 &#47784;&#45944; &#51116;&#54876;&#50857;<a class="anchor-link" href="#8.3-&#47784;&#45944;-&#51116;&#54876;&#50857;">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>기존에 잘 훈련된 모델을 재활용하는 두 가지 방식을 소개한다.</p>
+<p>적은 양의 데이터셋을 대상으로 훈련하는 것보다 대용량의 데이터셋을 이용하여 훈련하면
+보다 좋은 성능의 모델을 구현할 수 있다.
+하지만 대용량의 데이터를 구하기는 매우 어렵다.
+대신 대용량의 훈련 데이터셋을 이용하여 기존에 훈련된 모델을 재활용할 수 있으며
+이를 통해 모델의 성능을 향상시킬 수 있다.
+여기서는 기존에 잘 훈련된 모델 VGG16을 재활용하여 강아지와 고양이 사진을 잘 분류하는
+모델을 구현하는 두 가지 방식을 소개한다.</p>
 <ul>
 <li>특성추출(feature extraction)</li>
 <li>모델 미세조정(fine-tuning)</li>
@@ -16467,7 +16473,22 @@ Test accuracy: 0.841
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="&#51116;&#54876;&#50857;-&#48169;&#49885;-1:-&#53945;&#49457;-&#52628;&#52636;">&#51116;&#54876;&#50857; &#48169;&#49885; 1: &#53945;&#49457; &#52628;&#52636;<a class="anchor-link" href="#&#51116;&#54876;&#50857;-&#48169;&#49885;-1:-&#53945;&#49457;-&#52628;&#52636;">&#182;</a></h3>
+<p><strong>모델 재활용 기본 아이디어</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>기존에 잘 훈련된 모델은 새롭게 구현하고자 하는 모델과 다른 목적으로 구현되었다.
+하지만 예를 들어 강아지와 고양이를 포함한 동물 및 기타 여러 사물을 대상으로 다중클래스 분류를 목적으로 훈련된
+모델은 기본적으로 강아지와 고양이를 분류하는 능력을 갖고 있어야 한다.</p>
+<p>반면에 이항 분류 모델과 다중클래스 분류 모델은 기본적으로 출력층에서 서로 다른 값을 출력한다.
+고양이와 강아지를 포함해서 총 1000개의 사물 클래스로 이미지를 분류하는 모델의 출력층은 
+1000개의 유닛과 softmax 활성화 함수를 사용하고, 
+고양이-강아지 분류 모델은 1개의 유닛과 sigmoid 활성화 함수를 사용한다.
+따라서 기존 모델의 출력층을 포함하여 분류값을 직접적으로 예측하는 마지막 몇 개의 층을 제외시키고
+나머지 층만을 가져와서 그 위에 원하는 목적에 맞는 층을 새롭게 구성한다(아래 그림 참조).</p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -16478,11 +16499,60 @@ Test accuracy: 0.841
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>이미지넷(ImagNet) 소개</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><a href="https://www.image-net.org/index.php">이미지넷(Imagenet)</a>은
+대용량의 이미지 데이터셋이며, 
+<a href="https://www.image-net.org/challenges/LSVRC/#:~:text=The%20ImageNet%20Large%20Scale%20Visual,image%20classification%20at%20large%20scale.">ILSVRC</a> 라는 이미지 분류 경진대회에 사용된다.
+이미지넷의 전체 데이터셋은 총 2만2천 개 정도의 클래스로 구분되는 동물, 사물 등의 객체를 담은
+고화질 사진 1500만장 정도로 구성된다.
+2015년까지 진행된 ILSVRC 경진대회는 보통 1000 개의 클래스로 구분되는 데이터셋을 이용한다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://cs.stanford.edu/people/karpathy/cnnembed/cnn_embed_full_1k.jpg" style="width:700px;"></div><p>그림 출처: <a href="https://cs.stanford.edu/people/karpathy/cnnembed/">https://cs.stanford.edu/people/karpathy/cnnembed/</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>VGG16 모델</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>VGG16 모델은 2014년도 경진대회에 참여해서 5등 안에 든 모델이다.
+당시 훈련에 사용된 데이터셋은 1400만 장의 이미지와 1000개의 클래스로 구성되었으며
+훈련은 여러 주에 걸쳐서 진행되었다. 
+모델 구성은 <code>Conv2D</code>와 <code>MaxPooling2D</code>의 조합으로 이루어졌다(아래 그림 참조).</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://neurohive.io/wp-content/uploads/2018/11/vgg16-1-e1542731207177.png" style="width:700px;"></div><p>그림 출처: <a href="https://neurohive.io/en/popular-networks/vgg16/">https://neurohive.io/en/popular-networks/vgg16/</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#51116;&#54876;&#50857;-&#48169;&#49885;-1:-&#53945;&#49457;-&#52628;&#52636;">&#51116;&#54876;&#50857; &#48169;&#49885; 1: &#53945;&#49457; &#52628;&#52636;<a class="anchor-link" href="#&#51116;&#54876;&#50857;-&#48169;&#49885;-1:-&#53945;&#49457;-&#52628;&#52636;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>VGG16 합성곱 모델에서 밀집층(dense 층)을 제외한 나머지 합성곱 층으로만 이루어진 모델을 가져온다.</p>
 <ul>
-<li>VGG16 합성곱 베이스 가져오기<ul>
-<li>입력 크기 지정</li>
-</ul>
-</li>
+<li><code>weights="imagenet"</code>: Imagenet 데이터셋으로 훈련된 모델</li>
+<li><code>include_top=False</code>: 출력값을 결정하는 밀집 층 제외</li>
+<li><code>input_shape=(180, 180, 3)</code>: 앞서 준비내 놓은 데이터셋 활용 가능하게 만들기</li>
 </ul>
 
 </div>
@@ -16526,6 +16596,12 @@ Test accuracy: 0.841
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>가져온 모델을 요약하면 다음과 같다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -16609,21 +16685,30 @@ _________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>1) 데이터 증식 없는 재활용</strong></p>
+<p><strong>특성 추출</strong>(feature extraction)은 재활용할 모델을 적용하여
+입력 데이터를 변환하여 새로운 데이터셋을 얻는 과정을 의미한다.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>VGG16 베이스를 활용한 특성 추출과 레이블 생성</li>
-</ul>
+<p><strong>1) 데이터 증식 없는 특성 추출</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>함수 <code>get_features_and_labels()</code>는 이전에 준비해 놓은
+강아지-고양이 훈련 데이터셋(<code>train_dataset</code>)에
+VGG16 베이스 모델을 적용하여 
+변환된 데이터셋을 생성한다. 
+단, 레이블은 그대로 재활용한다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -16631,11 +16716,15 @@ _________________________________________________________________
 <span class="k">def</span> <span class="nf">get_features_and_labels</span><span class="p">(</span><span class="n">dataset</span><span class="p">):</span>
     <span class="n">all_features</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="n">all_labels</span> <span class="o">=</span> <span class="p">[]</span>
+    
+    <span class="c1"># 배치 단위로 VGG16 모델 적용</span>
     <span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="ow">in</span> <span class="n">dataset</span><span class="p">:</span>
         <span class="n">preprocessed_images</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">vgg16</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
         <span class="n">features</span> <span class="o">=</span> <span class="n">conv_base</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">preprocessed_images</span><span class="p">)</span>
         <span class="n">all_features</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">features</span><span class="p">)</span>
         <span class="n">all_labels</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">labels</span><span class="p">)</span>
+        
+    <span class="c1"># 생성된 배치를 하나의 텐서로 묶어서 반환</span>
     <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_features</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_labels</span><span class="p">)</span>
 
 <span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span> <span class="o">=</span>  <span class="n">get_features_and_labels</span><span class="p">(</span><span class="n">train_dataset</span><span class="p">)</span>
@@ -16648,6 +16737,12 @@ _________________________________________________________________
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>변환된 데이터는 이제 <code>(5, 5, 512)</code> 모양을 갖는다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -16688,9 +16783,40 @@ _________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>분류 모델 생성 및 훈련</li>
-</ul>
+<p>변환된 데이터셋을 훈련 데이터셋으로 사용하는 
+간단한 분류 모델을 구성하여 훈련만 하면 된다.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 입력층</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
+
+<span class="c1"># 은닉층</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">inputs</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 출력층</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 모델</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>검증셋에 대한 정확도가 97% 정도까지 향상된다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16699,13 +16825,7 @@ _________________________________________________________________
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[34]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">512</span><span class="p">))</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
-<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
 
@@ -16715,6 +16835,7 @@ _________________________________________________________________
       <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
       <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">)</span>
 <span class="p">]</span>
+
 <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
     <span class="n">train_features</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span>
     <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span>
@@ -16790,9 +16911,7 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>결과 시각화</li>
-</ul>
+<p>훈련 결과를 시각화하면 다음과 같다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16874,13 +16993,14 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>데이터 증식 기법을 활용하려면 
+VGG16 합성곱 베이스를 구성요소로 사용하는 모델을 직접 정의해야 한다. 
+이전 방식과는 달리 가져온 VGG16 베이스 새로운
+모델의 훈련 과정동안 함께 훈련되지 않도록 설정을 해야 한다.</p>
 <ul>
-<li>VGG16 합성곱 베이스 가져오기<ul>
-<li>입력 크기 미지정</li>
 <li><code>trainable=False</code>로 지정. 훈련에 영향을 받지 않도록 설정.</li>
 </ul>
-</li>
-</ul>
+<p>또한 입력 데이터의 모양도 미리 지정하지 않는다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -16892,6 +17012,8 @@ Epoch 20/20
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">conv_base</span>  <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">vgg16</span><span class="o">.</span><span class="n">VGG16</span><span class="p">(</span>
     <span class="n">weights</span><span class="o">=</span><span class="s2">&quot;imagenet&quot;</span><span class="p">,</span>
     <span class="n">include_top</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># 새로운 학습 금지 설정</span>
 <span class="n">conv_base</span><span class="o">.</span><span class="n">trainable</span> <span class="o">=</span> <span class="kc">False</span>
 </pre></div>
 
@@ -16903,7 +17025,8 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><code>trainable=True</code>인 경우: 기존 모델도 함께 학습됨.</p>
+<p><code>trainable=True</code>로 설정하는 경우와 그렇지 않은 경우 학습되어야 하는
+파라미터의 수가 달라짐을 다음처럼 확인할 수 있다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16946,7 +17069,7 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><code>trainable=False</code>인 경우: 기존 모델은 학습하지 않음.</p>
+<p><code>trainable=False</code>인 경우에 학습되는 파라미터 수가 0이 된다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -16989,9 +17112,7 @@ Epoch 20/20
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>데이터 증식 층 포함하여 모델 재구성 및 훈련</li>
-</ul>
+<p>아래 모델은 데이터 증식을 위한 층과 VGG16 베이스를 함께 이용한다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -17008,15 +17129,21 @@ Epoch 20/20
     <span class="p">]</span>
 <span class="p">)</span>
 
+<span class="c1"># 모델 구성</span>
 <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">data_augmentation</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">vgg16</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">data_augmentation</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>                      <span class="c1"># 데이터 증식</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">vgg16</span><span class="o">.</span><span class="n">preprocess_input</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>   <span class="c1"># VGG16 베이스</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">conv_base</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Flatten</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">256</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
-<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># 출력층</span>
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+
+<span class="c1"># 모델 컴파일</span>
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
@@ -17027,6 +17154,12 @@ Epoch 20/20
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>모델의 성능이 살짝 향상된다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -17171,14 +17304,6 @@ Epoch 50/50
 
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<ul>
-<li>모델 성능 평가</li>
-</ul>
-
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
