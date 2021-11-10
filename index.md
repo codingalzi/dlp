@@ -43,6 +43,7 @@
 ### 연습문제
 
 1. [3장: 텐서플로우 기본 API 활용](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc03_introduction_to_keras_and_tf.ipynb)
+1. [8장: 합성곱 신경망 - 컴퓨터 비전](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc08_intro_to_dl_for_computer_vision.ipynb)
 
 ###  딥러닝 지원  GPU 안내
 
