@@ -1,5 +1,5 @@
 [&lt;Deep Learning with Python(2판)&gt;의 소스코드](https://github.com/fchollet/deep-learning-with-python-notebooks)를 
-담은 주피터 노트북을 바탕으로 딥러닝의 기초를 소개합니다.
+담은 주피터 노트북을 바탕으로 딥러닝의 기초를 소개합니다. 
 
 ### 감사의 글
 
