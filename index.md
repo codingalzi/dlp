@@ -42,7 +42,7 @@
     - 1부: 이미지 분할 &nbsp;
     [&#x1F4D3;](./notebooks/dlp09_part01_image_segmentation.html) 
     [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp09_part01_image_segmentation.ipynb)
-    - 2부: 주요 합성곱 신경망 아키텍처
+    - 2부: 주요 합성곱 신경망 아키텍처(준비중)
     - 3부: 합성곱 신경망 학습과정 이해
 1. ...
 
