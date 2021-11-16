@@ -14311,14 +14311,14 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="9.3.1-&#47784;&#46280;,-&#44228;&#52789;,-&#51116;&#54876;&#50857;">9.3.1 &#47784;&#46280;, &#44228;&#52789;, &#51116;&#54876;&#50857;<a class="anchor-link" href="#9.3.1-&#47784;&#46280;,-&#44228;&#52789;,-&#51116;&#54876;&#50857;">&#182;</a></h3>
+<h3 id="9.3.1-&#48660;&#47197;,-&#44228;&#52789;,-&#51116;&#54876;&#50857;">9.3.1 &#48660;&#47197;, &#44228;&#52789;, &#51116;&#54876;&#50857;<a class="anchor-link" href="#9.3.1-&#48660;&#47197;,-&#44228;&#52789;,-&#51116;&#54876;&#50857;">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>모든 유명한 합성곱 신경망 모델은 <strong>모듈(블록)</strong>을 <strong>계층</strong>적으로 쌓아 올린 구조를 갖는다.
-여기서 모듈(블록)은 여러 개의 층(레이어)으로 구성되며, 하나의 모듈(블록)이 여러 번 <strong>재활용</strong>되기도 한다. 
-예를 들어, 8장에서 다룬 VGG16 모델은 "Conv2D, Conv2D, MaxPooling2D" 로 구성된 모듈(블록)을 
+<p>모든 유명한 합성곱 신경망 모델은 <strong>블록(모듈)</strong>을 <strong>계층</strong>적으로 쌓아 올린 구조를 갖는다.
+여기서 블록(모듈)은 여러 개의 층(레이어)으로 구성되며, 하나의 블록(모듈)이 여러 번 <strong>재활용</strong>되기도 한다. 
+예를 들어, 8장에서 다룬 VGG16 모델은 "Conv2D, Conv2D, MaxPooling2D" 로 구성된 블록(모듈)을 
 계층적으로 구성하였다.</p>
 <p>대부분의 합성곱 신경망 모델의 또다른 특징는 <strong>특성 피라미드</strong> 형식의 계층적 구조를 사용하는 점이다.
 VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면에 특성맵(feature maps)의 
@@ -14340,12 +14340,13 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>일반적으로 많은 유닛을 사용하는 넓은 층을 몇 게 쌓는 것보다
-적은 유닛을 사용하는 층을 많이 쌓을 때 모델의 성능이 좋아진다. 
-하지만 층을 많이 쌓을 수록 
-전달되어야 하는 그레이디언트가 사라지는 문제(vanishing gradient problem)가 
+<p>일반적으로 많은 유닛이 포함된 층을 몇 게 쌓는 것보다
+적은 유닛이 포함된 층을 높이 쌓을 때 모델의 성능이 좋아진다. 
+하지만 층을 높이 쌓을 수록
+전달되어야 하는 손실값(오차)의 <strong>그레이디언트 소실 문제</strong>(vanishing gradient problem)가 
 발생하여 이를 극복해야 하는 아키텍처(설계방식)을 사용해야 한다.
 이를 위한 대표적인 아키텍처는 <strong>잔차 연결</strong>(residual connections)이다.</p>
+<p><strong>참고</strong>: 층을 통과할 때 어쩔 수 없이 발생하는 노이즈(잡음) 때문에 그레이디언트 소실 문제가 발생한다.</p>
 
 </div>
 </div>
@@ -14356,12 +14357,12 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>하나 또는 여러 개의 층으로 구성된 블록(모듈)의 입력값을
-블록을 통과하여 생성된 출력값과 합쳐서 다음 블록으로 전달하는 아키텍처이다.
-이 방식을 통해 블록의 입력값에 대한 정보가 보다 정확하게 상위 블록에 전달된다.
-잔차 연결 아키텍처는 2015년에 소개된 ResNet 계열의 모델에서 처음 사용되었으며,
-2015년 ILSVRC 이미지 분류 경진대회에서 1등을 차지했다.
-실제로 잔차 연결을 이용하면 아무리 블록을 임의로 많이 쌓아도 모델 훈련에 전혀 문제가 없다.</p>
+<p>블록(모듈)의 입력값을 블록을 통과하여 생성된 출력값과 합쳐서 다음 블록으로 전달하는 아키텍처이다(아래 그림 참조).
+이 방식을 통해 블록의 입력값에 대한 정보가 보다 정확하게 상위 블록에 전달되어,
+그레이디언트 소실 문제를 해결하는 데에 많은 도움을 준다.
+실제로 잔차 연결을 이용하면 블록을 매우 높게 쌓아도 모델 훈련이 가능하다.</p>
+<p><strong>참고</strong>: 잔차 연결 아키텍처는 2015년에 소개된 ResNet 계열의 모델에서 처음 사용되었으며,
+2015년 ILSVRC 이미지 분류 경진대회에서 1등을 차지했다.</p>
 
 </div>
 </div>
@@ -14373,26 +14374,19 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>모양(shape) 맞추기</strong></p>
+<p><strong>잔차 연결 핵심: 모양(shape) 맞추기</strong></p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>잔차 연결을 사용할 때 기본적을로 주의해야할 사항은 두 텐서의 모양을 맞추는 일이다.
-블록을 통과한 출력값과 블록을 건너 뛴 입력값의 모양이 동일해야 하기 때문이다.</p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>잔차 연결을 사용할 때 주의해야할 기본사항은 블록의 입력텐서와 출력테서의 모양을 맞추는 일이다.
+이때 맥스풀링 사용여부에 따라 보폭(<code>strides</code>)의 크기가 달라진다.</p>
+<p>먼저, 맥스풀링을 사용하지 않는 경우엔 <code>Conv2D</code>에서 사용된 필터 수를 맞추는 데에만 주의하면 된다.</p>
 <ul>
-<li>맥스풀링을 사용하지 않는 경우<ul>
 <li><code>Conv2D</code> 층: <code>padding="same"</code> 옵션을 사용하여 모양을 유지</li>
 <li>필터 수가 변하는 경우: 잔차에 <code>Conv2D</code> 층을 이용하여 필터 수를 맞춤. 필터 크기는 <code>1x1</code> 사용.
   활성화 함수는 없음.</li>
-</ul>
-</li>
 </ul>
 
 </div>
@@ -14425,11 +14419,9 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>맥스풀링을 사용하는 경우엔 보폭을 활용해야 한다.</p>
 <ul>
-<li>맥스풀링을 사용하는 경우<ul>
 <li>잔차에 <code>Conv2D</code> 층을 적용할 때 보폭 사용</li>
-</ul>
-</li>
 </ul>
 
 </div>
@@ -14461,12 +14453,14 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>예제</strong></p>
+<p>아래 코드는 잔차 연결을 사용하는 활용법을 보여준다.
+맥스풀링과 필터 수에 따른 구분을 사용함에 주의하면 된다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 입력층</span>
@@ -14498,8 +14492,26 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 
 <span class="c1"># 모델 설정</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
+</pre></div>
 
-<span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>모델 구성 요약은 다음과 같다.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
      </div>
@@ -14520,23 +14532,36 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 지금까지 살펴 본 정규화는 모델의 입력 데이터를 전처리 과정에서 평균을 0으로, 
 표준편차를 1로 만드는 방식이었다. 
 이는 데이터셋이 정규분포를 따른다는 가정 하에 진행된 정규화였다.</p>
-<p>그런데</p>
+<p><strong>참고</strong>: 정규분포를 따르지 않는 데이터에 대한 분석은 기본적으로 머신러닝(딥러닝) 기법을 적용할 수 없다.</p>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>하지만 입력 데이터셋에 대한 정규화는 출력값의 정규화를 전혀 보장하지 않는다.
+따라서 다음 층으로 넘겨주기 전에 정규화를 먼저 진행하면 보다 훈련이 잘 될 수 있다.
+더 나아가 출력값을 먼저 정규화한 후에 활성화 함수를 적용할 때 보다 좋은 성능의 모델이 구현될 수 있음이
+발혀지기도 했다. 
+<strong>배치 정규화</strong>(batch normalization)이 바로 앞서 설명한 기능을 대신 처리하며,
+2015년에 발표된 한 논문에서 소개되었다.</p>
+<p>배치 정규화로 인한 모델 성능 향상에 대한 구체적인 이론은 아직 존재하지 않는다.
+다만 경험적으로 많은 합성곱 신경망 모델의 성능에 도움을 준다는 사실만 알려져 있을 뿐이다.
+잔차 연결과 함께 배치 정규화 또한 모델 훈련과정에 그레이디언트 역전파에 도움을 주어
+매우 깊은 딥러닝 모델의 훈련에 도움을 준다.
+예를 들어, ResNet50, EfficientNet, Xception 모델 등은 배치 정규화 없이는 제대로 훈련되지 않는다.</p>
 
-     </div>
 </div>
 </div>
-</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>배치 정규화 사용법</strong></p>
 
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+
+</div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
@@ -14554,6 +14579,349 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
      </div>
 </div>
 </div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+<span class="kn">from</span> <span class="nn">tensorflow.keras</span> <span class="kn">import</span> <span class="n">layers</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">applications</span><span class="o">.</span><span class="n">xception</span><span class="o">.</span><span class="n">Xception</span><span class="p">(</span>
+    <span class="n">include_top</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">weights</span><span class="o">=</span><span class="s1">&#39;imagenet&#39;</span><span class="p">,</span> <span class="n">input_tensor</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="n">input_shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">pooling</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">classes</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">classifier_activation</span><span class="o">=</span><span class="s1">&#39;softmax&#39;</span>
+<span class="p">)</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[6]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Model: &#34;xception&#34;
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_2 (InputLayer)            [(None, 299, 299, 3) 0                                            
+__________________________________________________________________________________________________
+block1_conv1 (Conv2D)           (None, 149, 149, 32) 864         input_2[0][0]                    
+__________________________________________________________________________________________________
+block1_conv1_bn (BatchNormaliza (None, 149, 149, 32) 128         block1_conv1[0][0]               
+__________________________________________________________________________________________________
+block1_conv1_act (Activation)   (None, 149, 149, 32) 0           block1_conv1_bn[0][0]            
+__________________________________________________________________________________________________
+block1_conv2 (Conv2D)           (None, 147, 147, 64) 18432       block1_conv1_act[0][0]           
+__________________________________________________________________________________________________
+block1_conv2_bn (BatchNormaliza (None, 147, 147, 64) 256         block1_conv2[0][0]               
+__________________________________________________________________________________________________
+block1_conv2_act (Activation)   (None, 147, 147, 64) 0           block1_conv2_bn[0][0]            
+__________________________________________________________________________________________________
+block2_sepconv1 (SeparableConv2 (None, 147, 147, 128 8768        block1_conv2_act[0][0]           
+__________________________________________________________________________________________________
+block2_sepconv1_bn (BatchNormal (None, 147, 147, 128 512         block2_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block2_sepconv2_act (Activation (None, 147, 147, 128 0           block2_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block2_sepconv2 (SeparableConv2 (None, 147, 147, 128 17536       block2_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block2_sepconv2_bn (BatchNormal (None, 147, 147, 128 512         block2_sepconv2[0][0]            
+__________________________________________________________________________________________________
+conv2d_4 (Conv2D)               (None, 74, 74, 128)  8192        block1_conv2_act[0][0]           
+__________________________________________________________________________________________________
+block2_pool (MaxPooling2D)      (None, 74, 74, 128)  0           block2_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+batch_normalization_4 (BatchNor (None, 74, 74, 128)  512         conv2d_4[0][0]                   
+__________________________________________________________________________________________________
+add_12 (Add)                    (None, 74, 74, 128)  0           block2_pool[0][0]                
+                                                                 batch_normalization_4[0][0]      
+__________________________________________________________________________________________________
+block3_sepconv1_act (Activation (None, 74, 74, 128)  0           add_12[0][0]                     
+__________________________________________________________________________________________________
+block3_sepconv1 (SeparableConv2 (None, 74, 74, 256)  33920       block3_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block3_sepconv1_bn (BatchNormal (None, 74, 74, 256)  1024        block3_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block3_sepconv2_act (Activation (None, 74, 74, 256)  0           block3_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block3_sepconv2 (SeparableConv2 (None, 74, 74, 256)  67840       block3_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block3_sepconv2_bn (BatchNormal (None, 74, 74, 256)  1024        block3_sepconv2[0][0]            
+__________________________________________________________________________________________________
+conv2d_5 (Conv2D)               (None, 37, 37, 256)  32768       add_12[0][0]                     
+__________________________________________________________________________________________________
+block3_pool (MaxPooling2D)      (None, 37, 37, 256)  0           block3_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+batch_normalization_5 (BatchNor (None, 37, 37, 256)  1024        conv2d_5[0][0]                   
+__________________________________________________________________________________________________
+add_13 (Add)                    (None, 37, 37, 256)  0           block3_pool[0][0]                
+                                                                 batch_normalization_5[0][0]      
+__________________________________________________________________________________________________
+block4_sepconv1_act (Activation (None, 37, 37, 256)  0           add_13[0][0]                     
+__________________________________________________________________________________________________
+block4_sepconv1 (SeparableConv2 (None, 37, 37, 728)  188672      block4_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block4_sepconv1_bn (BatchNormal (None, 37, 37, 728)  2912        block4_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block4_sepconv2_act (Activation (None, 37, 37, 728)  0           block4_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block4_sepconv2 (SeparableConv2 (None, 37, 37, 728)  536536      block4_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block4_sepconv2_bn (BatchNormal (None, 37, 37, 728)  2912        block4_sepconv2[0][0]            
+__________________________________________________________________________________________________
+conv2d_6 (Conv2D)               (None, 19, 19, 728)  186368      add_13[0][0]                     
+__________________________________________________________________________________________________
+block4_pool (MaxPooling2D)      (None, 19, 19, 728)  0           block4_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+batch_normalization_6 (BatchNor (None, 19, 19, 728)  2912        conv2d_6[0][0]                   
+__________________________________________________________________________________________________
+add_14 (Add)                    (None, 19, 19, 728)  0           block4_pool[0][0]                
+                                                                 batch_normalization_6[0][0]      
+__________________________________________________________________________________________________
+block5_sepconv1_act (Activation (None, 19, 19, 728)  0           add_14[0][0]                     
+__________________________________________________________________________________________________
+block5_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block5_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block5_sepconv1_bn (BatchNormal (None, 19, 19, 728)  2912        block5_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block5_sepconv2_act (Activation (None, 19, 19, 728)  0           block5_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block5_sepconv2 (SeparableConv2 (None, 19, 19, 728)  536536      block5_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block5_sepconv2_bn (BatchNormal (None, 19, 19, 728)  2912        block5_sepconv2[0][0]            
+__________________________________________________________________________________________________
+block5_sepconv3_act (Activation (None, 19, 19, 728)  0           block5_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+block5_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block5_sepconv3_act[0][0]        
+__________________________________________________________________________________________________
+block5_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block5_sepconv3[0][0]            
+__________________________________________________________________________________________________
+add_15 (Add)                    (None, 19, 19, 728)  0           block5_sepconv3_bn[0][0]         
+                                                                 add_14[0][0]                     
+__________________________________________________________________________________________________
+block6_sepconv1_act (Activation (None, 19, 19, 728)  0           add_15[0][0]                     
+__________________________________________________________________________________________________
+block6_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block6_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block6_sepconv1_bn (BatchNormal (None, 19, 19, 728)  2912        block6_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block6_sepconv2_act (Activation (None, 19, 19, 728)  0           block6_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block6_sepconv2 (SeparableConv2 (None, 19, 19, 728)  536536      block6_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block6_sepconv2_bn (BatchNormal (None, 19, 19, 728)  2912        block6_sepconv2[0][0]            
+__________________________________________________________________________________________________
+block6_sepconv3_act (Activation (None, 19, 19, 728)  0           block6_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+block6_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block6_sepconv3_act[0][0]        
+__________________________________________________________________________________________________
+block6_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block6_sepconv3[0][0]            
+__________________________________________________________________________________________________
+add_16 (Add)                    (None, 19, 19, 728)  0           block6_sepconv3_bn[0][0]         
+                                                                 add_15[0][0]                     
+__________________________________________________________________________________________________
+block7_sepconv1_act (Activation (None, 19, 19, 728)  0           add_16[0][0]                     
+__________________________________________________________________________________________________
+block7_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block7_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block7_sepconv1_bn (BatchNormal (None, 19, 19, 728)  2912        block7_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block7_sepconv2_act (Activation (None, 19, 19, 728)  0           block7_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block7_sepconv2 (SeparableConv2 (None, 19, 19, 728)  536536      block7_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block7_sepconv2_bn (BatchNormal (None, 19, 19, 728)  2912        block7_sepconv2[0][0]            
+__________________________________________________________________________________________________
+block7_sepconv3_act (Activation (None, 19, 19, 728)  0           block7_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+block7_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block7_sepconv3_act[0][0]        
+__________________________________________________________________________________________________
+block7_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block7_sepconv3[0][0]            
+__________________________________________________________________________________________________
+add_17 (Add)                    (None, 19, 19, 728)  0           block7_sepconv3_bn[0][0]         
+                                                                 add_16[0][0]                     
+__________________________________________________________________________________________________
+block8_sepconv1_act (Activation (None, 19, 19, 728)  0           add_17[0][0]                     
+__________________________________________________________________________________________________
+block8_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block8_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block8_sepconv1_bn (BatchNormal (None, 19, 19, 728)  2912        block8_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block8_sepconv2_act (Activation (None, 19, 19, 728)  0           block8_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block8_sepconv2 (SeparableConv2 (None, 19, 19, 728)  536536      block8_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block8_sepconv2_bn (BatchNormal (None, 19, 19, 728)  2912        block8_sepconv2[0][0]            
+__________________________________________________________________________________________________
+block8_sepconv3_act (Activation (None, 19, 19, 728)  0           block8_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+block8_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block8_sepconv3_act[0][0]        
+__________________________________________________________________________________________________
+block8_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block8_sepconv3[0][0]            
+__________________________________________________________________________________________________
+add_18 (Add)                    (None, 19, 19, 728)  0           block8_sepconv3_bn[0][0]         
+                                                                 add_17[0][0]                     
+__________________________________________________________________________________________________
+block9_sepconv1_act (Activation (None, 19, 19, 728)  0           add_18[0][0]                     
+__________________________________________________________________________________________________
+block9_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block9_sepconv1_act[0][0]        
+__________________________________________________________________________________________________
+block9_sepconv1_bn (BatchNormal (None, 19, 19, 728)  2912        block9_sepconv1[0][0]            
+__________________________________________________________________________________________________
+block9_sepconv2_act (Activation (None, 19, 19, 728)  0           block9_sepconv1_bn[0][0]         
+__________________________________________________________________________________________________
+block9_sepconv2 (SeparableConv2 (None, 19, 19, 728)  536536      block9_sepconv2_act[0][0]        
+__________________________________________________________________________________________________
+block9_sepconv2_bn (BatchNormal (None, 19, 19, 728)  2912        block9_sepconv2[0][0]            
+__________________________________________________________________________________________________
+block9_sepconv3_act (Activation (None, 19, 19, 728)  0           block9_sepconv2_bn[0][0]         
+__________________________________________________________________________________________________
+block9_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block9_sepconv3_act[0][0]        
+__________________________________________________________________________________________________
+block9_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block9_sepconv3[0][0]            
+__________________________________________________________________________________________________
+add_19 (Add)                    (None, 19, 19, 728)  0           block9_sepconv3_bn[0][0]         
+                                                                 add_18[0][0]                     
+__________________________________________________________________________________________________
+block10_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_19[0][0]                     
+__________________________________________________________________________________________________
+block10_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block10_sepconv1_act[0][0]       
+__________________________________________________________________________________________________
+block10_sepconv1_bn (BatchNorma (None, 19, 19, 728)  2912        block10_sepconv1[0][0]           
+__________________________________________________________________________________________________
+block10_sepconv2_act (Activatio (None, 19, 19, 728)  0           block10_sepconv1_bn[0][0]        
+__________________________________________________________________________________________________
+block10_sepconv2 (SeparableConv (None, 19, 19, 728)  536536      block10_sepconv2_act[0][0]       
+__________________________________________________________________________________________________
+block10_sepconv2_bn (BatchNorma (None, 19, 19, 728)  2912        block10_sepconv2[0][0]           
+__________________________________________________________________________________________________
+block10_sepconv3_act (Activatio (None, 19, 19, 728)  0           block10_sepconv2_bn[0][0]        
+__________________________________________________________________________________________________
+block10_sepconv3 (SeparableConv (None, 19, 19, 728)  536536      block10_sepconv3_act[0][0]       
+__________________________________________________________________________________________________
+block10_sepconv3_bn (BatchNorma (None, 19, 19, 728)  2912        block10_sepconv3[0][0]           
+__________________________________________________________________________________________________
+add_20 (Add)                    (None, 19, 19, 728)  0           block10_sepconv3_bn[0][0]        
+                                                                 add_19[0][0]                     
+__________________________________________________________________________________________________
+block11_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_20[0][0]                     
+__________________________________________________________________________________________________
+block11_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block11_sepconv1_act[0][0]       
+__________________________________________________________________________________________________
+block11_sepconv1_bn (BatchNorma (None, 19, 19, 728)  2912        block11_sepconv1[0][0]           
+__________________________________________________________________________________________________
+block11_sepconv2_act (Activatio (None, 19, 19, 728)  0           block11_sepconv1_bn[0][0]        
+__________________________________________________________________________________________________
+block11_sepconv2 (SeparableConv (None, 19, 19, 728)  536536      block11_sepconv2_act[0][0]       
+__________________________________________________________________________________________________
+block11_sepconv2_bn (BatchNorma (None, 19, 19, 728)  2912        block11_sepconv2[0][0]           
+__________________________________________________________________________________________________
+block11_sepconv3_act (Activatio (None, 19, 19, 728)  0           block11_sepconv2_bn[0][0]        
+__________________________________________________________________________________________________
+block11_sepconv3 (SeparableConv (None, 19, 19, 728)  536536      block11_sepconv3_act[0][0]       
+__________________________________________________________________________________________________
+block11_sepconv3_bn (BatchNorma (None, 19, 19, 728)  2912        block11_sepconv3[0][0]           
+__________________________________________________________________________________________________
+add_21 (Add)                    (None, 19, 19, 728)  0           block11_sepconv3_bn[0][0]        
+                                                                 add_20[0][0]                     
+__________________________________________________________________________________________________
+block12_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_21[0][0]                     
+__________________________________________________________________________________________________
+block12_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block12_sepconv1_act[0][0]       
+__________________________________________________________________________________________________
+block12_sepconv1_bn (BatchNorma (None, 19, 19, 728)  2912        block12_sepconv1[0][0]           
+__________________________________________________________________________________________________
+block12_sepconv2_act (Activatio (None, 19, 19, 728)  0           block12_sepconv1_bn[0][0]        
+__________________________________________________________________________________________________
+block12_sepconv2 (SeparableConv (None, 19, 19, 728)  536536      block12_sepconv2_act[0][0]       
+__________________________________________________________________________________________________
+block12_sepconv2_bn (BatchNorma (None, 19, 19, 728)  2912        block12_sepconv2[0][0]           
+__________________________________________________________________________________________________
+block12_sepconv3_act (Activatio (None, 19, 19, 728)  0           block12_sepconv2_bn[0][0]        
+__________________________________________________________________________________________________
+block12_sepconv3 (SeparableConv (None, 19, 19, 728)  536536      block12_sepconv3_act[0][0]       
+__________________________________________________________________________________________________
+block12_sepconv3_bn (BatchNorma (None, 19, 19, 728)  2912        block12_sepconv3[0][0]           
+__________________________________________________________________________________________________
+add_22 (Add)                    (None, 19, 19, 728)  0           block12_sepconv3_bn[0][0]        
+                                                                 add_21[0][0]                     
+__________________________________________________________________________________________________
+block13_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_22[0][0]                     
+__________________________________________________________________________________________________
+block13_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block13_sepconv1_act[0][0]       
+__________________________________________________________________________________________________
+block13_sepconv1_bn (BatchNorma (None, 19, 19, 728)  2912        block13_sepconv1[0][0]           
+__________________________________________________________________________________________________
+block13_sepconv2_act (Activatio (None, 19, 19, 728)  0           block13_sepconv1_bn[0][0]        
+__________________________________________________________________________________________________
+block13_sepconv2 (SeparableConv (None, 19, 19, 1024) 752024      block13_sepconv2_act[0][0]       
+__________________________________________________________________________________________________
+block13_sepconv2_bn (BatchNorma (None, 19, 19, 1024) 4096        block13_sepconv2[0][0]           
+__________________________________________________________________________________________________
+conv2d_7 (Conv2D)               (None, 10, 10, 1024) 745472      add_22[0][0]                     
+__________________________________________________________________________________________________
+block13_pool (MaxPooling2D)     (None, 10, 10, 1024) 0           block13_sepconv2_bn[0][0]        
+__________________________________________________________________________________________________
+batch_normalization_7 (BatchNor (None, 10, 10, 1024) 4096        conv2d_7[0][0]                   
+__________________________________________________________________________________________________
+add_23 (Add)                    (None, 10, 10, 1024) 0           block13_pool[0][0]               
+                                                                 batch_normalization_7[0][0]      
+__________________________________________________________________________________________________
+block14_sepconv1 (SeparableConv (None, 10, 10, 1536) 1582080     add_23[0][0]                     
+__________________________________________________________________________________________________
+block14_sepconv1_bn (BatchNorma (None, 10, 10, 1536) 6144        block14_sepconv1[0][0]           
+__________________________________________________________________________________________________
+block14_sepconv1_act (Activatio (None, 10, 10, 1536) 0           block14_sepconv1_bn[0][0]        
+__________________________________________________________________________________________________
+block14_sepconv2 (SeparableConv (None, 10, 10, 2048) 3159552     block14_sepconv1_act[0][0]       
+__________________________________________________________________________________________________
+block14_sepconv2_bn (BatchNorma (None, 10, 10, 2048) 8192        block14_sepconv2[0][0]           
+__________________________________________________________________________________________________
+block14_sepconv2_act (Activatio (None, 10, 10, 2048) 0           block14_sepconv2_bn[0][0]        
+__________________________________________________________________________________________________
+avg_pool (GlobalAveragePooling2 (None, 2048)         0           block14_sepconv2_act[0][0]       
+__________________________________________________________________________________________________
+predictions (Dense)             (None, 1000)         2049000     avg_pool[0][0]                   
+==================================================================================================
+Total params: 22,910,480
+Trainable params: 22,855,952
+Non-trainable params: 54,528
+__________________________________________________________________________________________________
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
