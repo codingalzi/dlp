@@ -53,6 +53,8 @@
 1. [3장: 텐서플로우 기본 API 활용](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc03_introduction_to_keras_and_tf.ipynb)
 1. [8장: 합성곱 신경망 - Conv2D, MaxPooling2D](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc08_Conv2D_MaxPooling2D.ipynb)
 1. [8장: 합성곱 신경망 - MNIST](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc08_MNIST_CNN_model.ipynb)
+1. [9장: 미니 Xception 모델(강아지-고양이 데이터셋)](https://colab.research.google.com/github/codingalzi/dlp/blob/master/excs/exc09-dogs_and_cats_mini_xception.ipynb)
+1. ...
 
 ###  딥러닝 지원  GPU 안내
 
