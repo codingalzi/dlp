@@ -57,6 +57,25 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
+<style type="text/css">
+    
+
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            /*preferredFont: "TeX",*/
+            /*availableFonts: ["TeX", "STIX"],*/
+            styles: {
+                scale: 100,
+                ".MathJax_Display": {
+                    "font-size": "100%",
+                }
+            }
+        }
+    });
+</script>
+    
+  </style>
 
 
 
@@ -14558,7 +14577,7 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://miro.medium.com/max/770/1*WRio7MD4JDeLww-CyrxEbg.png" style="width:70%;"></div><p>그림 출처: <a href="https://medium.com/@ilango100/batch-normalization-speed-up-neural-network-training-245e39a62f85">Batch Normalization — Speed up Neural Network Training</a></p>
+<div align="center"><img src="https://raw.githubusercontent.com/codingalzi/dlp/master/notebooks/images/batchNormalization.jpg" style="width:70%;"></div><p>그림 출처: <a href="https://arxiv.org/abs/1610.02357">Xception: Deep Learning with Depthwise Separable Convolutions</a></p>
 
 </div>
 </div>
@@ -14684,7 +14703,11 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><code>Conv2D</code> 작동 원리</li>
+<li><code>Conv2D</code> 작동 원리<ul>
+<li><code>padding="same"</code> 옵션 사용한 경우</li>
+<li>필터 1개 사용</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -14697,7 +14720,11 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
-<li><code>SeparableConv2D</code> 작동 원리</li>
+<li><code>SeparableConv2D</code> 작동 원리<ul>
+<li><code>padding="same"</code> 옵션 사용한 경우</li>
+<li>필터 1개 사용</li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -14716,7 +14743,30 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><code>3x3</code> 모양의 필터를 64개를 사용할 경우 학습가능한 파라미터 수는 각각 다음과 같다.</p>
+<p>경우 1(위 그림): <code>3x3</code> 모양의 필터를 64개를 3개의 채널을 갖는 
+입력 데이터에 사용할 경우 학습가능한 파라미터 수는 각각 다음과 같다.</p>
+<ul>
+<li><code>Conv2D</code>의 경우: <code>3*3*3*64 = 1,728</code></li>
+<li><code>SeparableConv2D</code>의 경우: <code>3*3*3 + 3*64 = 219</code></li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>경우 2: <code>3x3</code> 모양의 필터를 64개를 10개의 채널을 갖는 
+입력 데이터에 사용할 경우 학습가능한 파라미터 수는 각각 다음과 같다.</p>
+<ul>
+<li><code>Conv2D</code>의 경우: <code>3*3*10*64 = 5,760</code></li>
+<li><code>SeparableConv2D</code>의 경우: <code>3*3*10 + 10*64 = 730</code></li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>경우 2: <code>3x3</code> 모양의 필터를 64개를 64개의 채널을 갖는 
+입력 데이터에 사용할 경우 학습가능한 파라미터 수는 각각 다음과 같다.</p>
 <ul>
 <li><code>Conv2D</code>의 경우: <code>3*3*64*64 = 36,864</code></li>
 <li><code>SeparableConv2D</code>의 경우: <code>3*3*64 + 64*64 = 4,672</code></li>
@@ -14732,55 +14782,40 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>CUDA에서 지원되지 않음. 따라서 ...</p>
+<p>채널 분리 합성곱에 사용되는 알고리즘이 CUDA에서 지원되지 않는다.
+따라서 GPU를 사용하더라도 기존 <code>Conv2D</code> 층만을 사용한 모델에 비해
+학습 속도에 별 차이가 없다. 
+채널 분리 합성곱이 비록 훨씬 적은 수의 파라미터를 학습에 사용하지만
+이로 인해 시간상의 이득은 주지 않는다.
+하지만 적은 수의 파라미터를 사용하기에 일반화 성능이 보다 좋은 모델을
+구현한다는 점이 매우 중요하다.</p>
+<p><strong>참고</strong>: CUDA와 cuDNN</p>
+<ul>
+<li>CUDA(Compute Unified Device Architecture)<ul>
+<li>CPU와 GPU를 동시에 활용하는 병렬 컴퓨팅을 지원하는 플랫폼</li>
+<li>C, C++, Fortran 등의 저수준 언어 활용</li>
+</ul>
+</li>
+<li>cuDNN(CUDA Deep Neural Network): CUDA를 활용하여 딥러닝 알고리즘의 실행을 지원하는 라이브러리<ul>
+<li>Conv2D 등 특정 딥러닝 알고리즘에 대해서만 최적화됨.</li>
+</ul>
+</li>
+</ul>
 
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>예제</strong>: Xception 모델</p>
+<p>케라스에서 지원하는 Xception 모델의 구성은 2017년 모델과 조금 다르지만
+기본적으로 <code>SeparableConv2D</code>와 <code>BatchNormalizaiton</code> 층을 효율적으로 활용한
+블록을 잔차 연결과 함께 사용하여 깊게 쌓은 모델이다.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[2]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[5]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
@@ -14796,6 +14831,29 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
      </div>
 </div>
 </div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Downloading data from https://storage.googleapis.com/tensorflow/keras-applications/xception/xception_weights_tf_dim_ordering_tf_kernels.h5
+91889664/91884032 [==============================] - 6s 0us/step
+91897856/91884032 [==============================] - 6s 0us/step
+</pre>
+</div>
+</div>
+
+</div>
+
 </div>
 
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14828,9 +14886,9 @@ VGG16의 경우에 필터 수를 32, 64, 128 등으로 수를 늘리는 반면�
 __________________________________________________________________________________________________
 Layer (type)                    Output Shape         Param #     Connected to                     
 ==================================================================================================
-input_2 (InputLayer)            [(None, 299, 299, 3) 0                                            
+input_1 (InputLayer)            [(None, 299, 299, 3) 0                                            
 __________________________________________________________________________________________________
-block1_conv1 (Conv2D)           (None, 149, 149, 32) 864         input_2[0][0]                    
+block1_conv1 (Conv2D)           (None, 149, 149, 32) 864         input_1[0][0]                    
 __________________________________________________________________________________________________
 block1_conv1_bn (BatchNormaliza (None, 149, 149, 32) 128         block1_conv1[0][0]               
 __________________________________________________________________________________________________
@@ -14852,16 +14910,16 @@ block2_sepconv2 (SeparableConv2 (None, 147, 147, 128 17536       block2_sepconv2
 __________________________________________________________________________________________________
 block2_sepconv2_bn (BatchNormal (None, 147, 147, 128 512         block2_sepconv2[0][0]            
 __________________________________________________________________________________________________
-conv2d_4 (Conv2D)               (None, 74, 74, 128)  8192        block1_conv2_act[0][0]           
+conv2d (Conv2D)                 (None, 74, 74, 128)  8192        block1_conv2_act[0][0]           
 __________________________________________________________________________________________________
 block2_pool (MaxPooling2D)      (None, 74, 74, 128)  0           block2_sepconv2_bn[0][0]         
 __________________________________________________________________________________________________
-batch_normalization_4 (BatchNor (None, 74, 74, 128)  512         conv2d_4[0][0]                   
+batch_normalization (BatchNorma (None, 74, 74, 128)  512         conv2d[0][0]                     
 __________________________________________________________________________________________________
-add_12 (Add)                    (None, 74, 74, 128)  0           block2_pool[0][0]                
-                                                                 batch_normalization_4[0][0]      
+add (Add)                       (None, 74, 74, 128)  0           block2_pool[0][0]                
+                                                                 batch_normalization[0][0]        
 __________________________________________________________________________________________________
-block3_sepconv1_act (Activation (None, 74, 74, 128)  0           add_12[0][0]                     
+block3_sepconv1_act (Activation (None, 74, 74, 128)  0           add[0][0]                        
 __________________________________________________________________________________________________
 block3_sepconv1 (SeparableConv2 (None, 74, 74, 256)  33920       block3_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -14873,16 +14931,16 @@ block3_sepconv2 (SeparableConv2 (None, 74, 74, 256)  67840       block3_sepconv2
 __________________________________________________________________________________________________
 block3_sepconv2_bn (BatchNormal (None, 74, 74, 256)  1024        block3_sepconv2[0][0]            
 __________________________________________________________________________________________________
-conv2d_5 (Conv2D)               (None, 37, 37, 256)  32768       add_12[0][0]                     
+conv2d_1 (Conv2D)               (None, 37, 37, 256)  32768       add[0][0]                        
 __________________________________________________________________________________________________
 block3_pool (MaxPooling2D)      (None, 37, 37, 256)  0           block3_sepconv2_bn[0][0]         
 __________________________________________________________________________________________________
-batch_normalization_5 (BatchNor (None, 37, 37, 256)  1024        conv2d_5[0][0]                   
+batch_normalization_1 (BatchNor (None, 37, 37, 256)  1024        conv2d_1[0][0]                   
 __________________________________________________________________________________________________
-add_13 (Add)                    (None, 37, 37, 256)  0           block3_pool[0][0]                
-                                                                 batch_normalization_5[0][0]      
+add_1 (Add)                     (None, 37, 37, 256)  0           block3_pool[0][0]                
+                                                                 batch_normalization_1[0][0]      
 __________________________________________________________________________________________________
-block4_sepconv1_act (Activation (None, 37, 37, 256)  0           add_13[0][0]                     
+block4_sepconv1_act (Activation (None, 37, 37, 256)  0           add_1[0][0]                      
 __________________________________________________________________________________________________
 block4_sepconv1 (SeparableConv2 (None, 37, 37, 728)  188672      block4_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -14894,16 +14952,16 @@ block4_sepconv2 (SeparableConv2 (None, 37, 37, 728)  536536      block4_sepconv2
 __________________________________________________________________________________________________
 block4_sepconv2_bn (BatchNormal (None, 37, 37, 728)  2912        block4_sepconv2[0][0]            
 __________________________________________________________________________________________________
-conv2d_6 (Conv2D)               (None, 19, 19, 728)  186368      add_13[0][0]                     
+conv2d_2 (Conv2D)               (None, 19, 19, 728)  186368      add_1[0][0]                      
 __________________________________________________________________________________________________
 block4_pool (MaxPooling2D)      (None, 19, 19, 728)  0           block4_sepconv2_bn[0][0]         
 __________________________________________________________________________________________________
-batch_normalization_6 (BatchNor (None, 19, 19, 728)  2912        conv2d_6[0][0]                   
+batch_normalization_2 (BatchNor (None, 19, 19, 728)  2912        conv2d_2[0][0]                   
 __________________________________________________________________________________________________
-add_14 (Add)                    (None, 19, 19, 728)  0           block4_pool[0][0]                
-                                                                 batch_normalization_6[0][0]      
+add_2 (Add)                     (None, 19, 19, 728)  0           block4_pool[0][0]                
+                                                                 batch_normalization_2[0][0]      
 __________________________________________________________________________________________________
-block5_sepconv1_act (Activation (None, 19, 19, 728)  0           add_14[0][0]                     
+block5_sepconv1_act (Activation (None, 19, 19, 728)  0           add_2[0][0]                      
 __________________________________________________________________________________________________
 block5_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block5_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -14921,10 +14979,10 @@ block5_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block5_sepconv3
 __________________________________________________________________________________________________
 block5_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block5_sepconv3[0][0]            
 __________________________________________________________________________________________________
-add_15 (Add)                    (None, 19, 19, 728)  0           block5_sepconv3_bn[0][0]         
-                                                                 add_14[0][0]                     
+add_3 (Add)                     (None, 19, 19, 728)  0           block5_sepconv3_bn[0][0]         
+                                                                 add_2[0][0]                      
 __________________________________________________________________________________________________
-block6_sepconv1_act (Activation (None, 19, 19, 728)  0           add_15[0][0]                     
+block6_sepconv1_act (Activation (None, 19, 19, 728)  0           add_3[0][0]                      
 __________________________________________________________________________________________________
 block6_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block6_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -14942,10 +15000,10 @@ block6_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block6_sepconv3
 __________________________________________________________________________________________________
 block6_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block6_sepconv3[0][0]            
 __________________________________________________________________________________________________
-add_16 (Add)                    (None, 19, 19, 728)  0           block6_sepconv3_bn[0][0]         
-                                                                 add_15[0][0]                     
+add_4 (Add)                     (None, 19, 19, 728)  0           block6_sepconv3_bn[0][0]         
+                                                                 add_3[0][0]                      
 __________________________________________________________________________________________________
-block7_sepconv1_act (Activation (None, 19, 19, 728)  0           add_16[0][0]                     
+block7_sepconv1_act (Activation (None, 19, 19, 728)  0           add_4[0][0]                      
 __________________________________________________________________________________________________
 block7_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block7_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -14963,10 +15021,10 @@ block7_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block7_sepconv3
 __________________________________________________________________________________________________
 block7_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block7_sepconv3[0][0]            
 __________________________________________________________________________________________________
-add_17 (Add)                    (None, 19, 19, 728)  0           block7_sepconv3_bn[0][0]         
-                                                                 add_16[0][0]                     
+add_5 (Add)                     (None, 19, 19, 728)  0           block7_sepconv3_bn[0][0]         
+                                                                 add_4[0][0]                      
 __________________________________________________________________________________________________
-block8_sepconv1_act (Activation (None, 19, 19, 728)  0           add_17[0][0]                     
+block8_sepconv1_act (Activation (None, 19, 19, 728)  0           add_5[0][0]                      
 __________________________________________________________________________________________________
 block8_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block8_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -14984,10 +15042,10 @@ block8_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block8_sepconv3
 __________________________________________________________________________________________________
 block8_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block8_sepconv3[0][0]            
 __________________________________________________________________________________________________
-add_18 (Add)                    (None, 19, 19, 728)  0           block8_sepconv3_bn[0][0]         
-                                                                 add_17[0][0]                     
+add_6 (Add)                     (None, 19, 19, 728)  0           block8_sepconv3_bn[0][0]         
+                                                                 add_5[0][0]                      
 __________________________________________________________________________________________________
-block9_sepconv1_act (Activation (None, 19, 19, 728)  0           add_18[0][0]                     
+block9_sepconv1_act (Activation (None, 19, 19, 728)  0           add_6[0][0]                      
 __________________________________________________________________________________________________
 block9_sepconv1 (SeparableConv2 (None, 19, 19, 728)  536536      block9_sepconv1_act[0][0]        
 __________________________________________________________________________________________________
@@ -15005,10 +15063,10 @@ block9_sepconv3 (SeparableConv2 (None, 19, 19, 728)  536536      block9_sepconv3
 __________________________________________________________________________________________________
 block9_sepconv3_bn (BatchNormal (None, 19, 19, 728)  2912        block9_sepconv3[0][0]            
 __________________________________________________________________________________________________
-add_19 (Add)                    (None, 19, 19, 728)  0           block9_sepconv3_bn[0][0]         
-                                                                 add_18[0][0]                     
+add_7 (Add)                     (None, 19, 19, 728)  0           block9_sepconv3_bn[0][0]         
+                                                                 add_6[0][0]                      
 __________________________________________________________________________________________________
-block10_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_19[0][0]                     
+block10_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_7[0][0]                      
 __________________________________________________________________________________________________
 block10_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block10_sepconv1_act[0][0]       
 __________________________________________________________________________________________________
@@ -15026,10 +15084,10 @@ block10_sepconv3 (SeparableConv (None, 19, 19, 728)  536536      block10_sepconv
 __________________________________________________________________________________________________
 block10_sepconv3_bn (BatchNorma (None, 19, 19, 728)  2912        block10_sepconv3[0][0]           
 __________________________________________________________________________________________________
-add_20 (Add)                    (None, 19, 19, 728)  0           block10_sepconv3_bn[0][0]        
-                                                                 add_19[0][0]                     
+add_8 (Add)                     (None, 19, 19, 728)  0           block10_sepconv3_bn[0][0]        
+                                                                 add_7[0][0]                      
 __________________________________________________________________________________________________
-block11_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_20[0][0]                     
+block11_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_8[0][0]                      
 __________________________________________________________________________________________________
 block11_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block11_sepconv1_act[0][0]       
 __________________________________________________________________________________________________
@@ -15047,10 +15105,10 @@ block11_sepconv3 (SeparableConv (None, 19, 19, 728)  536536      block11_sepconv
 __________________________________________________________________________________________________
 block11_sepconv3_bn (BatchNorma (None, 19, 19, 728)  2912        block11_sepconv3[0][0]           
 __________________________________________________________________________________________________
-add_21 (Add)                    (None, 19, 19, 728)  0           block11_sepconv3_bn[0][0]        
-                                                                 add_20[0][0]                     
+add_9 (Add)                     (None, 19, 19, 728)  0           block11_sepconv3_bn[0][0]        
+                                                                 add_8[0][0]                      
 __________________________________________________________________________________________________
-block12_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_21[0][0]                     
+block12_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_9[0][0]                      
 __________________________________________________________________________________________________
 block12_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block12_sepconv1_act[0][0]       
 __________________________________________________________________________________________________
@@ -15068,10 +15126,10 @@ block12_sepconv3 (SeparableConv (None, 19, 19, 728)  536536      block12_sepconv
 __________________________________________________________________________________________________
 block12_sepconv3_bn (BatchNorma (None, 19, 19, 728)  2912        block12_sepconv3[0][0]           
 __________________________________________________________________________________________________
-add_22 (Add)                    (None, 19, 19, 728)  0           block12_sepconv3_bn[0][0]        
-                                                                 add_21[0][0]                     
+add_10 (Add)                    (None, 19, 19, 728)  0           block12_sepconv3_bn[0][0]        
+                                                                 add_9[0][0]                      
 __________________________________________________________________________________________________
-block13_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_22[0][0]                     
+block13_sepconv1_act (Activatio (None, 19, 19, 728)  0           add_10[0][0]                     
 __________________________________________________________________________________________________
 block13_sepconv1 (SeparableConv (None, 19, 19, 728)  536536      block13_sepconv1_act[0][0]       
 __________________________________________________________________________________________________
@@ -15083,16 +15141,16 @@ block13_sepconv2 (SeparableConv (None, 19, 19, 1024) 752024      block13_sepconv
 __________________________________________________________________________________________________
 block13_sepconv2_bn (BatchNorma (None, 19, 19, 1024) 4096        block13_sepconv2[0][0]           
 __________________________________________________________________________________________________
-conv2d_7 (Conv2D)               (None, 10, 10, 1024) 745472      add_22[0][0]                     
+conv2d_3 (Conv2D)               (None, 10, 10, 1024) 745472      add_10[0][0]                     
 __________________________________________________________________________________________________
 block13_pool (MaxPooling2D)     (None, 10, 10, 1024) 0           block13_sepconv2_bn[0][0]        
 __________________________________________________________________________________________________
-batch_normalization_7 (BatchNor (None, 10, 10, 1024) 4096        conv2d_7[0][0]                   
+batch_normalization_3 (BatchNor (None, 10, 10, 1024) 4096        conv2d_3[0][0]                   
 __________________________________________________________________________________________________
-add_23 (Add)                    (None, 10, 10, 1024) 0           block13_pool[0][0]               
-                                                                 batch_normalization_7[0][0]      
+add_11 (Add)                    (None, 10, 10, 1024) 0           block13_pool[0][0]               
+                                                                 batch_normalization_3[0][0]      
 __________________________________________________________________________________________________
-block14_sepconv1 (SeparableConv (None, 10, 10, 1536) 1582080     add_23[0][0]                     
+block14_sepconv1 (SeparableConv (None, 10, 10, 1536) 1582080     add_11[0][0]                     
 __________________________________________________________________________________________________
 block14_sepconv1_bn (BatchNorma (None, 10, 10, 1536) 6144        block14_sepconv1[0][0]           
 __________________________________________________________________________________________________
@@ -15120,13 +15178,70 @@ ________________________________________________________________________________
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="9.3.5-&#48120;&#45768;-Xception-&#47784;&#45944;">9.3.5 &#48120;&#45768; Xception &#47784;&#45944;<a class="anchor-link" href="#9.3.5-&#48120;&#45768;-Xception-&#47784;&#45944;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>지금까지 설명한 기법을 모두 적용하여 Xception 모델을 본따서
+직접 강아지-고양이 이항분류 모델을 구현해보자.</p>
+<ul>
+<li>적절한 층으로 구성된 블록을 쌓아 모델을 구성한다.</li>
+<li>블록을 쌓을 수록 필터 수는 증가시키고, 텐서 크기는 감소시킨다.</li>
+<li>층의 유닛은 적게 유지하고 블록은 높게 쌓는다.</li>
+<li>잔차 연결을 활용한다.</li>
+<li>모든 합성곱 층 이후에는 배치 정규화를 적용한다.</li>
+<li>채널 분리 합성곱 신경망을 활용한다.</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>이미지 다운로드 및 데이터 적재</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>사용하는 데이터셋은 <a href="https://codingalzi.github.io/dlp/notebooks/dlp08_intro_to_dl_for_computer_vision.html">8장</a>에서 
+사용한 캐글(kaggle)의 강아지-고양이 데이터셋이며,
+이미지 다운로드와 훈련셋 등의 적재는 8장과 동일하다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>이미지 다운로드 및 압축 풀기</li>
+</ul>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 캐글 인증서 업로드</span>
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;구글 코랩 사용중!&#39;</span><span class="p">)</span>
+    <span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
+    <span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;구글 코랩 환경 아님!&#39;</span><span class="p">)</span>
+
+<span class="c1"># 인증서 저장</span>
+<span class="o">!</span>mkdir ~/.kaggle
+<span class="o">!</span>cp kaggle.json ~/.kaggle/
+<span class="o">!</span>chmod <span class="m">600</span> ~/.kaggle/kaggle.json
+
+<span class="c1"># 강아지-고양이 이미지셋 다운로드 및 압축 해제</span>
+<span class="o">!</span>kaggle competitions download -c dogs-vs-cats
+<span class="o">!</span>unzip -qq train.zip
 </pre></div>
 
      </div>
@@ -15137,7 +15252,10 @@ ________________________________________________________________________________
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="9.3.5-&#48120;&#45768;-Xception-&#50976;&#54805;-&#47784;&#45944;">9.3.5 &#48120;&#45768; Xception &#50976;&#54805; &#47784;&#45944;<a class="anchor-link" href="#9.3.5-&#48120;&#45768;-Xception-&#50976;&#54805;-&#47784;&#45944;">&#182;</a></h3>
+<ul>
+<li>데이터셋 분류 저장 및 적재</li>
+</ul>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
@@ -15145,45 +15263,14 @@ ________________________________________________________________________________
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">files</span>
-<span class="n">files</span><span class="o">.</span><span class="n">upload</span><span class="p">()</span>
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>mkdir ~/.kaggle
-<span class="o">!</span>cp kaggle.json ~/.kaggle/
-<span class="o">!</span>chmod <span class="m">600</span> ~/.kaggle/kaggle.json
-<span class="o">!</span>kaggle competitions download -c dogs-vs-cats
-<span class="o">!</span>unzip -qq train.zip
-</pre></div>
-
-     </div>
-</div>
-</div>
-</div>
-
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
-<div class="jp-Cell-inputWrapper">
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-     <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">pathlib</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 이미지셋 분류 저장 경로 지정</span>
+<span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">pathlib</span>
 <span class="kn">from</span> <span class="nn">tensorflow.keras.utils</span> <span class="kn">import</span> <span class="n">image_dataset_from_directory</span>
 
 <span class="n">original_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;train&quot;</span><span class="p">)</span>
 <span class="n">new_base_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;cats_vs_dogs_small&quot;</span><span class="p">)</span>
 
+<span class="c1"># 이미지셋 분류 저장</span>
 <span class="k">def</span> <span class="nf">make_subset</span><span class="p">(</span><span class="n">subset_name</span><span class="p">,</span> <span class="n">start_index</span><span class="p">,</span> <span class="n">end_index</span><span class="p">):</span>
     <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;cat&quot;</span><span class="p">,</span> <span class="s2">&quot;dog&quot;</span><span class="p">):</span>
         <span class="nb">dir</span> <span class="o">=</span> <span class="n">new_base_dir</span> <span class="o">/</span> <span class="n">subset_name</span> <span class="o">/</span> <span class="n">category</span>
@@ -15197,6 +15284,7 @@ ________________________________________________________________________________
 <span class="n">make_subset</span><span class="p">(</span><span class="s2">&quot;validation&quot;</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">end_index</span><span class="o">=</span><span class="mi">1500</span><span class="p">)</span>
 <span class="n">make_subset</span><span class="p">(</span><span class="s2">&quot;test&quot;</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">1500</span><span class="p">,</span> <span class="n">end_index</span><span class="o">=</span><span class="mi">2500</span><span class="p">)</span>
 
+<span class="c1"># 데이터셋 적재</span>
 <span class="n">train_dataset</span> <span class="o">=</span> <span class="n">image_dataset_from_directory</span><span class="p">(</span>
     <span class="n">new_base_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span><span class="p">,</span>
     <span class="n">image_size</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">),</span>
@@ -15216,10 +15304,24 @@ ________________________________________________________________________________
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>모델 구현</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>데이터 증식 층</li>
+</ul>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[7]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">data_augmentation</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span>
@@ -15236,19 +15338,32 @@ ________________________________________________________________________________
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>미니 Xception 모델 구성</li>
+</ul>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[8]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># 입력층</span>
+<span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">180</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">data_augmentation</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Rescaling</span><span class="p">(</span><span class="mf">1.</span><span class="o">/</span><span class="mi">255</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 하나의 Conv2D 은닉층</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span><span class="n">filters</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">kernel_size</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 
-<span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">]:</span>
+<span class="c1"># SeparableConv2D, BatchNormalization, MaxPooling2D 층으로 구성된 블록 쌓기</span>
+<span class="c1"># 잔차 연결 활용</span>
+<span class="k">for</span> <span class="n">size</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">32</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="mi">512</span><span class="p">]:</span>   <span class="c1"># 필터 수</span>
     <span class="n">residual</span> <span class="o">=</span> <span class="n">x</span>
 
     <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">BatchNormalization</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
@@ -15261,13 +15376,19 @@ ________________________________________________________________________________
 
     <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">MaxPooling2D</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
 
+    <span class="c1"># 잔차 연결</span>
     <span class="n">residual</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Conv2D</span><span class="p">(</span>
         <span class="n">size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">strides</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)(</span><span class="n">residual</span><span class="p">)</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">add</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">residual</span><span class="p">])</span>
 
-<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
+<span class="c1"># 마지막 은닉층은 GlobalAveragePooling2D과 Dropout</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalAveragePooling2D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>    <span class="c1"># flatten 역할 수행(채널 별 평균값으로 구성)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 출력층</span>
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># 모델 지정</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="o">=</span><span class="n">outputs</span><span class="p">)</span>
 </pre></div>
 
@@ -15276,6 +15397,165 @@ ________________________________________________________________________________
 </div>
 </div>
 
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[9]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
+
+
+<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
+<pre>Model: &#34;model&#34;
+__________________________________________________________________________________________________
+Layer (type)                    Output Shape         Param #     Connected to                     
+==================================================================================================
+input_2 (InputLayer)            [(None, 180, 180, 3) 0                                            
+__________________________________________________________________________________________________
+sequential (Sequential)         (None, 180, 180, 3)  0           input_2[0][0]                    
+__________________________________________________________________________________________________
+rescaling (Rescaling)           (None, 180, 180, 3)  0           sequential[0][0]                 
+__________________________________________________________________________________________________
+conv2d_4 (Conv2D)               (None, 176, 176, 32) 2400        rescaling[0][0]                  
+__________________________________________________________________________________________________
+batch_normalization_4 (BatchNor (None, 176, 176, 32) 128         conv2d_4[0][0]                   
+__________________________________________________________________________________________________
+activation (Activation)         (None, 176, 176, 32) 0           batch_normalization_4[0][0]      
+__________________________________________________________________________________________________
+separable_conv2d (SeparableConv (None, 176, 176, 32) 1312        activation[0][0]                 
+__________________________________________________________________________________________________
+batch_normalization_5 (BatchNor (None, 176, 176, 32) 128         separable_conv2d[0][0]           
+__________________________________________________________________________________________________
+activation_1 (Activation)       (None, 176, 176, 32) 0           batch_normalization_5[0][0]      
+__________________________________________________________________________________________________
+separable_conv2d_1 (SeparableCo (None, 176, 176, 32) 1312        activation_1[0][0]               
+__________________________________________________________________________________________________
+max_pooling2d (MaxPooling2D)    (None, 88, 88, 32)   0           separable_conv2d_1[0][0]         
+__________________________________________________________________________________________________
+conv2d_5 (Conv2D)               (None, 88, 88, 32)   1024        conv2d_4[0][0]                   
+__________________________________________________________________________________________________
+add_12 (Add)                    (None, 88, 88, 32)   0           max_pooling2d[0][0]              
+                                                                 conv2d_5[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_6 (BatchNor (None, 88, 88, 32)   128         add_12[0][0]                     
+__________________________________________________________________________________________________
+activation_2 (Activation)       (None, 88, 88, 32)   0           batch_normalization_6[0][0]      
+__________________________________________________________________________________________________
+separable_conv2d_2 (SeparableCo (None, 88, 88, 64)   2336        activation_2[0][0]               
+__________________________________________________________________________________________________
+batch_normalization_7 (BatchNor (None, 88, 88, 64)   256         separable_conv2d_2[0][0]         
+__________________________________________________________________________________________________
+activation_3 (Activation)       (None, 88, 88, 64)   0           batch_normalization_7[0][0]      
+__________________________________________________________________________________________________
+separable_conv2d_3 (SeparableCo (None, 88, 88, 64)   4672        activation_3[0][0]               
+__________________________________________________________________________________________________
+max_pooling2d_1 (MaxPooling2D)  (None, 44, 44, 64)   0           separable_conv2d_3[0][0]         
+__________________________________________________________________________________________________
+conv2d_6 (Conv2D)               (None, 44, 44, 64)   2048        add_12[0][0]                     
+__________________________________________________________________________________________________
+add_13 (Add)                    (None, 44, 44, 64)   0           max_pooling2d_1[0][0]            
+                                                                 conv2d_6[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_8 (BatchNor (None, 44, 44, 64)   256         add_13[0][0]                     
+__________________________________________________________________________________________________
+activation_4 (Activation)       (None, 44, 44, 64)   0           batch_normalization_8[0][0]      
+__________________________________________________________________________________________________
+separable_conv2d_4 (SeparableCo (None, 44, 44, 128)  8768        activation_4[0][0]               
+__________________________________________________________________________________________________
+batch_normalization_9 (BatchNor (None, 44, 44, 128)  512         separable_conv2d_4[0][0]         
+__________________________________________________________________________________________________
+activation_5 (Activation)       (None, 44, 44, 128)  0           batch_normalization_9[0][0]      
+__________________________________________________________________________________________________
+separable_conv2d_5 (SeparableCo (None, 44, 44, 128)  17536       activation_5[0][0]               
+__________________________________________________________________________________________________
+max_pooling2d_2 (MaxPooling2D)  (None, 22, 22, 128)  0           separable_conv2d_5[0][0]         
+__________________________________________________________________________________________________
+conv2d_7 (Conv2D)               (None, 22, 22, 128)  8192        add_13[0][0]                     
+__________________________________________________________________________________________________
+add_14 (Add)                    (None, 22, 22, 128)  0           max_pooling2d_2[0][0]            
+                                                                 conv2d_7[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_10 (BatchNo (None, 22, 22, 128)  512         add_14[0][0]                     
+__________________________________________________________________________________________________
+activation_6 (Activation)       (None, 22, 22, 128)  0           batch_normalization_10[0][0]     
+__________________________________________________________________________________________________
+separable_conv2d_6 (SeparableCo (None, 22, 22, 256)  33920       activation_6[0][0]               
+__________________________________________________________________________________________________
+batch_normalization_11 (BatchNo (None, 22, 22, 256)  1024        separable_conv2d_6[0][0]         
+__________________________________________________________________________________________________
+activation_7 (Activation)       (None, 22, 22, 256)  0           batch_normalization_11[0][0]     
+__________________________________________________________________________________________________
+separable_conv2d_7 (SeparableCo (None, 22, 22, 256)  67840       activation_7[0][0]               
+__________________________________________________________________________________________________
+max_pooling2d_3 (MaxPooling2D)  (None, 11, 11, 256)  0           separable_conv2d_7[0][0]         
+__________________________________________________________________________________________________
+conv2d_8 (Conv2D)               (None, 11, 11, 256)  32768       add_14[0][0]                     
+__________________________________________________________________________________________________
+add_15 (Add)                    (None, 11, 11, 256)  0           max_pooling2d_3[0][0]            
+                                                                 conv2d_8[0][0]                   
+__________________________________________________________________________________________________
+batch_normalization_12 (BatchNo (None, 11, 11, 256)  1024        add_15[0][0]                     
+__________________________________________________________________________________________________
+activation_8 (Activation)       (None, 11, 11, 256)  0           batch_normalization_12[0][0]     
+__________________________________________________________________________________________________
+separable_conv2d_8 (SeparableCo (None, 11, 11, 512)  133376      activation_8[0][0]               
+__________________________________________________________________________________________________
+batch_normalization_13 (BatchNo (None, 11, 11, 512)  2048        separable_conv2d_8[0][0]         
+__________________________________________________________________________________________________
+activation_9 (Activation)       (None, 11, 11, 512)  0           batch_normalization_13[0][0]     
+__________________________________________________________________________________________________
+separable_conv2d_9 (SeparableCo (None, 11, 11, 512)  266752      activation_9[0][0]               
+__________________________________________________________________________________________________
+max_pooling2d_4 (MaxPooling2D)  (None, 6, 6, 512)    0           separable_conv2d_9[0][0]         
+__________________________________________________________________________________________________
+conv2d_9 (Conv2D)               (None, 6, 6, 512)    131072      add_15[0][0]                     
+__________________________________________________________________________________________________
+add_16 (Add)                    (None, 6, 6, 512)    0           max_pooling2d_4[0][0]            
+                                                                 conv2d_9[0][0]                   
+__________________________________________________________________________________________________
+global_average_pooling2d (Globa (None, 512)          0           add_16[0][0]                     
+__________________________________________________________________________________________________
+dropout (Dropout)               (None, 512)          0           global_average_pooling2d[0][0]   
+__________________________________________________________________________________________________
+dense (Dense)                   (None, 1)            513         dropout[0][0]                    
+==================================================================================================
+Total params: 721,857
+Trainable params: 718,849
+Non-trainable params: 3,008
+__________________________________________________________________________________________________
+</pre>
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>모델 훈련</li>
+</ul>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -15285,10 +15565,19 @@ ________________________________________________________________________________
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
+<span class="n">callbacks</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span>
+        <span class="n">filepath</span><span class="o">=</span><span class="s2">&quot;convnet_from_scratch.keras&quot;</span><span class="p">,</span>
+        <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">monitor</span><span class="o">=</span><span class="s2">&quot;val_loss&quot;</span><span class="p">)</span>
+<span class="p">]</span>
+
 <span class="n">history</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
     <span class="n">train_dataset</span><span class="p">,</span>
     <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span>
-    <span class="n">validation_data</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">)</span>
+    <span class="n">validation_data</span><span class="o">=</span><span class="n">validation_dataset</span><span class="p">,</span>
+    <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -15296,6 +15585,63 @@ ________________________________________________________________________________
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<ul>
+<li>훈련 성능 평가</li>
+</ul>
+<p>테스트셋에 대한 정확도가 90% 정도 나온다. 
+8장에서 직접 구현해서 훈련시켰을 때의 성능인 83% 정도보다 훨씬 높게 나온다.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[&nbsp;]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="n">accuracy</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">]</span>
+<span class="n">val_accuracy</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_accuracy&quot;</span><span class="p">]</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">]</span>
+<span class="n">val_loss</span> <span class="o">=</span> <span class="n">history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;val_loss&quot;</span><span class="p">]</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">accuracy</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># 정확도 그래프</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">accuracy</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_accuracy</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation accuracy&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+
+<span class="c1"># 손실 그래프</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="s2">&quot;bo&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Training loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">epochs</span><span class="p">,</span> <span class="n">val_loss</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Validation loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="s2">&quot;Training and validation loss&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>성능 높이기</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>보다 성능을 높이려면 ...</p>
+
+</div>
 </div>
 </body>
 
