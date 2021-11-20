@@ -45,6 +45,7 @@
     - 2부: 합성곱 신경망 기본 아키텍처
     [&#x1F4D3;](./notebooks/dlp09_part02_modern_convnet_architecture_patterns.html) 
     [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp09_part02_modern_convnet_architecture_patterns.ipynb)
+    [&#127909;](https://youtube.com/playlist?list=PL5aSjzJqCaPbYRUDxCeDba_1RhCXdNp40)
     - 3부: 합성곱 신경망 학습 내용 시각화
 1. 시계열 데이터와 순환 신경망 &nbsp;
 [&#x1F4D3;](./notebooks/dlp10_dl_for_timeseries.html) 
