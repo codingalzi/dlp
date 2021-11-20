@@ -8,7 +8,7 @@
 ### 목차
 
 **링크 활용법**: &#x1F4F1;(터치 슬라이드), &#x1F4BB;(pdf 슬라이드), &#x1F4D3;(읽기 전용 노트북), 
-&#x1F4D9;(구글 코랩)
+&#x1F4D9;(구글 코랩), &#127909;(동영상)
 
 1. 강의소개 &nbsp; 
 [&#x1F4F1;](./slides/dlp01_what_is_deep_learning.slides.html) 
