@@ -57,25 +57,6 @@ span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 
 .highlight .ss { color: var(--jp-mirror-editor-string-color) } /* Literal.String.Symbol */
 .highlight .il { color: var(--jp-mirror-editor-number-color) } /* Literal.Number.Integer.Long */
   </style>
-<style type="text/css">
-    
-
-<script>
-    MathJax.Hub.Config({
-        "HTML-CSS": {
-            /*preferredFont: "TeX",*/
-            /*availableFonts: ["TeX", "STIX"],*/
-            styles: {
-                scale: 100,
-                ".MathJax_Display": {
-                    "font-size": "100%",
-                }
-            }
-        }
-    });
-</script>
-    
-  </style>
 
 
 
@@ -14321,12 +14302,79 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="10.1-Different-kinds-of-timeseries-tasks">10.1 Different kinds of timeseries tasks<a class="anchor-link" href="#10.1-Different-kinds-of-timeseries-tasks">&#182;</a></h2>
+<h2 id="10.1-&#49884;&#44228;&#50676;-&#45936;&#51060;&#53552;-&#50696;&#51228;">10.1 &#49884;&#44228;&#50676; &#45936;&#51060;&#53552; &#50696;&#51228;<a class="anchor-link" href="#10.1-&#49884;&#44228;&#50676;-&#45936;&#51060;&#53552;-&#50696;&#51228;">&#182;</a></h2>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="10.2-A-temperature-forecasting-example">10.2 A temperature forecasting example<a class="anchor-link" href="#10.2-A-temperature-forecasting-example">&#182;</a></h2>
+<p><strong>시계열</strong>(timeseries)은 일정 간격으로 측정된 값들로 이루어진 데이터이다.</p>
+<ul>
+<li>일일 단위 증시 가격</li>
+<li>도시의 시간당 소비 전력</li>
+<li>매장의 주별 판매량</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>시계열은 자연현상 및 사람들의 일상에서 쉽게 구할 수 있다.</p>
+<ul>
+<li>지진 활동</li>
+<li>물고기 개체수</li>
+<li>지역 날씨</li>
+<li>웹사이트 방문자수</li>
+<li>국내총생산(GDP)</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>시계열과 관련된 대표적인 과제는 <strong>예측</strong>(forcasting)이다. 
+예를 들어, 몇 시간 후의 소비 전력, 몇 달 후의 영업 이익, 며칠 뒤의 날씨 등을 예측하는 일이다. 
+이외에 시계열과 관련된 과제는 다음과 같다.</p>
+<ul>
+<li>분류(classification): 웹사이트 방문자의 활동 이력을 보고 사람인지 여부 판단</li>
+<li>이벤트 탐지(event detection): 오디오 스트림 감시 도중 "Ok Google", "Hey Alexa", "시리야" 등 핫워드(hotword) 탐지</li>
+<li>이상치 탐지(anomaly detection): 생산라인 중에 발생하는 특이현상, 회사 네트워크 상에 발생하는 특이 활동 등 탐지.
+  비지도 학습 활용.</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h2 id="10.2-&#50696;&#51228;:-&#50728;&#46020;-&#50696;&#52769;">10.2 &#50696;&#51228;: &#50728;&#46020; &#50696;&#52769;<a class="anchor-link" href="#10.2-&#50696;&#51228;:-&#50728;&#46020;-&#50696;&#52769;">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>나머지 이야기는 24시간 이후의 온도를 예측하는 모델을 구현하는 것이다. 
+적절한 모델 구현과정을 통해 기존에 사용했던 밀집 연결 모델, 합성곱 모델 등은 적절하지 않고 
+시계열 데이터에 대한 새로운 접근방식을 사용하는 <strong>순환 신경망</strong>(recurrent neural network, RNN)이
+훨씬 잘 작동함을 보게 될 것이다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="&#45936;&#51060;&#53552;&#49483;-&#51456;&#48708;">&#45936;&#51060;&#53552;&#49483; &#51456;&#48708;<a class="anchor-link" href="#&#45936;&#51060;&#53552;&#49483;-&#51456;&#48708;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>독일 예나(Jena)시에 위치한 막스-플랑크(Max-Planck) 생지화확(Biogeochemistry) 연구소가
+수 년동안 온도, 기압, 풍향 등 14 종류의 기상 데이터를 10분 단위로 측정해서 수집한 데이터셋이다. 
+원래 2003년부터 측정하였지만 여기서는 2009-2016년 데이터만 이용한다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>zip 파일 다운로드 및 압축풀기</strong></p>
+<p>"jena_climate_2009_2016.csv" 파일이 생성된다.</p>
+
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
@@ -14337,6 +14385,7 @@ a.anchor-link {
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">wget</span><span class="o">,</span> <span class="nn">zipfile</span>
 
 <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;https://s3.amazonaws.com/keras-datasets/jena_climate_2009_2016.csv.zip&#39;</span><span class="p">)</span>
+
 <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;jena_climate_2009_2016.csv.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
     <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
 </pre></div>
@@ -14369,7 +14418,8 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Inspecting the data of the Jena weather dataset</strong></p>
+<p><strong>예나(Jena) 날씨 데이터셋 살펴보기</strong></p>
+<p>파일을 열어 줄(line) 단위로 쪼갠다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14392,6 +14442,13 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>첫째 줄은 날짜와 시간 이외에 14개의 특성명이 쉼표(콤마)로 구분되어 있으며,
+총 420,451개의 데이터를 포함한다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14477,6 +14534,12 @@ a.anchor-link {
 
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>첫째 데이터는 2009년 1월 1일 0시 10분에 측정되었다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14520,7 +14583,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lines</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14568,7 +14631,64 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Parsing the data</strong></p>
+<p>2번 인덱스 항목이 섭씨 온도이다.</p>
+
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
+<div class="jp-Cell-inputWrapper">
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[21]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+     <div class="CodeMirror cm-s-jupyter">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">lines</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">]</span>
+</pre></div>
+
+     </div>
+</div>
+</div>
+</div>
+
+<div class="jp-Cell-outputWrapper">
+
+
+<div class="jp-OutputArea jp-Cell-outputArea">
+
+<div class="jp-OutputArea-child">
+
+    
+    <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[21]:</div>
+
+
+
+
+<div class="jp-RenderedText jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/plain">
+<pre>[&#39;01.01.2009 00:20:00&#39;,
+ &#39;996.57&#39;,
+ &#39;-8.41&#39;,
+ &#39;265.01&#39;,
+ &#39;-9.28&#39;,
+ &#39;93.40&#39;,
+ &#39;3.23&#39;,
+ &#39;3.02&#39;,
+ &#39;0.21&#39;,
+ &#39;1.89&#39;,
+ &#39;3.03&#39;,
+ &#39;1309.80&#39;,
+ &#39;0.72&#39;,
+ &#39;1.50&#39;,
+ &#39;136.10&#39;]</pre>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>넘파이 어레이로 변환</strong></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14585,8 +14705,8 @@ a.anchor-link {
 <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">lines</span><span class="p">):</span>
     <span class="n">values</span> <span class="o">=</span> <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">:]]</span>
 
-    <span class="n">temperature</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">raw_data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:]</span>
+    <span class="n">temperature</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>    <span class="c1"># i 번째 온도</span>
+    <span class="n">raw_data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">values</span><span class="p">[:]</span>    <span class="c1"># i 번째 데이터</span>
 </pre></div>
 
      </div>
@@ -14597,7 +14717,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Plotting the temperature timeseries</strong></p>
+<p><strong>온도 변화 그래프</strong></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14658,7 +14778,16 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Plotting the first 10 days of the temperature timeseries</strong></p>
+<p><strong>처음 10일동안의 온도 변화</strong></p>
+<p>한 시간에 6번, 하루 24시간, 10일동안 측정 횟수는 <code>6 * 24 * 10 = 1,440</code>이다.</p>
+<ul>
+<li>1월 1일 - 1월 10일 기간동안 측정된 온도라 상당히 낮다.</li>
+<li>마지막 4일 동안은 일 단위 온도 변화가 주기성을 띈다. </li>
+</ul>
+<p><strong>주기성</strong>(periodicity)은 시계열 데이터의 기본 특성 중 하나이다.
+월별 주기성은 매우 일관성을 갖는다. 
+지난 몇 달동안의 데이터를 이용하여 다음 달의 평균 온도를 예측하는 일은 상대적으로 쉽다.
+반면에 일 단위의 예측은 아래 그래프에서 보듯이 훨씬 혼잡하다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14717,7 +14846,14 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Computing the number of samples we'll use for each data split.</strong></p>
+<p><strong>훈련셋, 검증셋, 테스트셋 크기</strong></p>
+<ul>
+<li>훈련셋: 전체의 50%</li>
+<li>검증셋: 전체의 25%</li>
+<li>테스트셋: 전체의 25%</li>
+</ul>
+<p>미래에 대한 예측을 실행하므로 훈련셋, 검증셋, 테스트셋 순으로 
+보다 오래된 데이터를 사용한다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
@@ -14726,9 +14862,9 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[32]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">num_train_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">))</span>
-<span class="n">num_val_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.25</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">))</span>
-<span class="n">num_test_samples</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">num_train_samples</span> <span class="o">-</span> <span class="n">num_val_samples</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">num_train_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.5</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">))</span>     <span class="c1"># 전체의 50%</span>
+<span class="n">num_val_samples</span>   <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.25</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">))</span>    <span class="c1"># 전체의 25%</span>
+<span class="n">num_test_samples</span>  <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span> <span class="o">-</span> <span class="n">num_train_samples</span> <span class="o">-</span> <span class="n">num_val_samples</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;num_train_samples:&quot;</span><span class="p">,</span> <span class="n">num_train_samples</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;num_val_samples:&quot;</span><span class="p">,</span> <span class="n">num_val_samples</span><span class="p">)</span>
@@ -14766,12 +14902,12 @@ num_test_samples: 105114
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Preparing-the-data">Preparing the data<a class="anchor-link" href="#Preparing-the-data">&#182;</a></h3>
+<h3 id="&#45936;&#51060;&#53552;-&#51204;&#52376;&#47532;">&#45936;&#51060;&#53552; &#51204;&#52376;&#47532;<a class="anchor-link" href="#&#45936;&#51060;&#53552;-&#51204;&#52376;&#47532;">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Normalizing the data</strong></p>
+<p><strong>데이터 정규화</strong></p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
