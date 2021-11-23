@@ -54,3 +54,6 @@ notebooks/tensorboard_log_dir
 notebooks/tensorboard_log_dir/*
 
 
+notebooks/__MACOSX/._jena_climate_2009_2016.csv
+*.csv
+*.zip
