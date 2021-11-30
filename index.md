@@ -99,6 +99,9 @@
 
 - 강의 시리즈
     - [딥마인드: 강화학습 강의 시리즈 2021](https://deepmind.com/learning-resources/reinforcement-learning-series-2021)
+    
+- 전문적 코드 설명
+    - [The Sensory Neuron as a Transformer in PyTorch](https://youtu.be/mi_mzlhBGAU)
 
 - 비전문적 설명
     - [알파고(이세돌) vs. 알파고 제로 비교 소개 동영상](https://www.youtube.com/watch?v=MgowR4pq3e8)
