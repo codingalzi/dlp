@@ -50,6 +50,19 @@
 1. 시계열 데이터와 순환 신경망 &nbsp;
 [&#x1F4D3;](./notebooks/dlp10_dl_for_timeseries.html) 
 [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp10_dl_for_timeseries.ipynb)
+1. 딥러닝과 자연어처리
+    - 1부: 자연어처리(NLP) 소개 &nbsp;
+    [&#x1F4D3;](./notebooks/dlp11_part01_introduction.html) 
+    [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp11_part01_introduction.ipynb)
+    - 2부: 순차모델 활용 &nbsp;
+    [&#x1F4D3;](./notebooks/dlp11_part02_sequence_models.html) 
+    [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp11_part02_sequence_models.ipynb)
+    - 3부: 트랜스포머 아키텍처 &nbsp;
+    [&#x1F4D3;](./notebooks/dlp11_part03_transformer.html) 
+    [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp11_part03_transformer.ipynb)
+    - 4부: 시퀀스-투-시퀀스 모델 &nbsp;
+    [&#x1F4D3;](./notebooks/dlp11_part04_sequence_to_sequence_learning.html) 
+    [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp11_part04_sequence_to_sequence_learning.ipynb)
 1. ...
 
 ### 연습문제
