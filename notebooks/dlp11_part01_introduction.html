@@ -14293,7 +14293,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <ul>
 <li>자연어처리(Natural Language Processing) 소개<ul>
-<li>bag-of-words 모델</li>
+<li>단어주머니(bag-of-words) 모델</li>
 <li>순차(sequence) 모델</li>
 </ul>
 </li>
@@ -14482,7 +14482,8 @@ a.anchor-link {
 여기서도 단어 기준 또는 N-그램 토큰화만 이용한다.</p>
 <ul>
 <li>단어 기준 토큰화: 단어들의 순서를 중요시하는 <strong>순차 모델</strong>(sequence models)을 사용할 경우 활용</li>
-<li>N-그램 토큰화: 단언들의 순서를 별로 상관하지 않는 bag-of-words(단어 가방?) 모델을 사용할 경우 활용<ul>
+<li>N-그램 토큰화: 단언들의 순서를 별로 상관하지 않는 <strong>단어주머니(bag-of-words, BOW)</strong> 
+  모델을 사용할 경우 활용<ul>
 <li>N-그램: 단어들 사이의 순서에 대한 지역 정보를 어느 정도 유지함.</li>
 <li>일종의 특성 공학(feature engineering) 기법이며 따라서 
   얕은 학습 기반의 언어처리(shallow language-processing) 모델에 활용됨.</li>
@@ -14495,8 +14496,8 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>bag-of-words</strong>는 N-토큰으로 구성된 집합을 의미하며 
-<strong>bag-of-N-grams</strong>이라고 불리기도 한다.
+<p><strong>단어주머니(bag-of-words)</strong>는 N-토큰으로 구성된 집합을 의미하며 
+<strong>N-그램 주머니(bag-of-N-grams)</strong>라고 불리기도 한다.
 예를 들어 "the cat sat on the mat." 문장에 대한 
 2-그램 집합과 3-그램 집합은 각각 다음과 같다.</p>
 
@@ -14639,14 +14640,17 @@ a.anchor-link {
 <span class="kn">import</span> <span class="nn">string</span>
 <span class="kn">import</span> <span class="nn">tensorflow</span> <span class="k">as</span> <span class="nn">tf</span>
 
+<span class="c1"># 표준화: 소문자화 및 마침표 제거</span>
 <span class="k">def</span> <span class="nf">custom_standardization_fn</span><span class="p">(</span><span class="n">string_tensor</span><span class="p">):</span>
     <span class="n">lowercase_string</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">lower</span><span class="p">(</span><span class="n">string_tensor</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">regex_replace</span><span class="p">(</span>
         <span class="n">lowercase_string</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="n">re</span><span class="o">.</span><span class="n">escape</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">punctuation</span><span class="p">)</span><span class="si">}</span><span class="s2">]&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 
+<span class="c1"># 공백 기준으로 쪼개기</span>
 <span class="k">def</span> <span class="nf">custom_split_fn</span><span class="p">(</span><span class="n">string_tensor</span><span class="p">):</span>
     <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">strings</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">string_tensor</span><span class="p">)</span>
 
+<span class="c1"># 사용자 정의 표준화 및 쪼개기 활용</span>
 <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
     <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
     <span class="n">standardize</span><span class="o">=</span><span class="n">custom_standardization_fn</span><span class="p">,</span>
@@ -14872,18 +14876,78 @@ a.anchor-link {
 여기서는 대신에 데이터셋 전처리를 모델 구성과 독립적으로 처리하는 방식을 이용한다.</p>
 <p>하지만 훈련이 완성된 모델을 실전에 배치할 경우 <code>TextVectorization</code> 층을
 완성된 모델에 추가해서 사용하는 게 좋다.
-이에 대한 자세한 설명은 잠시 뒤에 이루어진다("문자열 벡터화 전처리를 함께 처리하는 모델 내보내기" 참조).</p>
+이에 대한 자세한 설명은 잠시 뒤에 설명한다.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h2 id="11.3-&#45800;&#50612;&#46308;&#51032;-&#44536;&#47353;-&#54364;&#54788;&#48277;-&#46160;-&#44032;&#51648;:-&#51665;&#54633;-&#46608;&#45716;-&#49884;&#53248;&#49828;">11.3 &#45800;&#50612;&#46308;&#51032; &#44536;&#47353; &#54364;&#54788;&#48277; &#46160; &#44032;&#51648;: &#51665;&#54633; &#46608;&#45716; &#49884;&#53248;&#49828;<a class="anchor-link" href="#11.3-&#45800;&#50612;&#46308;&#51032;-&#44536;&#47353;-&#54364;&#54788;&#48277;-&#46160;-&#44032;&#51648;:-&#51665;&#54633;-&#46608;&#45716;-&#49884;&#53248;&#49828;">&#182;</a></h2>
+<h2 id="11.3-&#45800;&#50612;-&#47784;&#51020;-&#54364;&#54788;&#48277;:-&#51665;&#54633;&#44284;-&#49884;&#53248;&#49828;">11.3 &#45800;&#50612; &#47784;&#51020; &#54364;&#54788;&#48277;: &#51665;&#54633;&#44284; &#49884;&#53248;&#49828;<a class="anchor-link" href="#11.3-&#45800;&#50612;-&#47784;&#51020;-&#54364;&#54788;&#48277;:-&#51665;&#54633;&#44284;-&#49884;&#53248;&#49828;">&#182;</a></h2>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>앞서 언급한 대로 자연어처리 모델에 따라 단어 모음을 다루는 방식이 다르다.</p>
+<ul>
+<li>단어주머니(bag-of-words) 모델<ul>
+<li>단어들의 순서를 무시. 단어 모음을 단어들의 집합으로 다룸.</li>
+<li>2015년 이전까지 주로 사용됨.</li>
+</ul>
+</li>
+<li>시퀀스(sequence) 모델<ul>
+<li>순환(recurrent) 모델<ul>
+<li>단어들의 순서를 시계열 데이터의 스텝처럼 간주.</li>
+<li>2015-2016에 주로 사용됨.</li>
+</ul>
+</li>
+<li>트랜스포머(Transformer) 아키텍처<ul>
+<li>기본적으로 순서를 무시하지만
+  단어 위치를 데이터에 함께 저장.</li>
+<li>단어들의 순서를 고려하면서 동시에 문장 전체를 함께 살펴봄.</li>
+<li>2017년 이후 기본적으로 활용됨.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>여기서는 IMDB 영화 리뷰 데이터를 이용하여 두 모델 방식의 
+활용법과 차이점을 소개한다.</p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p><strong>IMDB 영화 리뷰 데이터 준비</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>이전과는 달리 여기서는 IMDB 데이터셋을 직접 다운로드하여 전처리하는 
+과정을 살펴본다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>전처리 과정 1: 데이터셋 다운로드 압축 풀기</p>
+<p>압축을 풀면 아래 구조의 디렉토리가 생성된다.</p>
+
+<pre><code>aclImdb/
+...train/
+......pos/
+......neg/
+...test/
+......pos/
+......neg/</code></pre>
+<p><code>train</code>의 <code>pos</code>와 <code>neg</code> 서브디렉토리에 각각 12,500개의 긍정과 부정 리뷰가
+포함되어 있다.</p>
+<p><em>주의사항</em>: 아래 코드는 윈도우의 경우 10 최신 버전 또는 11부터 지원된다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14901,13 +14965,24 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><code>aclImdb/train/unsup</code> 서브디렉토리는 필요 없기에 삭제한다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>rm -r aclImdb/train/unsup
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+    <span class="o">!</span>rm -r aclImdb/train/unsup
+<span class="k">else</span><span class="p">:</span> 
+    <span class="kn">import</span> <span class="nn">shutil</span>
+    <span class="n">unsup_path</span> <span class="o">=</span> <span class="s1">&#39;./aclImdb/train/unsup&#39;</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">unsup_path</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14915,13 +14990,26 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>긍정 리뷰 하나의 내용을 살펴보자.
+모델 구성 이전에 훈련 데이터셋을 살펴 보고
+모델에 대한 직관을 갖는 과정이 항상 필요하다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>cat aclImdb/train/pos/4077_10.txt
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+    <span class="o">!</span>cat aclImdb/train/pos/4077_10.txt
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;aclImdb/train/pos/4077_10.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14929,6 +15017,15 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>전처리 과정 2: 검증셋 준비</p>
+<p>훈련셋의 20%를 검증셋으로 떼어낸다.
+이를 위해 <code>aclImdb/val</code> 디렉토리를 생성한 후에
+긍정과 부정 훈련셋 모두 무작위로 섞은 후 그중 20%를 검증셋 디렉토리로 옮긴다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14940,12 +15037,16 @@ a.anchor-link {
 <span class="n">base_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;aclImdb&quot;</span><span class="p">)</span>
 <span class="n">val_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="s2">&quot;val&quot;</span>
 <span class="n">train_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span>
+
 <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;neg&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">):</span>
-    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">val_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">val_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>            <span class="c1"># val 디렉토리 생성</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>
-    <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">1337</span><span class="p">)</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-    <span class="n">num_val_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">))</span>
+    
+    <span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">(</span><span class="mi">1337</span><span class="p">)</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>         <span class="c1"># 훈련셋 무작위 섞기</span>
+    
+    <span class="n">num_val_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.2</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">files</span><span class="p">))</span>    <span class="c1"># 20% 지정 후 검증셋으로 옮기기</span>
     <span class="n">val_files</span> <span class="o">=</span> <span class="n">files</span><span class="p">[</span><span class="o">-</span><span class="n">num_val_samples</span><span class="p">:]</span>
+    
     <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">val_files</span><span class="p">:</span>
         <span class="n">shutil</span><span class="o">.</span><span class="n">move</span><span class="p">(</span><span class="n">train_dir</span> <span class="o">/</span> <span class="n">category</span> <span class="o">/</span> <span class="n">fname</span><span class="p">,</span>
                     <span class="n">val_dir</span> <span class="o">/</span> <span class="n">category</span> <span class="o">/</span> <span class="n">fname</span><span class="p">)</span>
@@ -14956,6 +15057,15 @@ a.anchor-link {
 </div>
 </div>
 
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>전처리 과정 3: 텐서 데이터셋 준비</p>
+<p><code>text_dataset_from_directory()</code> 함수를 이용하여 
+훈련셋, 검증셋, 테스트셋을 준비한다. 
+자료형은 모두 <code>Dataset</code>이며, 배치 크기는 32를 사용한다.</p>
+
+</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14963,17 +15073,20 @@ a.anchor-link {
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
 
 <span class="n">train_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/train&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
+
 <span class="n">val_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/val&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
+
 <span class="n">test_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/test&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14984,7 +15097,10 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Displaying the shapes and dtypes of the first batch</strong></p>
+<p>각 데이터셋은 배치로 구분되며
+입력은 <code>tf.string</code> 텐서이고, 타깃은 <code>int32</code> 텐서이다.
+크기는 모두 32이며 지정된 배치 크기이다.
+예를 들어, 첫째 배치의 입력과 타깃 데이터의 정보는 다음과 같다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14998,8 +15114,11 @@ a.anchor-link {
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs.dtype:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.shape:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets.dtype:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    
+    <span class="c1"># 예제: 첫째 배치의 첫째 리뷰</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;inputs[0]:&quot;</span><span class="p">,</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;targets[0]:&quot;</span><span class="p">,</span> <span class="n">targets</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    
     <span class="k">break</span>
 </pre></div>
 
@@ -15011,7 +15130,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Processing-words-as-a-set:-the-bag-of-words-approach">Processing words as a set: the bag-of-words approach<a class="anchor-link" href="#Processing-words-as-a-set:-the-bag-of-words-approach">&#182;</a></h3>
+<h3 id="Processing-words-as-a-set:-&#45800;&#50612;&#51452;&#47672;&#45768;-&#44592;&#48277;(the-bag-of-words-approach)">Processing words as a set: &#45800;&#50612;&#51452;&#47672;&#45768; &#44592;&#48277;(the bag-of-words approach)<a class="anchor-link" href="#Processing-words-as-a-set:-&#45800;&#50612;&#51452;&#47672;&#45768;-&#44592;&#48277;(the-bag-of-words-approach)">&#182;</a></h3>
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
@@ -15030,7 +15149,9 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">tensorflow.keras.layers</span> <span class="kn">import</span> <span class="n">TextVectorization</span>
+
+<span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">TextVectorization</span><span class="p">(</span>
     <span class="n">max_tokens</span><span class="o">=</span><span class="mi">20000</span><span class="p">,</span>
     <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;binary&quot;</span><span class="p">,</span>
 <span class="p">)</span>
