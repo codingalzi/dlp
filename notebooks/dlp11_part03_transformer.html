@@ -9,10 +9,10 @@
 
 
 <style type="text/css">
-    pre { line-height: 125%; margin: 0; }
-td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
-td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+    pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14295,7 +14295,7 @@ a.anchor-link {
 <a href="https://arxiv.org/abs/1706.03762">"Attention is all you need"</a>에서
 소개된 트랜스포머(Transformer) 아키텍처는 자연어처리 분야에서 혁명을 불러왔다.
 트랜스포머는 "<strong>뉴럴 어텐션</strong>(Neural Attention)" 기법을 이용하여 
-순환층 또는 합성곱층과는 다르게 작동하는 순차 모델(sequence model)을 구현한다.</p>
+순환층 또는 합성곱 층과는 다르게 작동하는 순차 모델(sequence model)을 구현한다.</p>
 <p>여기서는 뉴럴 어텐션의 작동법을 설명한 후에
 트랜스포머 인코더를 이용하여 IMDB 영화 리뷰 모델을 구현한다.</p>
 
@@ -14308,27 +14308,168 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>입력값의 특성 중에 보다 중요한 특성에 <strong>집중(attention)</strong>하면 보다 효율적으로
+훈련이 진행될 수 있다. 
+아래 그림이 집중(attention)이 어떻게 활용되느지 잘 보여준다.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Generalized-self-attention:-the-query-key-value-model">Generalized self-attention: the query-key-value model<a class="anchor-link" href="#Generalized-self-attention:-the-query-key-value-model">&#182;</a></h4>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-05.png" style="width:60%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="Multi-Head-attention">Multi-Head attention<a class="anchor-link" href="#Multi-Head-attention">&#182;</a></h3>
+<p>지금까지 유사한 아이디어를 활용한 적이 있다.</p>
+<ul>
+<li>합성곱 신경망의 맥스 풀링(max pooling): 지역적으로 가장 중요한 특성만 사용한다.</li>
+<li>TF-IDF 정규화: 텍스트 벡터화를 위해 사용되는 TF-IDF 정규화는
+  사용되는 토큰(tokens)에 포함된 정보의 중요도를 평가하여
+  보다 중요한 정보를 담은 토큰에 집중한다. </li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="The-Transformer-encoder">The Transformer encoder<a class="anchor-link" href="#The-Transformer-encoder">&#182;</a></h3>
+<p><strong>셀프 어텐션</strong>(self-attention)은 주어진 문장에 사용된 단어들의 연관성을
+문맥을 이용하여 평가한 다음에 그 결과를 해당 문장에 적용하여 입력값을 변환하는 기법을 
+가리킨다. 
+아래 그림은 "The train  left the station on time." 이라는 문장에
+셀프 어텐션을 적용하여 입력값을 변환하는 과정을 나타낸다.</p>
+<ul>
+<li>1단계: 문장에 사용된 각 토큰들 사이의 연관성 계산.</li>
+<li>2단계: 계산된 연관성을 (토큰) 벡터와 결합시킨 후 새로운
+  토큰 벡터들의 시퀀스 생성.
+  아래 그림에서는 "station" 단어에 해당하는 벡터가 변환되는 과정을 보여줌.</li>
+</ul>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Getting the data</strong></p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-06.png" style="width:70%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>질문-키-값(query-key-value) 모델</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>셀프 어텐션의 작동 과정을 식으로 표현하면 다음과 같다.</p>
+
+<pre><code>outputs = sum(inputs * pairwise_scores(inputs, inputs))
+                |                        |      |
+               (C)                      (A)    (B)
+
+</code></pre>
+<p>위 식은 원래 검색 엔진 또는 추천 시스템에 사용되는 
+보다 일반화된 셀프 어텐션의 작동과정을 표현한 식의 특별한 경우를 보여준다.</p>
+
+<pre><code>outputs = sum(values * pairwise_scores(query, keys))
+                |                        |      |
+               (C)                      (A)    (B)</code></pre>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>예를 들어, 아래 그림은 "dogs on the beach." 질문(query)에 가장 
+적절한 사신을 검색한다면 각 사진과의 연관성(keys) 점수를
+해당 사진(values)과 결합하여 가장 높은 점수를 갖는 사진을
+추천하는 것을 보여준다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-07.png" style="width:70%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>질문-키-값(query-key-value) 모델을 실전에 적용할 때 많은 경우 키(keys)와 값(values)가 동일하다.</p>
+<ul>
+<li>기계 번역:
+  "How's the weather today?"를 스페인어로 기계 번역하려 할 경우
+  스페인어로 날씨에 해당하는 "tiempo"를 키(key)로 해서 주어진 영어 문장(query)에 
+  사용된 단어들과 비교해야 한다. </li>
+<li>텍스트 분류:
+  앞서 셀프 어텐션 설명을 위해 사용된 그림에서처럼 query, keys, values 모두 동일하다.</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="11.4.2-&#47680;&#54000;&#54756;&#46300;-&#50612;&#53584;&#49496;">11.4.2 &#47680;&#54000;&#54756;&#46300; &#50612;&#53584;&#49496;<a class="anchor-link" href="#11.4.2-&#47680;&#54000;&#54756;&#46300;-&#50612;&#53584;&#49496;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>단어들 사이의 연관성을 다양한 방식으로 알아내기 위해 셀프 어텐션을 수행하는 
+<strong>헤드</strong>(head)를 여러 개 병렬로 처리한 후에 다시 합치는 기법을
+<strong>멀티헤드 어텐션</strong>(multi-head attention)이다.
+아래 그림은 두 개의 헤드를 사용하는 것을 보여준다.</p>
+<p>각각의 헤드가 하는 일은 다음과 같다.</p>
+<ul>
+<li>질문, 키, 값을 각각 서로 다른 밀집 밀집 층으로 구성된 블록을 통과 시킨다.</li>
+<li>이후 변환된 질문, 키, 값에 셀프 어텐션을 적용한다.</li>
+</ul>
+<p>각 헤드에 포함된 밀집 층 블록으로 인해 멀티헤드 어텐션 층에서도
+학습이 이루어진다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>참고</strong>: 채널 분리 합성곱 층의 알고리즘과 기본 아이디어가 유사하다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<h3 id="11.4.2-&#53944;&#47004;&#49828;&#54252;&#47672;-&#51064;&#53076;&#45908;">11.4.2 &#53944;&#47004;&#49828;&#54252;&#47672; &#51064;&#53076;&#45908;<a class="anchor-link" href="#11.4.2-&#53944;&#47004;&#49828;&#54252;&#47672;-&#51064;&#53076;&#45908;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>멀티헤드 어텐션을 밀집(dense) 층, 정규화 층, 잔차 연결 등과 조합하여
+<strong>트랜스포머 인코더</strong>(transformer encoder)를 생성한다.</p>
+<p>아래 그림에서 사용되는 정규화 층인 케라스의 <code>LayerNormalization</code>은
+정규화를 배치 단위가 아닌 시퀀스 단위로 정규화를 실행한다.
+시퀀스 데이터를 처리할 때는 <code>BatchNormalization</code> 보다 잘 작동한다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-09.png" style="width:35%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>예제: IMDB 데이터셋</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>데이터셋을 준비하는 과정은 이전과 동일하다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14347,12 +14488,6 @@ a.anchor-link {
 </div>
 </div>
 
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Preparing the data</strong></p>
-
-</div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
 <div class="jp-Cell-inputWrapper">
 <div class="jp-InputArea jp-Cell-inputArea">
@@ -14395,7 +14530,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Vectorizing the data</strong></p>
+<p>텍스트 벡터화는 정수들의 벡터를 사용한다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14408,11 +14543,13 @@ a.anchor-link {
 
 <span class="n">max_length</span> <span class="o">=</span> <span class="mi">600</span>
 <span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">20000</span>
+
 <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">TextVectorization</span><span class="p">(</span>
     <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span>
     <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
     <span class="n">output_sequence_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>
 <span class="p">)</span>
+
 <span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
 
 <span class="n">int_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
@@ -14428,7 +14565,13 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Transformer encoder implemented as a subclassed Layer</strong></p>
+<p><strong>트랜스포머 구현</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>위 그림에서 설명된 트랜스포머 인코더를 층(layer)로 구현하면 다음과 같다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14483,7 +14626,15 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Text classification model that combines the Transformer encoder and a pooling layer</strong></p>
+<p><strong>트랜스포머 인코더 활용 모델</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>훈련 데이터셋이 입력되면 먼저 단어 임베딩을 이용하여 
+단어들 사이의 연관성을 찾는다.
+이후 트랜스포머 인코더로 셀프 어텐션을 적용한다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14498,15 +14649,21 @@ a.anchor-link {
 <span class="n">dense_dim</span> <span class="o">=</span> <span class="mi">32</span>
 
 <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
+
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Embedding</span><span class="p">(</span><span class="n">vocab_size</span><span class="p">,</span> <span class="n">embed_dim</span><span class="p">)(</span><span class="n">inputs</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">TransformerEncoder</span><span class="p">(</span><span class="n">embed_dim</span><span class="p">,</span> <span class="n">dense_dim</span><span class="p">,</span> <span class="n">num_heads</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">GlobalMaxPooling1D</span><span class="p">()(</span><span class="n">x</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="n">outputs</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">activation</span><span class="o">=</span><span class="s2">&quot;sigmoid&quot;</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Model</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="s2">&quot;rmsprop&quot;</span><span class="p">,</span>
               <span class="n">loss</span><span class="o">=</span><span class="s2">&quot;binary_crossentropy&quot;</span><span class="p">,</span>
               <span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;accuracy&quot;</span><span class="p">])</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">summary</span><span class="p">()</span>
 </pre></div>
 
@@ -14518,7 +14675,8 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Training and evaluating the Transformer encoder based model</strong></p>
+<p>훈련 과정은 특별한 게 없다.
+테스트셋에 대한 정확도가 87.5% 정도로 바이그램 모델보다 좀 더 낮다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14531,10 +14689,13 @@ a.anchor-link {
     <span class="n">keras</span><span class="o">.</span><span class="n">callbacks</span><span class="o">.</span><span class="n">ModelCheckpoint</span><span class="p">(</span><span class="s2">&quot;transformer_encoder.keras&quot;</span><span class="p">,</span>
                                     <span class="n">save_best_only</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="p">]</span>
+
 <span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">int_train_ds</span><span class="p">,</span> <span class="n">validation_data</span><span class="o">=</span><span class="n">int_val_ds</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">callbacks</span><span class="o">=</span><span class="n">callbacks</span><span class="p">)</span>
+
 <span class="n">model</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">load_model</span><span class="p">(</span>
     <span class="s2">&quot;transformer_encoder.keras&quot;</span><span class="p">,</span>
     <span class="n">custom_objects</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;TransformerEncoder&quot;</span><span class="p">:</span> <span class="n">TransformerEncoder</span><span class="p">})</span>
+
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Test acc: </span><span class="si">{</span><span class="n">model</span><span class="o">.</span><span class="n">evaluate</span><span class="p">(</span><span class="n">int_test_ds</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 </pre></div>
 
@@ -14651,7 +14812,95 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h3 id="When-to-use-sequence-models-over-bag-of-words-models?">When to use sequence models over bag-of-words models?<a class="anchor-link" href="#When-to-use-sequence-models-over-bag-of-words-models?">&#182;</a></h3>
+<h3 id="11.4.4-&#53944;&#47004;&#49828;&#54252;&#47672;-&#49324;&#50857;-&#44592;&#51456;">11.4.4 &#53944;&#47004;&#49828;&#54252;&#47672; &#49324;&#50857; &#44592;&#51456;<a class="anchor-link" href="#11.4.4-&#53944;&#47004;&#49828;&#54252;&#47672;-&#49324;&#50857;-&#44592;&#51456;">&#182;</a></h3>
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>단어주머니 모델이 여전히 유용하게 활용된다.
+실제로 IMDB 데이터셋에 대한 성능도 단어주머니 모델이 가장 좋았다.
+그리고 많은 실험 결과 "훈련셋의 크기"와 "텍스트의 평균 단어 수"의 비율이 모델 선택에
+결정적인 역할을 수행한다는 경험 법칙이 알려졌다.</p>
+<ul>
+<li>("훈련셋의 크기" $/$ "텍스트의 평균 단어 수") $&gt;$ 1500 인 경우: 트랜스포머 등 순차 모델</li>
+<li>("훈련셋의 크기" $/$ "텍스트의 평균 단어 수") $&lt;$ 1500 인 경우: 바이그램 단어주머니 모델</li>
+</ul>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>예제 1</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>1천개의 단어를 포함한 텍스트 십만 개로 이루어진 훈련셋을 사용하는 경우 비율이 100이기에 바이그램 모델을 사용하는 것이 좋다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>예제 2</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>평균 40개의 단어를 포함하는 트윗(tweets) 5만 개로 이루어진 훈련셋을 사용하는 경우 비율이 1,250이기에 역시 바이그램 모델을 사용하는 것이 좋다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>예제 3</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>평균 40개의 단어를 포함하는 트윗(tweets) 50만 개로 이루어진 훈련셋을 사용하는 경우 비율이 12,500이기에 이번엔 트랜스포머 인코더를 활용하는 것이 좋다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>예제 4</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>IMDB 훈련셋은 2만 개의 리뷰로 구성되며 리뷰 한 개는 평균 233 개의 단어를 포함한다. 비율이 85.84 정도이기에 바이그램 모델이 보다 적합해야 하는데
+지금까지 살펴본 결과가 이에 입증한다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>경험 법칙의 직관적 이해</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>짧은 문장이 많을 수록 문맥을 파악하려면 단어들의 순서가 중요하며,
+문장에 사용된 단어들 사이의 복잡한 연관성을 보다 주의깊게 살펴볼 필요가 있다.
+예를 들어, "그 영화는 실패야"와 "그 영화는 실패였어"는 분명 다른 의미를 가지지만
+단어주머니 모델은 차이점을 파악하기 어렵다. 
+반면에 보다 긴 문장의 주제와 긍정/부정 등의 감성에 대한 분류는
+단어 관련 통계의 중요성이 보다 크다.</p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>주의사항</strong></p>
+<p>앞서 설명한 경험 법칙은은 텍스트 분류(text classification)에 한정된다. 
+예를 들어 기계 번역(machine translation)의 경우 매우 긴 문장을 다룰 때 
+트랜스포머가 가본적으로 가장 강력한 성능의 모델을 생성한다.</p>
+
 </div>
 </div>
 </body>
