@@ -9,10 +9,10 @@
 
 
 <style type="text/css">
-    pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+    pre { line-height: 125%; margin: 0; }
+td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14530,7 +14530,11 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>텍스트 벡터화는 정수들의 벡터를 사용한다.</p>
+<p>텍스트 벡터화는 정수들의 벡터를 사용하며, 리뷰의 최대 길이를 600 단어로 제한한다.</p>
+<ul>
+<li><code>output_mode="int"</code></li>
+<li><code>output_sequence_length=600</code></li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14550,6 +14554,7 @@ a.anchor-link {
     <span class="n">output_sequence_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>
 <span class="p">)</span>
 
+<span class="c1"># 어휘 색인화</span>
 <span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
 
 <span class="n">int_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
@@ -14571,7 +14576,18 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>위 그림에서 설명된 트랜스포머 인코더를 층(layer)로 구현하면 다음과 같다.</p>
+<p>위 그림에서 설명된 트랜스포머 인코더를 층(layer)으로 구현하면 다음과 같다.
+생성자의 입력값을 예를 들어 설명하면 다음과 같다.</p>
+<ul>
+<li><code>embed_dim</code><ul>
+<li>트랜스포머 인코더는 "단어 임베딩" 층을 통과한 값을 받음.</li>
+<li>예를 들어 <code>embed_dim=256</code>은 단어 임베딩이
+  <code>(600, 256)</code> 모양의 샘플을 생성할 것을 기대함.</li>
+</ul>
+</li>
+<li><code>dense_dim</code>: 밀집 층에서 사용되는 유닛(unit) 수</li>
+<li><code>num_heads</code>: 헤드(head) 수</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14635,6 +14651,13 @@ a.anchor-link {
 <p>훈련 데이터셋이 입력되면 먼저 단어 임베딩을 이용하여 
 단어들 사이의 연관성을 찾는다.
 이후 트랜스포머 인코더로 셀프 어텐션을 적용한다.</p>
+<p>사용되는 변수들은 다음과 같다.</p>
+<ul>
+<li><code>vocab_size = 20000</code>: 어휘 색인 크기</li>
+<li><code>embed_dim = 256</code>: 단어 임베딩 특성 수</li>
+<li><code>dense_dim = 32</code>: 트랜스포머 인코더에 사용되는 밀집층의 유닛(unit) 수</li>
+<li><code>num_heads = 2</code>: 트랜스포머 인코더에 사용되는 밀집층의 헤드(head) 수</li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14707,12 +14730,67 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Using-positional-encoding-to-reinject-order-information">Using positional encoding to reinject order information<a class="anchor-link" href="#Using-positional-encoding-to-reinject-order-information">&#182;</a></h4>
+<p><strong>모델 비교</strong></p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Implementing positional embedding as a subclassed layer</strong></p>
+<p>자연어처리와 관련된 모델을 단어 순서 인식과 문맥 이해 차원에서 비교하면 다음과 같다.</p>
+<table>
+<thead><tr>
+<th style="text-align:center"></th>
+<th style="text-align:center">단어순서 인식</th>
+<th style="text-align:center">문맥 이해</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">유니그램 주머니 모델</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">X</td>
+</tr>
+<tr>
+<td style="text-align:center">바이그램 주머니 모델</td>
+<td style="text-align:center">$\triangle$</td>
+<td style="text-align:center">X</td>
+</tr>
+<tr>
+<td style="text-align:center">RNN</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">X</td>
+</tr>
+<tr>
+<td style="text-align:center">셀프 어텐션</td>
+<td style="text-align:center">X</td>
+<td style="text-align:center">O</td>
+</tr>
+<tr>
+<td style="text-align:center">트랜스포머</td>
+<td style="text-align:center">O</td>
+<td style="text-align:center">O</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p><strong>단어 위치 인코딩</strong></p>
+
+</div>
+</div>
+<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>앞서 살펴 본 트랜스포머 인코더는 셀프 어텐션과 밀집층을 사용하기에
+단어순서를 제대로 활용하지는 못한다.
+하지만 단어 인코딩 과정에서 단어순서 정보를 활용하도록 하는 기능을 추가하면
+트랜스포머가 알아서 단어위치 정보를 활용한다.</p>
+<p>다음 <code>PositionalEmbedding</code> 층 클래스는 두 개의 임베딩 클래스를 사용한다.
+하나는 보통의 단어 임베딩이며,
+다른 하나는 단어의 위치 정보를 임베딩한다. 
+각 임베딩의 출력값을 합친 값을 트랜스포머에게 전달하는 역할을 수행한다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14760,12 +14838,15 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<h4 id="Putting-it-all-together:-a-text-classification-Transformer">Putting it all together: a text-classification Transformer<a class="anchor-link" href="#Putting-it-all-together:-a-text-classification-Transformer">&#182;</a></h4>
+<p><strong>단어위치인식 트랜스포머 아키텍처</strong></p>
+
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>Text classification model that combines positional embedding, the Transformer encoder, and a pooling layer</strong></p>
+<p>아래 코드는 <code>PositionalEmbedding</code> 층을 활용하여 트랜스포머 인코더가 
+단어위치를 활용할 수 있도록 한다. 
+최종 모델의 테스트셋에 대한 정확도가 88.3%까지 향상됨을 확인할 수 있다.</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
