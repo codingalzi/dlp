@@ -9,10 +9,10 @@
 
 
 <style type="text/css">
-    pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+    pre { line-height: 125%; margin: 0; }
+td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14902,9 +14902,7 @@ a.anchor-link {
 </ul>
 </li>
 <li>트랜스포머(Transformer) 아키텍처<ul>
-<li>기본적으로 순서를 무시하지만
-  단어 위치를 데이터에 함께 저장.</li>
-<li>단어들의 순서를 고려하면서 동시에 문장 전체를 함께 살펴봄.</li>
+<li>기본적으로 순서를 무시하지만 단어 위치를 학습할 수 있는 능력을 가짐.</li>
 <li>2017년 이후 기본적으로 활용됨.</li>
 </ul>
 </li>

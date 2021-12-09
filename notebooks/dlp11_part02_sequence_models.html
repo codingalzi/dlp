@@ -9,10 +9,10 @@
 
 
 <style type="text/css">
-    pre { line-height: 125%; }
-td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
-td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+    pre { line-height: 125%; margin: 0; }
+td.linenos pre { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: #000000; background-color: #f0f0f0; padding-left: 5px; padding-right: 5px; }
+td.linenos pre.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 .highlight .hll { background-color: var(--jp-cell-editor-active-background) }
 .highlight { background: var(--jp-cell-editor-background); color: var(--jp-mirror-editor-variable-color) }
@@ -14312,7 +14312,13 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
 <span class="o">!</span>tar -xf aclImdb_v1.tar.gz
-<span class="o">!</span>rm -r aclImdb/train/unsup
+
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+    <span class="o">!</span>rm -r aclImdb/train/unsup
+<span class="k">else</span><span class="p">:</span> 
+    <span class="kn">import</span> <span class="nn">shutil</span>
+    <span class="n">unsup_path</span> <span class="o">=</span> <span class="s1">&#39;./aclImdb/train/unsup&#39;</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">unsup_path</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14328,10 +14334,12 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pathlib</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
 <span class="n">base_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;aclImdb&quot;</span><span class="p">)</span>
 <span class="n">val_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="s2">&quot;val&quot;</span>
 <span class="n">train_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span>
+
 <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;neg&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">val_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>
@@ -14344,13 +14352,13 @@ a.anchor-link {
 
 <span class="n">train_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/train&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 <span class="n">val_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/val&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 <span class="n">test_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/test&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 <span class="n">text_only_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
 
@@ -14368,7 +14376,14 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>훈련셋의 모든 리뷰 문장을 정수들의 벡터로 변환한다.</p>
+<p>훈련셋의 모든 리뷰 문장을 정수들의 벡터로 변환한다.
+단, 리뷰 문장이 최대 600개의 단어만 포함하도록 한다. 
+또한 사용되는 어휘는 빈도 기준 최대 2만개로 제한한다.</p>
+<ul>
+<li><code>max_length = 600</code></li>
+<li><code>max_tokens = 20000</code></li>
+<li><code>output_sequence_length=max_length</code></li>
+</ul>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs  ">
@@ -14381,11 +14396,13 @@ a.anchor-link {
 
 <span class="n">max_length</span> <span class="o">=</span> <span class="mi">600</span>
 <span class="n">max_tokens</span> <span class="o">=</span> <span class="mi">20000</span>
+
 <span class="n">text_vectorization</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">TextVectorization</span><span class="p">(</span>
     <span class="n">max_tokens</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">,</span>
     <span class="n">output_mode</span><span class="o">=</span><span class="s2">&quot;int&quot;</span><span class="p">,</span>
     <span class="n">output_sequence_length</span><span class="o">=</span><span class="n">max_length</span><span class="p">,</span>
 <span class="p">)</span>
+
 <span class="n">text_vectorization</span><span class="o">.</span><span class="n">adapt</span><span class="p">(</span><span class="n">text_only_train_ds</span><span class="p">)</span>
 
 <span class="n">int_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="p">(</span><span class="n">text_vectorization</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">y</span><span class="p">))</span>
@@ -14480,7 +14497,7 @@ a.anchor-link {
 <span class="n">inputs</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">Input</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="kc">None</span><span class="p">,),</span> <span class="n">dtype</span><span class="o">=</span><span class="s2">&quot;int64&quot;</span><span class="p">)</span>
 
 <span class="c1"># 원-핫 인코딩</span>
-<span class="n">embedded</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">)</span>  <span class="c1"># (600, 20000) 모양의 입력값 생성</span>
+<span class="n">embedded</span> <span class="o">=</span> <span class="n">tf</span><span class="o">.</span><span class="n">one_hot</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="n">max_tokens</span><span class="p">)</span>  <span class="c1"># (600, 20000) 모양의 출력값 생성</span>
 
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Bidirectional</span><span class="p">(</span><span class="n">layers</span><span class="o">.</span><span class="n">LSTM</span><span class="p">(</span><span class="mi">32</span><span class="p">))(</span><span class="n">embedded</span><span class="p">)</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">layers</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)(</span><span class="n">x</span><span class="p">)</span>
@@ -14556,7 +14573,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>단어 임베딩</strong></p>
+<p><strong>시퀀스 모델 예제 2: 단어 임베딩 활용</strong></p>
 
 </div>
 </div>
@@ -14596,7 +14613,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>단어 임베딩 방식 1: 케라스의 <code>Embedding</code> 층 활용</strong></p>
+<p><strong>케라스의 <code>Embedding</code> 층 활용</strong></p>
 
 </div>
 </div>
@@ -14688,6 +14705,10 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
+<p>반면에 리뷰 문장의 길이가 600이 되지 않는 경우 나머지는 <strong>패딩</strong>(padding)에 의해 0으로 채워진다.
+하지만 이렇게 의미 없이 추가된 0이 훈련에 좋지 않은 영향을 미친다.
+따라서 모델이 패딩을 위해 차가된 0이 있다는 사실을 인식하도록 도와주는 <strong>마스킹</strong>(masking)
+기능을 활용하면 좋다.</p>
 <p>아래 코드는 마스킹을 활용하는 방식을 보여준다.</p>
 <ul>
 <li><code>mask_zero=True</code> 옵션: 마스킹 옵션 켜기</li>
@@ -14751,7 +14772,9 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>수 백만개의 단어를 활용하여 생성된 2014년에 스탠포드 대학교의 연구자들이 생성한
+<p>합성곱 신경망에서 이미지넷 등의 대용량 데이터셋을 활용하여 잘 훈련된 모델을 재활용하였던 것처럼
+잘 구성된 대용량의 어휘 색인을 활용할 수 있다.
+여기서는 수 백만 개의 단어를 활용하여 생성된 2014년에 스탠포드 대학교의 연구자들이 생성한
 <a href="https://nlp.stanford.edu/projects/glove/">GloVe(Gloval Vectors for Word Representation)</a> 단어 임베딩을 활용한다.</p>
 
 </div>
@@ -14769,8 +14792,19 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In&nbsp;[0]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
      <div class="CodeMirror cm-s-jupyter">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>wget http://nlp.stanford.edu/data/glove.6B.zip
-<span class="o">!</span>unzip -q glove.6B.zip
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+    <span class="o">!</span>wget http://nlp.stanford.edu/data/glove.6B.zip
+    <span class="o">!</span>unzip -q glove.6B.zip
+<span class="k">else</span><span class="p">:</span> 
+    <span class="k">try</span><span class="p">:</span> 
+        <span class="kn">import</span> <span class="nn">wget</span><span class="o">,</span> <span class="nn">zipfile</span>
+    <span class="k">except</span> <span class="ne">ModuleNotFoundError</span><span class="p">:</span> 
+        <span class="o">!</span>pip install wget
+        
+    <span class="kn">import</span> <span class="nn">wget</span><span class="o">,</span> <span class="nn">zipfile</span>
+    <span class="n">wget</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;http://nlp.stanford.edu/data/glove.6B.zip&#39;</span><span class="p">)</span>
+    <span class="k">with</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s1">&#39;glove.6B.zip&#39;</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">zip_ref</span><span class="p">:</span>
+        <span class="n">zip_ref</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="s1">&#39;./&#39;</span><span class="p">)</span>
 </pre></div>
 
      </div>

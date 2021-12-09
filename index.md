@@ -61,7 +61,6 @@
     [&#x1F4D3;](./notebooks/dlp11_part03_transformer.html) 
     [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp11_part03_transformer.ipynb)
     - 4부: 시퀀스-투-시퀀스 모델 &nbsp;
-    [&#x1F4D3;](./notebooks/dlp11_part04_sequence_to_sequence_learning.html) 
     [&#x1F4D9;](https://colab.research.google.com/github/codingalzi/dlp/blob/master/notebooks/dlp11_part04_sequence_to_sequence_learning.ipynb)
 1. 생성 딥러닝(Generativie Deep Learning) &nbsp;
 1. ...

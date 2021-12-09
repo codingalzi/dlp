@@ -14310,7 +14310,7 @@ a.anchor-link {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <p>입력값의 특성 중에 보다 중요한 특성에 <strong>집중(attention)</strong>하면 보다 효율적으로
 훈련이 진행될 수 있다. 
-아래 그림이 집중(attention)이 어떻게 활용되느지 잘 보여준다.</p>
+아래 그림이 집중(attention)이 어떻게 활용되는지 잘 보여준다.</p>
 
 </div>
 </div>
@@ -14322,7 +14322,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>지금까지 유사한 아이디어를 활용한 적이 있다.</p>
+<p>앞서 유사한 아이디어를 활용한 적이 있다.</p>
 <ul>
 <li>합성곱 신경망의 맥스 풀링(max pooling): 지역적으로 가장 중요한 특성만 사용한다.</li>
 <li>TF-IDF 정규화: 텍스트 벡터화를 위해 사용되는 TF-IDF 정규화는
@@ -14334,9 +14334,10 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>셀프 어텐션</strong>(self-attention)은 주어진 문장에 사용된 단어들의 연관성을
-문맥을 이용하여 평가한 다음에 그 결과를 해당 문장에 적용하여 입력값을 변환하는 기법을 
+<p><strong>셀프 어텐션</strong>(self-attention)은 주어진 문장에 사용된 단어들의 연관성을 평가하여
+그 결과를 해당 문장에 적용하여 입력값을 변환하는 기법을 
 가리킨다. 
+즉, <strong>문맥</strong>(context)를 활용한다.
 아래 그림은 "The train  left the station on time." 이라는 문장에
 셀프 어텐션을 적용하여 입력값을 변환하는 과정을 나타낸다.</p>
 <ul>
@@ -14389,7 +14390,7 @@ a.anchor-link {
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-07.png" style="width:70%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
+<div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-07.png" style="width:60%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
 
 </div>
 </div>
@@ -14417,26 +14418,20 @@ a.anchor-link {
 <p>단어들 사이의 연관성을 다양한 방식으로 알아내기 위해 셀프 어텐션을 수행하는 
 <strong>헤드</strong>(head)를 여러 개 병렬로 처리한 후에 다시 합치는 기법을
 <strong>멀티헤드 어텐션</strong>(multi-head attention)이다.
-아래 그림은 두 개의 헤드를 사용하는 것을 보여준다.</p>
-<p>각각의 헤드가 하는 일은 다음과 같다.</p>
+아래 그림은 두 개의 헤드를 사용하는 것을 보여주며 각각의 헤드가 하는 일은 다음과 같다.</p>
 <ul>
 <li>질문, 키, 값을 각각 서로 다른 밀집 밀집 층으로 구성된 블록을 통과 시킨다.</li>
 <li>이후 변환된 질문, 키, 값에 셀프 어텐션을 적용한다.</li>
 </ul>
 <p>각 헤드에 포함된 밀집 층 블록으로 인해 멀티헤드 어텐션 층에서도
 학습이 이루어진다.</p>
+<p><strong>참고</strong>: 채널 분리 합성곱 층의 알고리즘과 기본 아이디어가 유사하다.</p>
 
 </div>
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
 <div align="center"><img src="https://drek4537l1klr.cloudfront.net/chollet2/Figures/11-08.png" style="width:70%;"></div><p>그림 출처: <a href="https://www.manning.com/books/deep-learning-with-python-second-edition">Deep Learning with Python(Manning MEAP)</a></p>
-
-</div>
-</div>
-<div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p><strong>참고</strong>: 채널 분리 합성곱 층의 알고리즘과 기본 아이디어가 유사하다.</p>
 
 </div>
 </div>
@@ -14480,7 +14475,13 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>curl -O https://ai.stanford.edu/~amaas/data/sentiment/aclImdb_v1.tar.gz
 <span class="o">!</span>tar -xf aclImdb_v1.tar.gz
-<span class="o">!</span>rm -r aclImdb/train/unsup
+
+<span class="k">if</span> <span class="s1">&#39;google.colab&#39;</span> <span class="ow">in</span> <span class="nb">str</span><span class="p">(</span><span class="n">get_ipython</span><span class="p">()):</span>
+    <span class="o">!</span>rm -r aclImdb/train/unsup
+<span class="k">else</span><span class="p">:</span> 
+    <span class="kn">import</span> <span class="nn">shutil</span>
+    <span class="n">unsup_path</span> <span class="o">=</span> <span class="s1">&#39;./aclImdb/train/unsup&#39;</span>
+    <span class="n">shutil</span><span class="o">.</span><span class="n">rmtree</span><span class="p">(</span><span class="n">unsup_path</span><span class="p">)</span>
 </pre></div>
 
      </div>
@@ -14496,10 +14497,12 @@ a.anchor-link {
      <div class="CodeMirror cm-s-jupyter">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">pathlib</span><span class="o">,</span> <span class="nn">shutil</span><span class="o">,</span> <span class="nn">random</span>
 <span class="kn">from</span> <span class="nn">tensorflow</span> <span class="kn">import</span> <span class="n">keras</span>
+
 <span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>
 <span class="n">base_dir</span> <span class="o">=</span> <span class="n">pathlib</span><span class="o">.</span><span class="n">Path</span><span class="p">(</span><span class="s2">&quot;aclImdb&quot;</span><span class="p">)</span>
 <span class="n">val_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="s2">&quot;val&quot;</span>
 <span class="n">train_dir</span> <span class="o">=</span> <span class="n">base_dir</span> <span class="o">/</span> <span class="s2">&quot;train&quot;</span>
+
 <span class="k">for</span> <span class="n">category</span> <span class="ow">in</span> <span class="p">(</span><span class="s2">&quot;neg&quot;</span><span class="p">,</span> <span class="s2">&quot;pos&quot;</span><span class="p">):</span>
     <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">val_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>
     <span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">train_dir</span> <span class="o">/</span> <span class="n">category</span><span class="p">)</span>
@@ -14512,13 +14515,13 @@ a.anchor-link {
 
 <span class="n">train_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/train&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 <span class="n">val_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/val&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 <span class="n">test_ds</span> <span class="o">=</span> <span class="n">keras</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">text_dataset_from_directory</span><span class="p">(</span>
     <span class="s2">&quot;aclImdb/test&quot;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span>
-<span class="p">)</span>
+    <span class="p">)</span>
 <span class="n">text_only_train_ds</span> <span class="o">=</span> <span class="n">train_ds</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">x</span><span class="p">)</span>
 </pre></div>
 
