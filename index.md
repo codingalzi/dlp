@@ -119,3 +119,8 @@
 - 비전문적 설명
     - [알파고(이세돌) vs. 알파고 제로 비교 소개 동영상](https://www.youtube.com/watch?v=MgowR4pq3e8)
     - [강화학습 학습과정 예제: Multi-Agent Hide and Seek](https://www.youtube.com/watch?v=kopoLzvh5jY)
+
+#### 딥러닝 참고 교재
+
+- 온라인 강의노트
+    - [Dive into Deep Learning](http://d2l.ai/)
